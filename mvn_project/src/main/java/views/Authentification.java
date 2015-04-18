@@ -1,4 +1,4 @@
-package fr.ensimag.caweb.views;
+package views;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.ensimag.caweb.model.Credential;
+import model.Credential;
 
 /**
  * Servlet implementation class Authentification
