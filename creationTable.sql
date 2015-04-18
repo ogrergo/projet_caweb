@@ -11,21 +11,31 @@ DROP TABLE Consommateur;
 DROP TABLE Utilisateur;
 DROP TABLE Compte;
 
+DROP SEQUENCE id_seqCompte;
+DROP SEQUENCE id_seqProduction;
+DROP SEQUENCE id_seqContrat;
+DROP SEQUENCE id_seqSemaine;
+
+CREATE SEQUENCE id_seqCompte;
+CREATE SEQUENCE id_seqProduction;
+CREATE SEQUENCE id_seqContrat;
+CREATE SEQUENCE id_seqSemaine;
+
 CREATE TABLE Compte (
-    idCompte int,
+    idCompte number(6) DEFAULT id_seqCompte.nextval,
     email varchar(60),
     mdp varchar(64),
 CONSTRAINT Pk_Compte PRIMARY KEY (idCompte)
 );
 
 CREATE TABLE ResponsablePlanning (
-    idRespo int,
+    idRespo number(6),
 CONSTRAINT Pk_ResponsablePlanning PRIMARY KEY (idRespo),
 CONSTRAINT Fk_ResponsablePlanning_Compte FOREIGN KEY (idRespo) REFERENCES Compte(idCompte)
 );
 
 CREATE TABLE Utilisateur (
-    idUtilisateur int,
+    idUtilisateur number(6),
     prenom varchar(50),
     nom varchar(50),
     adresse varchar(100),
@@ -34,14 +44,14 @@ CONSTRAINT Fk_Utilisateur_Compte FOREIGN KEY (idUtilisateur) REFERENCES Compte(i
 );
 
 CREATE TABLE Producteur (
-    idProducteur int,
-    jourLivraison DATE,
+    idProducteur number(6),
+    jourLivraison varchar(8),
 CONSTRAINT Pk_Producteur PRIMARY KEY (idProducteur),
 CONSTRAINT Fk_Producteur_Compte FOREIGN KEY (idProducteur) REFERENCES Compte(idCompte)
 );
 
 CREATE TABLE Consommateur (
-    idConsommateur int,
+    idConsommateur number(6),
 CONSTRAINT Pk_Consommateur PRIMARY KEY (idConsommateur),
 CONSTRAINT Fk_Consommateur_Compte FOREIGN KEY (idConsommateur) REFERENCES Compte(idCompte)
 );
@@ -59,7 +69,7 @@ CONSTRAINT Fk_Produit_Unite FOREIGN KEY (unite) REFERENCES Unite(nomUnite)
 );
 
 CREATE TABLE Production (
-    idProduction int,
+    idProduction number(6) DEFAULT id_seqProduction.nextval,
     produit varchar(50),
     idProducteur int,
     quantiteRestante int,
@@ -72,7 +82,7 @@ ON DELETE CASCADE
 );
 
 CREATE TABLE Contrat (
-    idContrat int,
+    idContrat number(6) DEFAULT id_seqContrat.nextval,
     production int,
     idConsommateur int,
     quantite int,
@@ -86,8 +96,9 @@ CONSTRAINT Fk_Contrat_Consommateur FOREIGN KEY (idConsommateur) REFERENCES Conso
 ON DELETE CASCADE
 );
 
+--A modifier (date debut, date fin)
 CREATE TABLE Semaine (
-    idSemaine int,
+    idSemaine number(6) DEFAULT id_seqSemaine.nextval,
 CONSTRAINT Pk_Semaine PRIMARY KEY (idSemaine)
 );
 
