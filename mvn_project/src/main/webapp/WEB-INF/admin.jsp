@@ -13,7 +13,7 @@
 				<td><button type="button">Valider</button></td>
 			</tr>
 		</table>
-		<form action="planningAdmin" method="post">
+		<form action="planning" method="post">
 		<table>
 			<caption>Planning</caption>
 			<tr>
