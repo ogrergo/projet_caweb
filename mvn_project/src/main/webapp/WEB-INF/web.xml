@@ -23,4 +23,12 @@
         <servlet-name>auth</servlet-name>
         <url-pattern>/auth</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>EditProfile</servlet-name>
+        <servlet-class>controleur.EditProfile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditProfile</servlet-name>
+        <url-pattern>/editProfile</url-pattern>
+    </servlet-mapping>
 </web-app>

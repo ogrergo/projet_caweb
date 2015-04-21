@@ -72,7 +72,6 @@ CREATE TABLE Production (
     idProduction number(6) DEFAULT id_seqProduction.nextval,
     produit varchar(50),
     idProducteur int,
-    quantiteRestante int,
     duree int,
 CONSTRAINT Pk_Production PRIMARY KEY (idProduction),
 CONSTRAINT Fk_Production_Produit FOREIGN KEY (produit) REFERENCES Produit(nomProduit)

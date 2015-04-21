@@ -21,7 +21,7 @@ public class ProducteurDAO extends AbstractDataBaseDAO {
     }
 
     /**
-     * Renvoie la liste des idProducteur, email et mdp
+     * Renvoie la liste des infos sur un producteur
      */
     public List<Producteur> getListeProducteurs() throws DAOException, SQLException {
         List<Producteur> result = new ArrayList<Producteur>();
@@ -31,14 +31,19 @@ public class ProducteurDAO extends AbstractDataBaseDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = "SELECT idProducteur, email, mdp"
+            requeteSQL = "SELECT idProducteur, email, mdp, prenom, nom, adresse"
                     + "FROM compte c"
-                    + "FULL JOIN producteur p  ON c.idCompte = p.idProducteur";
+                    + "FULL JOIN producteur p  ON c.idCompte = p.idProducteur"
+                    + "FULL JOIN utilisateur u ON c.idCompte = o.idUtisateur";
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Producteur producteur = new Producteur(rs.getInt("idProducteur"),
                         rs.getString("email"),
-                        rs.getString("mdp"));
+                        rs.getString("mdp"),
+                        rs.getString("prenom"),
+                        rs.getString("nom"),
+                        rs.getString("adresse")
+                );
                 System.err.println(producteur);
                 result.add(producteur);
             }
