@@ -105,4 +105,12 @@
     <servlet-name>Admin</servlet-name>
     <url-pattern>/admin</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Planning</servlet-name>
+    <servlet-class>controleur.Planning</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Planning</servlet-name>
+    <url-pattern>/planning</url-pattern>
+  </servlet-mapping>
 </web-app>
