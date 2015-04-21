@@ -3,6 +3,7 @@ DROP TABLE Permanence;
 DROP TABLE Disponibilite;
 DROP TABLE Semaine;
 DROP TABLE Contrat;
+DROP TABLE ProductionUnites;
 DROP TABLE Production;
 DROP TABLE Produit;
 DROP TABLE Unite;
@@ -63,9 +64,7 @@ CREATE TABLE Unite (
 
 CREATE TABLE Produit (
     nomProduit varchar(50),
-    unite varchar(20),
-CONSTRAINT Pk_Produit PRIMARY KEY (nomProduit),
-CONSTRAINT Fk_Produit_Unite FOREIGN KEY (unite) REFERENCES Unite(nomUnite)
+CONSTRAINT Pk_Produit PRIMARY KEY (nomProduit)
 );
 
 CREATE TABLE Production (
@@ -80,16 +79,26 @@ CONSTRAINT Fk_Production_Producteur FOREIGN KEY (idProducteur) REFERENCES Produc
 ON DELETE CASCADE
 );
 
+CREATE TABLE ProductionUnites (
+    idProduction number(6),
+    nomUnite varchar(20),
+CONSTRAINT Pk_ProductionUnites PRIMARY KEY (idProduction, nomUnite),
+CONSTRAINT Fk_ProductionUnites_Production FOREIGN KEY (idProduction) REFERENCES Production(idProduction)
+ON DELETE CASCADE,
+CONSTRAINT Fk_ProductionUnites_Unite FOREIGN KEY (nomUnite) REFERENCES Unite(nomUnite)
+ON DELETE CASCADE
+);
+
 CREATE TABLE Contrat (
     idContrat number(6) DEFAULT id_seqContrat.nextval,
-    production int,
+    idProduction int,
     idConsommateur int,
     quantite int,
     dateDebut DATE,
     duree int,
     valide char(1),   --Y ou N
 CONSTRAINT Pk_Contrat PRIMARY KEY (idContrat),
-CONSTRAINT Fk_Contrat_Production FOREIGN KEY (production) REFERENCES Production(idProduction)
+CONSTRAINT Fk_Contrat_Production FOREIGN KEY (idProduction) REFERENCES Production(idProduction)
 ON DELETE CASCADE,
 CONSTRAINT Fk_Contrat_Consommateur FOREIGN KEY (idConsommateur) REFERENCES Consommateur(idConsommateur)
 ON DELETE CASCADE

@@ -27,3 +27,41 @@ INSERT INTO Utilisateur (idUtilisateur, prenom, nom, adresse) VALUES
 INSERT INTO Producteur (idProducteur, jourLivraison) VALUES
 ((SELECT MAX(idCompte) FROM Compte), 'Dimanche');
 
+--Ajout des unitées
+INSERT INTO Unite (nomUnite) VALUES ('kg');
+INSERT INTO Unite (nomUnite) VALUES ('litre');
+INSERT INTO Unite (nomUnite) VALUES ('demi-panier');
+INSERT INTO Unite (nomUnite) VALUES ('panier');
+INSERT INTO Unite (nomUnite) VALUES ('piece');
+INSERT INTO Unite (nomUnite) VALUES ('demi-douzaine');
+INSERT INTO Unite (nomUnite) VALUES ('douzaine');
+
+--Ajout des produits
+INSERT INTO Produit (nomProduit) VALUES ('oeuf');
+INSERT INTO Produit (nomProduit) VALUES ('jambon');
+INSERT INTO Produit (nomProduit) VALUES ('lait');
+INSERT INTO Produit (nomProduit) VALUES ('salade');
+INSERT INTO Produit (nomProduit) VALUES ('fraise');
+INSERT INTO Produit (nomProduit) VALUES ('jus de pomme');
+
+--Ajout de production (lien entre produit et producteur)
+INSERT INTO Production (produit, idProducteur, duree) VALUES
+('oeuf', 1, 5);
+INSERT INTO Production (produit, idProducteur, duree) VALUES
+('lait', 1, 10);
+INSERT INTO Production (produit, idProducteur, duree) VALUES
+('oeuf', 2, 7);
+INSERT INTO Production (produit, idProducteur, duree) VALUES
+('fraise', 3, 1);
+
+--Ajout unités possible pour ces productions
+INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
+(1, 'demi-douzaine');
+INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
+(1, 'douzaine');
+INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
+(2, 'litre');
+INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
+(3, 'douzaine');
+INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
+(4, 'panier');

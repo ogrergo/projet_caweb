@@ -9,6 +9,15 @@ package model;
  *
  * @author robin
  */
-public enum Unite {
-    //A Completer
+public class Unite {
+
+    private String nomUnite;
+    
+    public Unite(String nom) {
+        this.nomUnite = nom;
+    }
+    
+    public String getNomUnite() {
+        return this.nomUnite;
+    }
 }

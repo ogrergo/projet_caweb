@@ -12,18 +12,12 @@ package model;
 public class Produit {
 
     private String nomProduit;
-    private Unite unite;
     
-    public Produit(String nom, Unite u) {
+    public Produit(String nom) {
         this.nomProduit = nom;
-        this.unite = u;
     }
     
     public String getNomProduit() {
         return this.nomProduit;
-    }
-    
-    public Unite getUnite() {
-        return this.unite;
     }
 }
