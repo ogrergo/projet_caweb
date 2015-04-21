@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 @WebServlet(name = "testAffichageControleur", urlPatterns = {"/testAffichageControleur"})
 public class testAffichageControleur extends HttpServlet {
 
-    @Resource(name = "jdbc/ensioracle1")
+    @Resource(name = "jdbc/jeanr")
     private DataSource ds;
 
     /**
@@ -35,8 +35,7 @@ public class testAffichageControleur extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        response.getWriter().println("COUCOU");
-       /* PrintWriter out = response.getWriter();
+        PrintWriter out = response.getWriter();
         String action = request.getParameter("action");
         ProducteurDAO ProducteurDAO = new ProducteurDAO(ds);
         try {
@@ -49,17 +48,20 @@ public class testAffichageControleur extends HttpServlet {
             //... // renvoi vers une page d'erreur bdErreur.jsp
         } catch (SQLException ex) {
             Logger.getLogger(testAffichageControleur.class.getName()).log(Level.SEVERE, null, ex);
-        } */
+        }
     }
 
     private void actionAfficher(HttpServletRequest request,
             HttpServletResponse response,
             ProducteurDAO producteurDAO)
             throws DAOException, ServletException, IOException, SQLException {
-        request.setAttribute("producteurs", producteurDAO.getListeProducteurs());
+        System.out.println("Dnas afficher");
+         System.out.println("Dnas afficher" + producteurDAO.getListeProducteurs().get(0));
+        /*request.setAttribute("producteurs", producteurDAO.getListeProducteurs());
+        response.getWriter().println("apres cette merde");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/listProducteur.jsp")
-                .forward(request, response);
+                .forward(request, response);*/
     }
 
 }

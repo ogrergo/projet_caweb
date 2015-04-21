@@ -8,8 +8,8 @@
         maxActive="10"
         maxIdle="3"
         maxWait="10000"
-        name="jdbc/nom_de_votre_bd"
-        password="le vôtre"
-        username="le vôtre"
+        name="jdbc/jeanr"
+        password="jeanr"
+        username="Vk3AFDSW"
     />
 </Context>
