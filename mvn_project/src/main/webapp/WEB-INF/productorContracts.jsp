@@ -7,7 +7,7 @@
 <title>Contrats Producteurs</title>
 </head>
 <body>
-<form action="customerContracts" method="post">
+<form action="productorContracts" method="post">
 <table>
 	<caption>Contrats en cours</caption>
 	<tr>Contrats en cours</tr>
