@@ -9,39 +9,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class EditProfile
+ * Servlet implementation class AuthentificationCtrl
  */
-@WebServlet("/EditProfile")
-public class EditProfile extends HttpServlet {
+@WebServlet("/AuthentificationCtrl")
+public class AuthentificationCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditProfile() {
+    public AuthentificationCtrl() {
         super();
-        // TODO Auto-generated constructor stub
     }
+    
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext()
-        .getRequestDispatcher("/WEB-INF/editProfile.jsp")
-        .forward(request, response);
+		 getServletContext()
+         .getRequestDispatcher("/WEB-INF/views/authentification.jsp")
+         .forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mdp = request.getParameter("mdp");
 		String email = request.getParameter("email");
-		String adresse = request.getParameter("adresse");
-		String nom = request.getParameter("nom");
-		String prénom = request.getParameter("prenom");
+		String password = request.getParameter("password");
 		
-		response.getWriter().println("Mot de passe : " + mdp + ", Email : " + email + ", Adresse : " + adresse + ", Nom : " + nom + ", Prénom : " + prénom);
+		boolean success = AuthorisationManager.logSession(request.getSession(), email, password);
+		
+		if(!success) {
+			response.sendRedirect("/caweb/echecAuthentification");
+			return;
+		} else {
+			String redirect = (String) request.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
+			if(redirect == null)
+				redirect = "/caweb/home";
+			
+			response.sendRedirect(redirect);
+			return;
+		}
+
 	}
+
 }

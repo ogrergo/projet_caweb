@@ -1,1 +1,4 @@
-/mvn_project/target/
+mvn_project/.classpath
+mvn_project/.project
+mvn_project/.settings
+mvn_project/target

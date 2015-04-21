@@ -1,12 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>listProducteur.jsp</title>
-    </head>
-    <body>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+
+<tag:base>
+    <jsp:attribute name="header">
+      <h1>Liste Producteurs</h1>
+    </jsp:attribute>
+    <jsp:body>
         <h1>Liste des producteurs dans la base de données</h1>
     <center>
         <table border="1">
@@ -21,6 +20,6 @@
             </c:forEach>
         </table>
     </center>
-</body>
-</html>
+    </jsp:body>
+</tag:base>
 
