@@ -37,7 +37,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>testAff</servlet-name>
-        <servlet-class>controleur.testAffichageControleur</servlet-class>
+        <servlet-class>controleur.TestControleur</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>testAff</servlet-name>
