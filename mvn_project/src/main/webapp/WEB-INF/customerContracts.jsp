@@ -10,7 +10,10 @@
 <form action="customerContracts" method="post">
 <table>
 	<caption>Contrats en cours</caption>
-	<tr>Contrats en cours</tr>
+	<tr> 
+	<td>Contrats en cours</td>
+	<td><button type="button">Prolonger</button></td>
+	</tr>
 </table>
 <table>
 <caption> Contrats en attente de validation</caption>
