@@ -32,9 +32,9 @@ public class ProducteurDAO extends AbstractDataBaseDAO {
             conn = getConnection();
             Statement st = conn.createStatement();
             requeteSQL = "SELECT idProducteur, email, mdp, prenom, nom, adresse"
-                    + "FROM compte c"
-                    + "FULL JOIN producteur p  ON c.idCompte = p.idProducteur"
-                    + "FULL JOIN utilisateur u ON c.idCompte = o.idUtisateur";
+                    + " FROM compte c"
+                    + " FULL JOIN producteur p  ON c.idCompte = p.idProducteur"
+                    + " FULL JOIN utilisateur u ON c.idCompte = u.idUtilisateur";
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Producteur producteur = new Producteur(rs.getInt("idProducteur"),

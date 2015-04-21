@@ -12,12 +12,10 @@
         <table border="1">
             <caption>Liste des producteurs</caption>
             <tr>
-                <th>idProducteur</th>
                 <th>email</th>
             </tr>
             <c:forEach items="${producteurs}" var="producteur">
                 <tr>
-                    <td>>${producteur.idProducteur}</td>
                     <td>${producteur.email}</td>
                 </tr>
             </c:forEach>

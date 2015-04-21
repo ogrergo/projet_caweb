@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/caweb">
-    <Resource
-        auth="Container"
+    <Resource 
+        auth="Container" 
         type="javax.sql.DataSource"
-        driverClassName="oracle.jdbc.OracleDriver"
+        driverClassName="oracle.jdbc.OracleDriver" 
         url="jdbc:oracle:thin:@ensioracle1.imag.fr:1521:ensioracle1"
-        maxActive="10"
-        maxIdle="3"
-        maxWait="10000"
-        name="jdbc/jeanr"
-        password="jeanr"
-        username="Vk3AFDSW"
+        maxActive="10" 
+        maxIdle="3" 
+        maxWait="10000" 
+        name="jdbc/caweb"
+        username="jeanr"
+        password="Vk3AFDSW"
     />
 </Context>

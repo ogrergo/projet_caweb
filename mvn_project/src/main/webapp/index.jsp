@@ -1,1 +1,1 @@
-<jsp:forward page="/testAffichageControleur"/>
+<jsp:forward page="/testControleur"/>

@@ -8,6 +8,8 @@ package controleur;
 import dao.DAOException;
 import dao.ProducteurDAO;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,13 +25,15 @@ import javax.sql.DataSource;
  */
 public class Test1 {
 
-    public static void main(String[] arg) throws DAOException, SQLException, NamingException {
-    
-        Context ctx = new InitialContext();
-        DataSource ds = (DataSource)ctx.lookup("jdbc/jeanr");;
+    @Resource(name = "jdbc/jeanr")
+    public static DataSource ds;
+
+    public static void main(String[] arg) throws DAOException, SQLException, NamingException, ClassNotFoundException {
+
         ProducteurDAO producteurDAO = new ProducteurDAO(ds);
 
         System.out.println("Dnas afficher");
         System.out.println("Dnas afficher" + producteurDAO.getListeProducteurs().get(0));
-    }     
+
+    }
 }
