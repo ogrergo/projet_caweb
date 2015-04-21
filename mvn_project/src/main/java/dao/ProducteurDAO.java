@@ -48,7 +48,7 @@ public class ProducteurDAO extends AbstractDataBaseDAO {
                 result.add(producteur);
             }
         } catch (SQLException e) {
-            throw new DAOException("Erreur BD " + e.getMessage(), e);
+            throw new DAOException("Erreur BD 0" + e.getMessage(), e);
         } finally {
             closeConnection(conn);
         }
