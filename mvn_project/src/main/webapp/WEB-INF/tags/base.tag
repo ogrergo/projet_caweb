@@ -19,7 +19,7 @@
     <div id="menu">
         <ul>
             <li>Acceuil</li>
-            <li>Profile</li>
+            <li>Profil</li>
             <li>Truc</li>
         </ul>    </div>
     <div id="body">

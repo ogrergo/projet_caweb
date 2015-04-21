@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+
+<tag:base>
+    <jsp:attribute name="header">
+      <h1>Contrats Client</h1>
+    </jsp:attribute>
+    <jsp:body>%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Contrats Client</title>
-</head>
-<body>
+
 <form action="customerContracts" method="post">
 <table>
 	<caption>Contrats en cours</caption>
@@ -17,8 +18,8 @@
 </table>
 <table>
 <caption> Contrats en attente de validation</caption>
-	<tr>Contrats non valides</tr>
+	<tr>Contrats non validés</tr>
 </table>
 </form>
-</body>
-</html>
+    </jsp:body>
+</tag:base>
