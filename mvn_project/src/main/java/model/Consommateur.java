@@ -5,13 +5,14 @@
  */
 package model;
 
-public class Producteur extends Utilisateur {
+/**
+ *
+ * @author robin
+ */
+public class Consommateur extends Utilisateur{
 
-    //Voir comment on stocke les dates
-    //private date jourLivraison ;
-
-    public Producteur(int id, String email, String mdp, String prenom, String nom,
-            String adresse) {
+    public Consommateur(int id, String email, String mdp, String prenom, String nom, String adresse) {
         super(id, email, mdp, prenom, nom, adresse);
     }
+    
 }
