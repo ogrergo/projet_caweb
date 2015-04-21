@@ -89,4 +89,20 @@
     <servlet-name>Available</servlet-name>
     <url-pattern>/available</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Accueil</servlet-name>
+    <servlet-class>controleur.Accueil</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Accueil</servlet-name>
+    <url-pattern>/accueil</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Admin</servlet-name>
+    <servlet-class>controleur.Admin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Admin</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
 </web-app>
