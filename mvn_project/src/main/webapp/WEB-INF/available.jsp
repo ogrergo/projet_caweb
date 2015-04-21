@@ -19,9 +19,13 @@
 				<th> Dimanche </th>
 			</tr>
 			<tr>
-			<% for(int i=0; i<7; i++) {%>
 				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
-    		<%}%>
+				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
+				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
+				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
+				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
+				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
+				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
 			</tr>
 		</table>
 		</form>
