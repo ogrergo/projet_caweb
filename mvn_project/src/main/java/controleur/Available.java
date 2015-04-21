@@ -1,27 +1,23 @@
-package views;
+package controleur;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import model.Credential;
 
 /**
- * Servlet implementation class Authentification
+ * Servlet implementation class Available
  */
-@WebServlet("/Authentification")
-public class Authentification extends HttpServlet {
+@WebServlet("/Available")
+public class Available extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Authentification() {
+    public Available() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,14 +26,9 @@ public class Authentification extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		Credential cred = (Credential) session.getAttribute("credentials");
-		if(cred == null) {
-			response.getWriter().println("aucun cred");
-			session.setAttribute("credentials", new Credential());
-		} else {
-			response.getWriter().println("cred");
-		}
+		getServletContext()
+        .getRequestDispatcher("/WEB-INF/available.jsp")
+        .forward(request, response);
 	}
 
 	/**

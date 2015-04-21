@@ -55,8 +55,13 @@ public class testAffichageControleur extends HttpServlet {
             HttpServletResponse response,
             ProducteurDAO producteurDAO)
             throws DAOException, ServletException, IOException, SQLException {
-        System.out.println("Dnas afficher");
-         System.out.println("Dnas afficher" + producteurDAO.getListeProducteurs().get(0));
+        System.out.println("Dnas afficher 0" + producteurDAO );
+        try {
+        	producteurDAO.getListeProducteurs();
+        } catch (DAOException e) {
+        	 System.out.println(e.getMessage());
+        }
+        System.out.println("Dnas afficher 1" + producteurDAO.getListeProducteurs().get(1));
         /*request.setAttribute("producteurs", producteurDAO.getListeProducteurs());
         response.getWriter().println("apres cette merde");
         getServletContext()
