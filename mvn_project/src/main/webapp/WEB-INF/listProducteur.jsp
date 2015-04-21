@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <tag:base>
     <jsp:attribute name="header">
       <h1>Liste Producteurs</h1>
