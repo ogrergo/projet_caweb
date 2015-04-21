@@ -11,6 +11,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
+import oracle.jdbc.OracleDriver;
 
 /**
  * Le contrôleur de l'application.

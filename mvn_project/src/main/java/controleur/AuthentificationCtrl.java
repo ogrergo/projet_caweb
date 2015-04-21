@@ -48,7 +48,7 @@ public class AuthentificationCtrl extends HttpServlet {
 		} else {
 			String redirect = (String) request.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
 			if(redirect == null)
-				redirect = "/caweb/home";
+				redirect = "/caweb";
 			
 			response.sendRedirect(redirect);
 			return;

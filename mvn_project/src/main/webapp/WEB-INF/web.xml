@@ -8,6 +8,8 @@
         <servlet-name>echecAuth</servlet-name>
         <jsp-file>/WEB-INF/views/echecAuthentification.jsp</jsp-file>
     </servlet>
+    
+    
     <servlet-mapping>
         <servlet-name>echecAuth</servlet-name>
         <url-pattern>/echecAuthentification</url-pattern>
@@ -19,14 +21,7 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-    <servlet>
-        <servlet-name>auth</servlet-name>
-        <servlet-class>views.Authentification</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>auth</servlet-name>
-        <url-pattern>/auth</url-pattern>
-    </servlet-mapping>
+
     <servlet>
         <servlet-name>authentification</servlet-name>
         <servlet-class>controleur.AuthentificationCtrl</servlet-class>
@@ -37,7 +32,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>testAff</servlet-name>
-        <servlet-class>controleur.testAffichageControleur</servlet-class>
+        <servlet-class>controleur.TestControleur</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>testAff</servlet-name>
