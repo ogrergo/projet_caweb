@@ -10,11 +10,21 @@
 <form action="editProfile" method="post">
 <table>
 	<tr>
-		<td> Email : </td> <td> <input type="text" name="email"> </td>
+		<td> Email : </td> <td> <input type="email" name="email"/></td>
 	</tr>
 	<tr>
-		<td> Mot de passe : </td> <td> <input type="password" name="mdp"> </td>
+		<td> Mot de passe : </td> <td> <input type="password" name="mdp"/> </td>
 	</tr>
+	<tr>
+		<td> Adresse : </td> <td> <input type="text" name="adresse"/> </td>
+	</tr>
+	<tr>
+		<td> Nom : </td> <td> <input type="text" name="nom"/> </td>
+	</tr>
+	<tr>
+		<td> Prénom : </td> <td> <input type="text" name="prenom"/> </td>
+	</tr>
+	
 </table>
 <input type="submit" value="Valider">
 </form>

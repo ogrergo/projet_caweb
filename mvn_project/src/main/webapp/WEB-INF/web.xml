@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet>
-        <servlet-name>list</servlet-name>
-        <servlet-class>views.list</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>list</servlet-name>
-        <url-pattern>/list</url-pattern>
-    </servlet-mapping>
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
-    <servlet>
-        <servlet-name>auth</servlet-name>
-        <servlet-class>views.Authentification</servlet-class>
-    </servlet>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <servlet>
+    <servlet-name>list</servlet-name>
+    <servlet-class>views.list</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>list</servlet-name>
+    <url-pattern>/list</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <servlet>
+    <servlet-name>auth</servlet-name>
+    <servlet-class>views.Authentification</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>auth</servlet-name>
+    <url-pattern>/auth</url-pattern>
+  </servlet-mapping>
     <servlet>
         <servlet-name>testAff</servlet-name>
         <servlet-class>controleur.testAffichageControleur</servlet-class>
@@ -22,10 +26,6 @@
     <servlet-mapping>
         <servlet-name>testAff</servlet-name>
         <url-pattern>/testAff</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>auth</servlet-name>
-        <url-pattern>/auth</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>EditProfile</servlet-name>
@@ -41,4 +41,12 @@
 	  <res-type>javax.sql.DataSource</res-type>
 	  <res-auth>Container</res-auth>
 	</resource-ref>
+  <servlet>
+    <servlet-name>NewContract</servlet-name>
+    <servlet-class>controleur.NewContract</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewContract</servlet-name>
+    <url-pattern>/newContract</url-pattern>
+  </servlet-mapping>
 </web-app>
