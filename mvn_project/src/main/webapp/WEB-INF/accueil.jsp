@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ page session="true" %>
+<%@page import="controleur.AuthorisationManager.Credential"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <tag:base>
     <jsp:attribute name="header">
@@ -7,10 +9,20 @@
     </jsp:attribute>
     <jsp:body>
 <table>
-	<tr>
-		<td> <form action="/caweb/"><input type="submit" value="S'inscrire">  </form></td>
-		<td> <form action="/caweb/authentification"><input type="submit" value="Se connecter"></form></td>
-	</tr>
+
+
+<c:choose>
+      <c:when test="${credential == null}">
+      	<tr>
+			<td> <form action="/caweb/"><input type="submit" value="S'inscrire">  </form></td>
+			<td> <form action="/caweb/authentification"><input type="submit" value="Se connecter"></form></td>
+		</tr>
+      </c:when>
+
+      <c:otherwise>
+      	Vous êtes loggé en tant que : ${ credential.authorisation }.
+      </c:otherwise>
+</c:choose>
 </table>
 <table>
 	<caption>Produits disponibles</caption>

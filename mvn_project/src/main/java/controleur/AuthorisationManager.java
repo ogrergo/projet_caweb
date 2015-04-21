@@ -6,6 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Compte;
+import model.Consommateur;
+import model.Producteur;
+import model.ResponsablePlanning;
+
 public class AuthorisationManager {
 
 	public static final String CREDENTIAL_SESSION_VAR = "credential";
@@ -34,8 +39,8 @@ public class AuthorisationManager {
 		if(permission == null) {
 			return false;
 		}
-		
-		session.setAttribute(CREDENTIAL_SESSION_VAR, new Credential(permission));
+		Compte compte = null;//TODO
+		session.setAttribute(CREDENTIAL_SESSION_VAR, new Credential(compte));
 		return true;
 	}
 	
@@ -45,9 +50,11 @@ public class AuthorisationManager {
 
 	public enum Permission {
 		CONSOMATEUR(0),
-		PRODUCTEUR(1);
+		PRODUCTEUR(1),
+		RESPONSABLE_PLANNING(2);
 		
 		public int level;
+		
 		private Permission(int level) {
 			this.level = level;
 		}
@@ -56,17 +63,36 @@ public class AuthorisationManager {
 	static public class Credential {
 
 		private Permission authorisation;
-
-		private Credential(Permission authorisation) {
-			this.authorisation = authorisation;
+		private int idCompte;
+		
+		private Permission getPermission(Compte compte) {
+			if(compte instanceof Consommateur)
+				return Permission.CONSOMATEUR;
+			
+			if(compte instanceof Producteur)
+				return Permission.PRODUCTEUR;
+			
+			if(compte instanceof ResponsablePlanning)
+				return Permission.RESPONSABLE_PLANNING;
+			
+			throw new InternalError();
+		}
+		
+		private Credential(Compte compte) {
+			this.authorisation = getPermission(compte);
+			idCompte = compte.getId();
+		}
+		
+		public int getId() {
+			return idCompte;
 		}
 		
 		public Permission getAuth() {
 			return authorisation;
 		}
 
-		public boolean isAllowed(Permission level) {
-			return authorisation.level >= level.level;
+		public boolean isAllowed(Permission level) {//TODO Inclure le fait qu'un responsable plannig ne peut acceder au meme endroit
+			return authorisation.level == level.level;
 		}
 	}
 }
