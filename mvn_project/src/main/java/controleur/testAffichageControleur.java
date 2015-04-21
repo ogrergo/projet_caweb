@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 @WebServlet(name = "testAffichageControleur", urlPatterns = {"/testAffichageControleur"})
 public class testAffichageControleur extends HttpServlet {
 
-    @Resource(name = "jdbc/ensioracle1")
+//    @Resource(name = "jdbc/ensioracle1")
     private DataSource ds;
 
     /**
