@@ -22,14 +22,19 @@ import javax.sql.DataSource;
  * @author jeanr
  */
 public class Test1 {
+	
+	@Resource(name = "jdbc/jeanr")
+	private DataSource ds;
 
     public static void main(String[] arg) throws DAOException, SQLException, NamingException {
-    
-        Context ctx = new InitialContext();
-        DataSource ds = (DataSource)ctx.lookup("jdbc/jeanr");;
-        ProducteurDAO producteurDAO = new ProducteurDAO(ds);
-
-        System.out.println("Dnas afficher");
-        System.out.println("Dnas afficher" + producteurDAO.getListeProducteurs().get(0));
+    	Test1 test = new Test1();
+    	test.test();
     }     
+    
+    void test() throws DAOException, SQLException {
+    	ProducteurDAO producteurDAO = new ProducteurDAO(ds);
+
+        System.out.println("Dnas afficher" + ds);
+        System.out.println("Dnas afficher" + producteurDAO.getListeProducteurs().get(0));
+    }
 }
