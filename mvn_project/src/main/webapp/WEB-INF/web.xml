@@ -31,12 +31,28 @@
     <servlet-name>EditProfile</servlet-name>
     <url-pattern>/editProfile</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>NewContract</servlet-name>
     <servlet-class>controleur.NewContract</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>NewContract</servlet-name>
     <url-pattern>/newContract</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CustomerContracts</servlet-name>
+    <servlet-class>controleur.CustomerContracts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CustomerContracts</servlet-name>
+    <url-pattern>/customerContracts</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ProductorContracts</servlet-name>
+    <servlet-class>controleur.ProductorContracts</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProductorContracts</servlet-name>
+    <url-pattern>/productorContracts</url-pattern>
   </servlet-mapping>
 </web-app>
