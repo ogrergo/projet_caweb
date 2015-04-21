@@ -20,7 +20,7 @@
 	<tr>
 		<th> Lundi </th>
 		<th> Mardi </th>
-		<th> Mercrdi </th>
+		<th> Mercredi </th>
 		<th> Jeudi </th>
 		<th> Vendredi </th>
 		<th> Samedi </th>

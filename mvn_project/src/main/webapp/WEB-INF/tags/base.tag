@@ -8,7 +8,6 @@
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="header" fragment="true" %>
-<%@attribute name="menu" fragment="true" %>
 
 <%-- any content can be specified here e.g.: --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,8 +17,11 @@
       <jsp:invoke fragment="header"/>
     </div>
     <div id="menu">
-        <jsp:invoke fragment="menu" />
-    </div>
+        <ul>
+            <li>Acceuil</li>
+            <li>Profile</li>
+            <li>Truc</li>
+        </ul>    </div>
     <div id="body">
       <jsp:doBody/>
     </div>

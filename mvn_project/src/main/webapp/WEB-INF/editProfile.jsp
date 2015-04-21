@@ -3,15 +3,8 @@
 
 <tag:base>
     <jsp:attribute name="header">
-      <h1>Editer son Profile</h1>
+      <h1>Editer son Profil</h1>
     </jsp:attribute>
-    <jsp:attribute name="menu">
-        <ul>
-            <li>Acceuil</li>
-            <li>Profile</li>
-            <li>Truc</li>
-        </ul>
-    </jsp:attribute> 
     <jsp:body>
         <form action="editProfile" method="post">
         <table>
