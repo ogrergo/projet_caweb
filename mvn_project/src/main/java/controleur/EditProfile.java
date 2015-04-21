@@ -1,6 +1,7 @@
 package controleur;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,8 +38,10 @@ public class EditProfile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String mdp = request.getParameter("mdp");
 		String email = request.getParameter("email");
+		String adresse = request.getParameter("adresse");
+		String nom = request.getParameter("nom");
+		String prénom = request.getParameter("prenom");
 		
-		response.getWriter().println("mdp : " + mdp + ", email : " + email);
+		response.getWriter().println("Mot de passe : " + mdp + ", Email : " + email + ", Adresse : " + adresse + ", Nom : " + nom + ", Prénom : " + prénom);
 	}
-
 }
