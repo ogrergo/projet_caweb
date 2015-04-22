@@ -73,6 +73,14 @@ public class AuthorisationManager {
 		session.setAttribute(CREDENTIAL_SESSION_VAR, null);
 	}
 
+	public static int getIdCompte(HttpSession session) {
+		Credential credential = (Credential) session.getAttribute(CREDENTIAL_SESSION_VAR);
+		if(credential == null)
+			throw new InternalError("Aucun compte loggé");
+		
+		return credential.idCompte;
+	}
+	
 	public enum Permission {
 		CONSOMATEUR(0),
 		PRODUCTEUR(1),
@@ -108,7 +116,7 @@ public class AuthorisationManager {
 			idCompte = compte.getId();
 		}
 		
-		public int getId() {
+		public int getIdCompte() {
 			return idCompte;
 		}
 		
