@@ -14,12 +14,13 @@
 <c:choose>
       <c:when test="${credential == null}">
       	<tr>
-			<td> <form action="/caweb/"><input type="submit" value="S'inscrire">  </form></td>
 			<td> <form action="/caweb/authentification"><input type="submit" value="Se connecter"></form></td>
 		</tr>
       </c:when>
 
       <c:otherwise>
+      	<form action="/caweb/"><input type="submit" value="Modifier mon compte">  </form>
+		
       	Vous êtes loggé en tant que : ${credential.authorisation }
       	
       </c:otherwise>
@@ -27,9 +28,9 @@
 </table>
 <table>
 	<caption>Produits disponibles</caption>
-	<c:forEach items="${produits}" var="produit">
+	<c:forEach items="${production}" var="production">
                 <tr>
-                    <td>${produit.nomProduit}</td>
+                    <td>${production.produit}</td>
                     <td> <form action="/caweb/authentification"><input type="submit" value="Passer un contrat"></form></td>
                 </tr>
     </c:forEach>

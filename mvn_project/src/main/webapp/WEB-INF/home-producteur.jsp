@@ -7,8 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-Echec de l'authentification.
-<br/>
-<form action="/caweb"><input type="submit" name="Retour à l'acceuil"></form>
+Producteur Home.
+
+Parcourir les contrats.
+Modifier son jour de livraison.
+plus ?
+
 </body>
 </html>

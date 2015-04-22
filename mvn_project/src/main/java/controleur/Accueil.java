@@ -1,7 +1,6 @@
 package controleur;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,11 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import model.Produit;
+import model.Production;
+import controleur.AuthorisationManager.Permission;
 import dao.DAOException;
-import dao.ProduitDAO;
+import dao.ProductionDAO;
 
 /**
  * Servlet implementation class Accueil
@@ -39,21 +40,38 @@ public class Accueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ProduitDAO produitDAO = new ProduitDAO(ds);
-		List<Produit> produits = null;
-		try {
-			produits = produitDAO.getListeProduits();
-		} catch (DAOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for(Produit p : produits)
-			System.out.println(p.getNomProduit());
 		
-		request.setAttribute("produits", produits);
-		getServletContext()
-        .getRequestDispatcher("/WEB-INF/accueil.jsp")
-        .forward(request, response);
+		HttpSession session = request.getSession(true);
+		
+		if(!AuthorisationManager.haveCredential(session) || AuthorisationManager.havePermission(session, Permission.CONSOMATEUR)) {
+			ProductionDAO productionDAO = new ProductionDAO(ds);
+			List<Production> production = null;
+			
+			try {
+				production = productionDAO.getListeProduction();
+			} catch (DAOException e) {
+				e.printStackTrace();
+				throw new InternalError();
+			}
+			for(Production p : production)
+				System.out.println(p.getProduit());
+			
+			request.setAttribute("production", production);
+			
+			getServletContext()
+	        .getRequestDispatcher("/WEB-INF/accueil.jsp")
+	        .forward(request, response);
+			
+		} else if(AuthorisationManager.havePermission(session, Permission.PRODUCTEUR)) {
+			getServletContext()
+	        .getRequestDispatcher("/WEB-INF/home-producteur.jsp")
+	        .forward(request, response);
+		} else if(AuthorisationManager.havePermission(session, Permission.RESPONSABLE_PLANNING)) {
+			getServletContext()
+	        .getRequestDispatcher("/WEB-INF/home-responsablePlanning.jsp")
+	        .forward(request, response);
+		} else
+			throw new InternalError("Impossible d'afficher une page d'acceuil pour ce type de compte.");
 	}
 
 	/**
