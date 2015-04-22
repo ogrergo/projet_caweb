@@ -5,11 +5,14 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 import model.Compte;
 import model.Consommateur;
 import model.Producteur;
 import model.ResponsablePlanning;
+import dao.CompteDAO;
+import dao.DAOException;
 
 public class AuthorisationManager {
 
@@ -34,12 +37,25 @@ public class AuthorisationManager {
 		return Permission.PRODUCTEUR;
 	}
 	
-	public static boolean logSession(HttpSession session, String email, String password) {
+	public static boolean logSession(DataSource ds, HttpSession session, String email, String password) {
 		Permission permission = log(email, password);
 		if(permission == null) {
 			return false;
 		}
-		Compte compte = null;//TODO
+		Compte compte = null;
+		try {
+			compte = new CompteDAO(ds).getCompte(email, password);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			System.out.println("ECHEC COMPTE EXCPETION");
+			return false;
+		}
+		
+		if(compte == null) {
+			System.out.println("ECHEC COMPTE NULL");
+			return false;
+		}
+		
 		session.setAttribute(CREDENTIAL_SESSION_VAR, new Credential(compte));
 		return true;
 	}
@@ -87,7 +103,7 @@ public class AuthorisationManager {
 			return idCompte;
 		}
 		
-		public Permission getAuth() {
+		public Permission getAuthorisation() {
 			return authorisation;
 		}
 

@@ -20,7 +20,8 @@
       </c:when>
 
       <c:otherwise>
-      	Vous êtes loggé en tant que : ${ credential.authorisation }.
+      	Vous êtes loggé en tant que : ${credential.authorisation }
+      	
       </c:otherwise>
 </c:choose>
 </table>
