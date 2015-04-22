@@ -68,15 +68,16 @@
     <servlet>
         <servlet-name>AddProduit</servlet-name>
         <servlet-class>controleur.AddProduit</servlet-class>
+ </servlet>
+  <!--       <servlet>
+        <servlet-name>AddUnite</servlet-name>
+        <servlet-class>controleur.AddUnite</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddUnite</servlet-name>
         <url-pattern>/addUnite</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>AddUnite</servlet-name>
-        <servlet-class>controleur.AddUnite</servlet-class>
-    </servlet>
+    </servlet-mapping>  --> 
+ 
     <servlet-mapping>
         <servlet-name>AddProduit</servlet-name>
         <url-pattern>/addProduit</url-pattern>
