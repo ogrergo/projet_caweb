@@ -27,6 +27,14 @@ INSERT INTO Utilisateur (idUtilisateur, prenom, nom, adresse) VALUES
 INSERT INTO Producteur (idProducteur, jourLivraison) VALUES
 ((SELECT MAX(idCompte) FROM Compte), 'Dimanche');
 
+--Ajout des utilisateurs
+INSERT INTO Compte (email, mdp) VALUES
+('a@a','a');
+INSERT INTO Utilisateur (idUtilisateur, prenom, nom, adresse) VALUES
+((SELECT MAX(idCompte) FROM Compte), 'a', 'a', 'a');
+INSERT INTO Consommateur (idConsommateur) VALUES
+((SELECT MAX(idCompte) FROM Compte));
+
 --Ajout des unitées
 INSERT INTO Unite (nomUnite) VALUES ('kg');
 INSERT INTO Unite (nomUnite) VALUES ('litre');
@@ -65,3 +73,17 @@ INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 (3, 'douzaine');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 (4, 'panier');
+
+--Ajout des 52 semaines d'une année
+--Ajout des permanences pour toutes les semaines de l'année (avec initialement aucun Consommateur)
+ BEGIN
+      FOR v_Count IN 1..52 LOOP
+	INSERT INTO Semaine(idSemaine)
+       VALUES (v_count);
+	INSERT INTO Permanance(idSemaine)
+       VALUES (v_count);
+    END LOOP;
+    END;
+   /
+
+
