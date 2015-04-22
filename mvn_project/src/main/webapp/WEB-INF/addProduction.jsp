@@ -23,9 +23,10 @@
 
         function verifForm(f)
         {
-            f.action.value = "addContract";
+            f.action.value = "addProduction";
             return verifDuree(f.duree);
         }
+
     </script>
 </head>
 
@@ -35,7 +36,7 @@
 
     </jsp:attribute>
     <jsp:body>
-        <form action="addContract" method="get" onsubmit="return verifForm(this)">
+        <form action="addProduction" method="get" onsubmit="return verifForm(this)">
             <input type="hidden" name="action" value="">
             <table>
                 <tr>
@@ -48,9 +49,8 @@
                         </select>
                     <td>
                     <td>
-                        <form action="addProduit" method="get">
-                            <input type="submit" value="Ajouter un produit">
-                        </form>
+                        <a href="addProduit"> 
+                            <input type="button" value="Ajouter un produit"> </a>
                     </td>
                 </tr>
                 <tr>
@@ -65,9 +65,8 @@
 
                     <td>
                     <td>
-                        <form action="addUnite" method="get">
-                            <input type="submit" value="Ajouter une unité">
-                        </form>
+                        <a href="addUnite"> 
+                            <input type="button" value="Ajouter une unite"> </a>
                     </td>
                 </tr>
                 <tr>
