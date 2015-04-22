@@ -33,6 +33,11 @@ public class AuthentificationCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(AuthorisationManager.haveCredential(request.getSession())) {
+			response.sendRedirect("/caweb");
+			return;
+		}
+			
 		getServletContext()
 		.getRequestDispatcher("/WEB-INF/views/authentification.jsp")
 		.forward(request, response);

@@ -14,12 +14,13 @@
 <c:choose>
       <c:when test="${credential == null}">
       	<tr>
-			<td> <form action="/caweb/"><input type="submit" value="S'inscrire">  </form></td>
 			<td> <form action="/caweb/authentification"><input type="submit" value="Se connecter"></form></td>
 		</tr>
       </c:when>
 
       <c:otherwise>
+      	<form action="/caweb/"><input type="submit" value="Modifier mon compte">  </form>
+		
       	Vous êtes loggé en tant que : ${credential.authorisation }
       	
       </c:otherwise>

@@ -33,6 +33,15 @@ public class AuthorisationManager {
 		return true;
 	}
 	
+	public static boolean haveCredential(HttpSession session) {
+		return session.getAttribute(CREDENTIAL_SESSION_VAR) != null;
+	}
+	
+	public static boolean havePermission(HttpSession session, Permission permission) {
+		Credential cred = (Credential) session.getAttribute(CREDENTIAL_SESSION_VAR);
+		return cred != null && cred.isAllowed(permission);
+	}
+	
 	private static Permission log(String email, String password) {
 		return Permission.PRODUCTEUR;
 	}
