@@ -24,9 +24,15 @@ public class AuthorisationManager {
 		
 		Credential credential = (Credential) session.getAttribute(CREDENTIAL_SESSION_VAR);
 		
-		if(credential == null || !credential.isAllowed(level)) {
+		if(credential == null) {
 			session.setAttribute(RETURN_SESSION_VAR, request.getRequestURI());
+			System.err.println( request.getRequestURI());
 			response.sendRedirect("/caweb/authentification");
+			return false;
+		}
+		
+		if(!credential.isAllowed(level)) {
+			response.sendRedirect("/caweb");//TODO ajouter l'erreur
 			return false;
 		}
 		
@@ -73,6 +79,14 @@ public class AuthorisationManager {
 		session.setAttribute(CREDENTIAL_SESSION_VAR, null);
 	}
 
+	public static int getIdCompte(HttpSession session) {
+		Credential credential = (Credential) session.getAttribute(CREDENTIAL_SESSION_VAR);
+		if(credential == null)
+			throw new InternalError("Aucun compte loggé");
+		
+		return credential.idCompte;
+	}
+	
 	public enum Permission {
 		CONSOMATEUR(0),
 		PRODUCTEUR(1),
@@ -108,7 +122,7 @@ public class AuthorisationManager {
 			idCompte = compte.getId();
 		}
 		
-		public int getId() {
+		public int getIdCompte() {
 			return idCompte;
 		}
 		
