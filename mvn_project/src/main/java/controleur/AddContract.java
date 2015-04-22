@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import model.Production;
 
 /**
  * Servlet implementation class NewContract
@@ -23,7 +24,7 @@ public class AddContract extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Resource(name = "jdbc/caweb")
     private DataSource ds;
-
+    private String[] tabUnites;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,8 +38,6 @@ public class AddContract extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-
         String action = request.getParameter("action");
         ProduitDAO produitDAO = new ProduitDAO(ds);
         UniteDAO uniteDAO = new UniteDAO(ds);
@@ -47,7 +46,7 @@ public class AddContract extends HttpServlet {
             if (action == null) {
                 actionAfficher(request, response, produitDAO, uniteDAO);
             } else if (action.equals("addContract")) {
-                // actionAjouter(request, response, ouvrageDAO);
+                actionAjouter(request, response);
             } else if (action.equals("addProduit")) {
                 //actionSupprimer(request, response, produitDAO);
             } else if (action.equals("addUnite")) {
@@ -61,22 +60,28 @@ public class AddContract extends HttpServlet {
         }
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String Quantité = request.getParameter("quantite");
-        String Date = request.getParameter("date");
-        String Durée = request.getParameter("duree");
-        response.getWriter().println("Demande d'un contrat pour le produit PRODUIT : Quantité : " + Quantité + ", Date : " + Date + ", Durée : " + Durée);
-    }
-
     private void actionAfficher(HttpServletRequest request, HttpServletResponse response,
             ProduitDAO produitDAO, UniteDAO uniteDAO) throws DAOException, ServletException, IOException, SQLException {
         request.setAttribute("produits", produitDAO.getListeProduits());
         request.setAttribute("unites", uniteDAO.getListeUnites());
         getServletContext().getRequestDispatcher("/WEB-INF/addContract.jsp").forward(request, response);
+    }
+
+    protected void actionAjouter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        //D'abord ajout de la production dans la BD
+     /*   ProductionDAO productionDAO = new ProductionDAO(ds);
+        Production production = productionDAO.ajouterProducion(request.getParameter("produitSelect"),
+                request.getParameter("unitesSelect"),
+                request.getParameter("duree")); */
+        
+        String Date = request.getParameter("date");
+        String Durée = request.getParameter("duree");
+        
+        
+        
+        response.getWriter().println("Demande d'un contrat pour le produit PRODUIT : Quantité : " +  ", Date : " + Date + ", Durée : " + Durée);
+             
     }
 
 }
