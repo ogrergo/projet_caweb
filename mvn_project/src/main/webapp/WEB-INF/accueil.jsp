@@ -28,9 +28,9 @@
 </table>
 <table>
 	<caption>Produits disponibles</caption>
-	<c:forEach items="${produits}" var="produit">
+	<c:forEach items="${production}" var="production">
                 <tr>
-                    <td>${produit.nomProduit}</td>
+                    <td>${production.produit}</td>
                     <td> <form action="/caweb/authentification"><input type="submit" value="Passer un contrat"></form></td>
                 </tr>
     </c:forEach>

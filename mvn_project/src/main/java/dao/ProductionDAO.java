@@ -13,7 +13,7 @@ import model.Production;
 
 public class ProductionDAO extends AbstractDataBaseDAO {
 
-	protected ProductionDAO(DataSource ds) {
+	public ProductionDAO(DataSource ds) {
 		super(ds);
 	}
 

@@ -1,7 +1,6 @@
 package controleur;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import model.Production;
 import controleur.AuthorisationManager.Permission;
-import model.Produit;
 import dao.DAOException;
-import dao.ProduitDAO;
+import dao.ProductionDAO;
 
 /**
  * Servlet implementation class Accueil
@@ -45,20 +44,19 @@ public class Accueil extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		if(!AuthorisationManager.haveCredential(session) || AuthorisationManager.havePermission(session, Permission.CONSOMATEUR)) {
-			ProduitDAO produitDAO = new ProduitDAO(ds);
-			List<Produit> produits = null;
+			ProductionDAO productionDAO = new ProductionDAO(ds);
+			List<Production> production = null;
 			
 			try {
-				produits = produitDAO.getListeProduits();
-			} catch (DAOException | SQLException e) {
+				production = productionDAO.getListeProduction();
+			} catch (DAOException e) {
 				e.printStackTrace();
 				throw new InternalError();
 			}
+			for(Production p : production)
+				System.out.println(p.getProduit());
 			
-			for(Produit p : produits)
-				System.out.println(p.getNomProduit());
-			
-			request.setAttribute("produits", produits);
+			request.setAttribute("production", production);
 			
 			getServletContext()
 	        .getRequestDispatcher("/WEB-INF/accueil.jsp")
