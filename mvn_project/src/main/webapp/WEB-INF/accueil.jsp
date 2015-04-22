@@ -31,6 +31,9 @@
 	<c:forEach items="${production}" var="production">
                 <tr>
                     <td>${production.produit}</td>
+                    
+                    <td>${production.prenomProducteur} ${production.nomProducteur}</td>
+                    
                     <td> <form action="/caweb/authentification"><input type="submit" value="Passer un contrat"></form></td>
                 </tr>
     </c:forEach>

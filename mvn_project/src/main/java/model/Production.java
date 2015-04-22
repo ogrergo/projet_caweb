@@ -1,43 +1,52 @@
 package model;
 
 public class Production {
-	
-	private int idProduction;
-	private String produit;
-	private String nomProducteur;
-	private String prenomProducteur;
-	
-	
-	public String getPrenomProducteur() {
-		return prenomProducteur;
-	}
 
-	private int duree;
-	
-	public int getIdProduction() {
-		return idProduction;
-	}
+    private int idProduction;
+    private String produit;
+    private int idProducteur;
 
-	public String getProduit() {
-		return produit;
-	}
+    // ?????
+    private String nomProducteur;
+    private String prenomProducteur;
 
-	public String getNomProducteur() {
-		return nomProducteur;
-	}
+    public String getPrenomProducteur() {
+        return prenomProducteur;
+    }
 
-	public int getDuree() {
-		return duree;
-	}
+    private int duree;
 
-	public Production(int idProduction, String produit, String nomProducteur,
-			String prenomProducteur, int duree) {
-		super();
-		this.idProduction = idProduction;
-		this.produit = produit;
-		this.nomProducteur = nomProducteur;
-		this.prenomProducteur = prenomProducteur;
-		this.duree = duree;
-	}
-	
+    public int getIdProduction() {
+        return idProduction;
+    }
+
+    public String getProduit() {
+        return produit;
+    }
+
+    public String getNomProducteur() {
+        return nomProducteur;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public Production(int idProduction, String produit, String nomProducteur,
+            String prenomProducteur, int duree) {
+        super();
+        this.idProduction = idProduction;
+        this.produit = produit;
+        this.nomProducteur = nomProducteur;
+        this.prenomProducteur = prenomProducteur;
+        this.duree = duree;
+    }
+
+    public Production(int idProduction, int idProducteur, int duree) {
+        super();
+        this.idProduction = idProduction;
+        this.idProducteur = idProducteur;
+        this.duree = duree;
+    }
+
 }

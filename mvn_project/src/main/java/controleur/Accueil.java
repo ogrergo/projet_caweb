@@ -53,8 +53,6 @@ public class Accueil extends HttpServlet {
 				e.printStackTrace();
 				throw new InternalError();
 			}
-			for(Production p : production)
-				System.out.println(p.getProduit());
 			
 			request.setAttribute("production", production);
 			

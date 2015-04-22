@@ -31,7 +31,7 @@ public class ProduitDAO extends AbstractDataBaseDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = "SELECT * from Produit";
+            requeteSQL = "SELECT nomProduit from Produit";
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Produit produit = new Produit(rs.getString("nomProduit"));
