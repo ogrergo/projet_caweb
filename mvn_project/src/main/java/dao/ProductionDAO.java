@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import model.Producteur;
 import model.Production;
 
 public class ProductionDAO extends AbstractDataBaseDAO {
@@ -25,13 +26,15 @@ public class ProductionDAO extends AbstractDataBaseDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = "SELECT idProduction, produit, idProducteur, duree"
-                    + " FROM production";
+            requeteSQL = "SELECT idProduction, produit, nom, prenom, duree"
+                    + " FROM production p, producteur q"
+            		+ " WHERE p.idProducteur = q.idProducteur";
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
             	Production producteur = new Production(rs.getInt("idProduction"),
                         rs.getString("produit"),
-                        rs.getInt("idProducteur"),
+                        rs.getString("nom"),
+                        rs.getString("prenom"), 
                         rs.getInt("duree")
                 );
                 System.err.println(producteur);
@@ -43,8 +46,6 @@ public class ProductionDAO extends AbstractDataBaseDAO {
             closeConnection(conn);
         }
         return result;
-	}
-	
-	
+	}	
 
 }
