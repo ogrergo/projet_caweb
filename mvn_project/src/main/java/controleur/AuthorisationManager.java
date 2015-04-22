@@ -24,9 +24,15 @@ public class AuthorisationManager {
 		
 		Credential credential = (Credential) session.getAttribute(CREDENTIAL_SESSION_VAR);
 		
-		if(credential == null || !credential.isAllowed(level)) {
+		if(credential == null) {
 			session.setAttribute(RETURN_SESSION_VAR, request.getRequestURI());
+			System.err.println( request.getRequestURI());
 			response.sendRedirect("/caweb/authentification");
+			return false;
+		}
+		
+		if(!credential.isAllowed(level)) {
+			response.sendRedirect("/caweb");//TODO ajouter l'erreur
 			return false;
 		}
 		

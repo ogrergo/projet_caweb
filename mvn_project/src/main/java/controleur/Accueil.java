@@ -1,6 +1,7 @@
 package controleur;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import model.Production;
+import model.Unite;
 import controleur.AuthorisationManager.Permission;
 import dao.DAOException;
 import dao.ProductionDAO;
+import dao.UniteDAO;
 
 /**
  * Servlet implementation class Accueil
@@ -39,16 +42,30 @@ public class Accueil extends HttpServlet {
     
     private void controleurAcceuilVisiteur(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
     	ProductionDAO productionDAO = new ProductionDAO(ds);
-		List<Production> production = null;
+    	UniteDAO uniteDAO = new UniteDAO(ds);
+    	
+		List<Production> productions = null;
 		
 		try {
-			production = productionDAO.getListeProduction();
+			productions = productionDAO.getListeProduction();
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new InternalError();
 		}
 		
-		request.setAttribute("production", production);
+		HashMap<Production, List<Unite>> unites = new HashMap<Production, List<Unite>>();
+		
+		for(Production production : productions) {
+			try {
+				unites.put(production, uniteDAO.getListeUnites(production));
+			} catch (DAOException e) {
+				e.printStackTrace();
+				throw new InternalError();
+			}
+		}
+		
+		request.setAttribute("production", productions);
+		request.setAttribute("unites", unites);
 		
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/accueil.jsp")
