@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import model.Producteur;
 import model.Production;
 
 public class ProductionDAO extends AbstractDataBaseDAO {
@@ -28,6 +27,7 @@ public class ProductionDAO extends AbstractDataBaseDAO {
             Statement st = conn.createStatement();
             requeteSQL = "SELECT idProduction, produit, nom, prenom, duree"
                     + " FROM production p, producteur q"
+                    + " FULL JOIN utilisateur u ON u.idUtilisateur = q.idProducteur"
             		+ " WHERE p.idProducteur = q.idProducteur";
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {

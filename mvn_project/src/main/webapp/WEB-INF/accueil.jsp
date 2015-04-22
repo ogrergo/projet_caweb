@@ -32,7 +32,7 @@
                 <tr>
                     <td>${production.produit}</td>
                     
-                    <td>${production.prenom} ${production.nom}</td>
+                    <td>${production.prenomProducteur} ${production.nomProducteur}</td>
                     
                     <td> <form action="/caweb/authentification"><input type="submit" value="Passer un contrat"></form></td>
                 </tr>
