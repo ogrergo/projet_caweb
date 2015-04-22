@@ -1,58 +1,34 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <tag:base>
     <jsp:attribute name="header">
     <h1>Administrateur</h1>
     </jsp:attribute>
     <jsp:body>
-		<table>
-			<caption>Demandes d'inscription</caption>
-			<tr>
-				<td>email demandeur</td>
-				<td><button type="button">Valider</button></td>
-			</tr>
-		</table>
-		<form action="planning" method="post">
-		<table>
-			<caption>Planning</caption>
-			<tr>
-				<th> Lundi </th>
-				<th> Mardi </th>
-				<th> Mercredi </th>
-				<th> Jeudi </th>
-				<th> Vendredi </th>
-				<th> Samedi </th>
-				<th> Dimanche </th>
-			</tr>
-			<tr>
-				<td><button type="button">Voir Disponibilités</button></td>
-				<td><button type="button">Voir Disponibilités</button></td>
-				<td><button type="button">Voir Disponibilités</button></td>
-				<td><button type="button">Voir Disponibilités</button></td>
-				<td><button type="button">Voir Disponibilités</button></td>
-				<td><button type="button">Voir Disponibilités</button></td>
-				<td><button type="button">Voir Disponibilités</button></td>
-			
-			</tr>
-			<tr>
-				<td><input type="text" value=Livreur1></td>
-				<td><input type="text" value=Livreur1></td>
-				<td><input type="text" value=Livreur1></td>
-				<td><input type="text" value=Livreur1></td>
-				<td><input type="text" value=Livreur1></td>
-				<td><input type="text" value=Livreur1></td>
-				<td><input type="text" value=Livreur1></td>
-			</tr>
-			<tr>
-				<td><input type="text" value=Livreur2></td>
-				<td><input type="text" value=Livreur2></td>
-				<td><input type="text" value=Livreur2></td>
-				<td><input type="text" value=Livreur2></td>
-				<td><input type="text" value=Livreur2></td>
-				<td><input type="text" value=Livreur2></td>
-				<td><input type="text" value=Livreur2></td>
-			</tr>
+    	<form action="planning" method="post">
+    	<h2>Planning</h2>
+    	<table BORDER="1">
+     	<caption><c:forEach items ="${mois}" var="mois"> ${mois}</c:forEach></caption>
+    		<c:forEach items="${semaines}" var="semaine">
+        		<tr> 
+        			<td>Semaine ${semaine}</td>
+        			<td> Livreurs </td>
+        			<td><select name="Livreur1">
+        				<c:forEach items="${liste_dispos}" var="dispo">
+							<option value="${dispo}">${dispo}</option>
+						</c:forEach>
+						</select>
+					</td>
+					<td><select name="Livreur2">
+        				<c:forEach items="${liste_dispos}" var="dispo">
+							<option value="${dispo}">${dispo}</option>
+						</c:forEach>
+						</select>
+					</td>
+        		</tr>
+        	</c:forEach>
 		</table>
 		<input type="submit" value="Valider">
 		</form>

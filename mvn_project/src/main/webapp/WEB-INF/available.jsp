@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <tag:base>
     <jsp:attribute name="header">
@@ -9,23 +10,14 @@
 		<form action="available" method="post">
 		<table BORDER="1">
 			<caption>Disponibilités</caption>
-			<tr>
-				<th> Lundi </th>
-				<th> Mardi </th>
-				<th> Mercredi </th>
-				<th> Jeudi </th>
-				<th> Vendredi </th>
-				<th> Samedi </th>
-				<th> Dimanche </th>
+			<tr> <c:forEach items="${semaines}" var="semaine">
+        			<th>Semaine ${semaine}</th>
+        		</c:forEach>
 			</tr>
 			<tr>
+			<c:forEach items="${semaines}" var="semaine">
 				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
+			</c:forEach>
 			</tr>
 		</table>
 		</form>
