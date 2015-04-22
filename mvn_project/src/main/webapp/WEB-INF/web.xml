@@ -65,6 +65,14 @@
         <servlet-name>AddProduction</servlet-name>
         <url-pattern>/addProduction</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>AddProduit</servlet-name>
+        <servlet-class>controleur.AddProduit</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddProduit</servlet-name>
+        <url-pattern>/addProduit</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>CustomerContracts</servlet-name>
         <servlet-class>controleur.CustomerContracts</servlet-class>

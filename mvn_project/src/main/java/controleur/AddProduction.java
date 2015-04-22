@@ -4,7 +4,6 @@ import dao.ProduitDAO;
 import dao.DAOException;
 import dao.UniteDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
