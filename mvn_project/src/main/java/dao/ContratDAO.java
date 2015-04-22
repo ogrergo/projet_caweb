@@ -28,7 +28,8 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			conn = getConnection();
 			Statement st = conn.createStatement();
 			requeteSQL = "SELECT *"
-					+   " FROM contrat";
+					+   " FROM contrat"
+					+ 	" WHERE idConsommateur='" + consommateur.getId() + "'";
 			rs = st.executeQuery(requeteSQL);
 			while (rs.next()) {
 				Contrat contrat = new Contrat(rs.getInt("idContrat"),
