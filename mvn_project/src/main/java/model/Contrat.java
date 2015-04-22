@@ -7,20 +7,28 @@ public class Contrat {
 	private int idProduction;
 	private int idConsomateur;
 	private int quantite;
-	private Date dateDebut;
-	private int duree;
-	private char valide;
+	private int dateDebut;
+	private boolean valide;
 	
 	
 	public Contrat(int idContrat, int idProduction, int idConsomateur,
-			int quantite, Date dateDebut, int duree, char valide) {
+			int quantite, int dateDebut, int duree, boolean valide) {
 		super();
 		this.idContrat = idContrat;
 		this.idProduction = idProduction;
 		this.idConsomateur = idConsomateur;
 		this.quantite = quantite;
 		this.dateDebut = dateDebut;
-		this.duree = duree;
+		this.valide = valide;
+	}
+	
+	public Contrat(int idProduction, int idConsomateur, int quantite,
+			int dateDebut, boolean valide) {
+		super();
+		this.idProduction = idProduction;
+		this.idConsomateur = idConsomateur;
+		this.quantite = quantite;
+		this.dateDebut = dateDebut;
 		this.valide = valide;
 	}
 
@@ -45,17 +53,12 @@ public class Contrat {
 	}
 
 
-	public Date getDateDebut() {
+	public int getDateDebut() {
 		return dateDebut;
 	}
 
 
-	public int getDuree() {
-		return duree;
-	}
-
-
-	public char getValide() {
+	public boolean getValide() {
 		return valide;
 	}
 	
