@@ -37,7 +37,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),
-						rs.getBoolean("valide"));
+						rs.getString("valide")=="1");
 				result.add(contrat);
 			}
 		} catch (SQLException e) {
