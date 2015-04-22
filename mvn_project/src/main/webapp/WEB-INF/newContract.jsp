@@ -11,13 +11,10 @@
 	<caption>PRODUIT : ${production.produit } FOURNISSEUR : ${production.nomProducteur } ${production.prenomProducteur }</caption>
 	
 	<tr>
-		<td> Quantité : </td> <td> <input type="text" name="quantite"/></td>
+		<td> Quantité : </td> <td> <input type="number" name="quantite"/></td>
 	</tr>
 	<tr>
-		<td> Date : </td> <td> <input type="date" name="date"/></td>
-	</tr>
-	<tr>
-		<td> Durée : </td> <td> <input type="text" name="duree"/></td>
+		<td> Date : </td> <td> <input type="number" name="date"/></td>
 	</tr>
 </table>
 <input type="submit" value="Valider">

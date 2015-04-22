@@ -90,13 +90,12 @@ public class NewContract extends HttpServlet {
 		int quantite = Integer.parseInt(request.getParameter("quantite"));
 		int date =  Integer.parseInt(request.getParameter("date"));
 		
-		Contrat contrat = new Contrat(0,
+		Contrat contrat = new Contrat(
 				getIdProduction(request.getSession(true)),
 				idConsomateur,
 				quantite,
-				null,
-				0,
-				'f'); //TODO
+				date,
+				false); //TODO
 		
 		//Recupitulatif -> compte user (mes contrats)
 		response.sendRedirect("/caweb");
