@@ -8,7 +8,7 @@
     <jsp:body>
 <form action="newContract" method="post">
 <table>
-	<caption>PRODUIT : nomproduit FOURNISSEUR : nomfournisseur</caption>
+	<caption>PRODUIT : ${production.produit } FOURNISSEUR : ${production.nomProducteur } ${production.prenomProducteur }</caption>
 	
 	<tr>
 		<td> Quantité : </td> <td> <input type="text" name="quantite"/></td>
