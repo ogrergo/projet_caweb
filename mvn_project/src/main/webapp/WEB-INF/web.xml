@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>list</servlet-name>
         <servlet-class>views.list</servlet-class>
@@ -8,8 +8,6 @@
         <servlet-name>echecAuth</servlet-name>
         <jsp-file>/WEB-INF/views/echecAuthentification.jsp</jsp-file>
     </servlet>
-    
-    
     <servlet-mapping>
         <servlet-name>echecAuth</servlet-name>
         <url-pattern>/echecAuthentification</url-pattern>
@@ -21,7 +19,6 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-
     <servlet>
         <servlet-name>authentification</servlet-name>
         <servlet-class>controleur.AuthentificationCtrl</servlet-class>
@@ -61,12 +58,12 @@
         <url-pattern>/newContract</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AddContract</servlet-name>
-        <servlet-class>controleur.AddContract</servlet-class>
+        <servlet-name>AddProduction</servlet-name>
+        <servlet-class>controleur.AddProduction</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AddContract</servlet-name>
-        <url-pattern>/addContract</url-pattern>
+        <servlet-name>AddProduction</servlet-name>
+        <url-pattern>/addProduction</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>CustomerContracts</servlet-name>
