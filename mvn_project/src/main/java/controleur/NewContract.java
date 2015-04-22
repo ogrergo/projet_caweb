@@ -25,18 +25,20 @@ public class NewContract extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    
+    private static final String IDPRODUCTION_SESSION_VAR = "idProduction";
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMATEUR);
+		request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getAttribute("production"));
+		
+		boolean success = AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR);//TODO passé en consomateur
 		if(!success)
 			return;
 		
-		int idProduction = ((Integer) request.getAttribute("production")).intValue();
-		
-		
+				
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/newContract.jsp")
         .forward(request, response);
@@ -50,6 +52,7 @@ public class NewContract extends HttpServlet {
 		String Quantité = request.getParameter("quantite");
 		String Date = request.getParameter("date");
 		String Durée = request.getParameter("duree");
+		
 		response.getWriter().println("Demande d'un contrat pour le produit PRODUIT : Quantité : " + Quantité + ", Date : " + Date + ", Durée : " + Durée);
 	}
 
