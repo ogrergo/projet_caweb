@@ -23,7 +23,6 @@
 
         function verifForm(f)
         {
-            f.action.value = "addProduction";
             return verifDuree(f.duree);
         }
 
@@ -36,8 +35,7 @@
 
     </jsp:attribute>
     <jsp:body>
-        <form action="addProduction" method="get" onsubmit="return verifForm(this)">
-            <input type="hidden" name="action" value="">
+        <form action="addProduction" method="post" onsubmit="return verifForm(this)">
             <table>
                 <tr>
                     <td>Produit</td>
