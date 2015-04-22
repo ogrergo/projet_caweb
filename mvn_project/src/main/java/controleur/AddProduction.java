@@ -38,18 +38,11 @@ public class AddProduction extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
         ProduitDAO produitDAO = new ProduitDAO(ds);
         UniteDAO uniteDAO = new UniteDAO(ds);
 
         try {
-            if (action == null) {
                 actionAfficher(request, response, produitDAO, uniteDAO);
-            } else if (action.equals("addProduction")) {
-                actionAjouterProduction(request, response);
-            } else {
-                getServletContext().getRequestDispatcher("/WEB-INF/controleurErreur.jsp").forward(request, response);
-            }
         } catch (Exception e) {
             request.setAttribute("erreurMessage", e.getMessage());
             getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
@@ -63,17 +56,18 @@ public class AddProduction extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/addProduction.jsp").forward(request, response);
     }
 
-    protected void actionAjouterProduction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //D'abord ajout de la production dans la BD
      /*   ProductionDAO productionDAO = new ProductionDAO(ds);
          Production production = productionDAO.ajouterProducion(request.getParameter("produitSelect"),
          request.getParameter("unitesSelect"),
          request.getParameter("duree")); */
-        String Date = request.getParameter("date");
-        String Durée = request.getParameter("duree");
+        String Date = request.getParameter("produitSelect");
+        String Durée = request.getParameter("unitesSelect");
+        String[] Durée2 = request.getParameterValues("unitesSelect");
 
-        response.getWriter().println("Demande d'un production pour le produit PRODUIT : Quantité : " + ", Date : " + Date + ", Durée : " + Durée);
+        //response.getWriter().println("Demande d'un production pour le produit PRODUIT : Quantité : " + ", Date : " + Date + ", Durée : " + Durée + Durée2);
 
     }
 }
