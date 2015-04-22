@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+import model.Unite;
 
 public class UniteDAO extends AbstractDataBaseDAO {
 
@@ -48,7 +49,7 @@ public class UniteDAO extends AbstractDataBaseDAO {
         }
         return result;
     }
-    
+
     public List<Unite> getListeUnites(Production production) throws DAOException {
         List<Unite> result = new ArrayList<Unite>();
         ResultSet rs = null;
@@ -58,8 +59,8 @@ public class UniteDAO extends AbstractDataBaseDAO {
             conn = getConnection();
             Statement st = conn.createStatement();
             requeteSQL = "SELECT nomUnite"
-            		+	" FROM ProductionUnites"
-            		+	" WHERE idProduction='" + production.getIdProduction() +"'";
+                    + " FROM ProductionUnites"
+                    + " WHERE idProduction='" + production.getIdProduction() + "'";
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Unite unite = new Unite(rs.getString("nomUnite"));
@@ -72,5 +73,20 @@ public class UniteDAO extends AbstractDataBaseDAO {
             closeConnection(conn);
         }
         return result;
+    }
+
+    public void ajouterUnite(Unite uni) throws DAOException, SQLException {
+        String requeteSQL = "";
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            Statement st = conn.createStatement();
+            requeteSQL = "INSERT INTO Unite (nomUnite) VALUES ('" + uni.getNomUnite() + "')";
+            st.executeQuery(requeteSQL);
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD 0" + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
     }
 }

@@ -32,7 +32,7 @@
 
 <tag:base>
     <jsp:attribute name="header">
-        <h1>Ajouter un contrat</h1>
+        <h1>Ajouter une production</h1>
 
     </jsp:attribute>
     <jsp:body>

@@ -29,12 +29,21 @@ public class AuthentificationCtrl extends HttpServlet {
 
 
 
+	private void sendRedirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String redirect = (String) request.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
+		System.out.println(redirect);
+		if(redirect == null)
+			redirect = "/caweb";
+
+		response.sendRedirect(redirect);
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(AuthorisationManager.haveCredential(request.getSession())) {
-			response.sendRedirect("/caweb");
+			sendRedirect(request, response);
 			return;
 		}
 			
@@ -56,11 +65,7 @@ public class AuthentificationCtrl extends HttpServlet {
 			response.sendRedirect("/caweb/echecAuthentification");
 			return;
 		} else {
-			String redirect = (String) request.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
-			if(redirect == null)
-				redirect = "/caweb";
-
-			response.sendRedirect(redirect);
+			sendRedirect(request, response);
 			return;
 		}
 

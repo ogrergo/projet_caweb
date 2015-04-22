@@ -21,7 +21,7 @@
       <c:otherwise>
       	<form action="/caweb/"><input type="submit" value="Modifier mon compte">  </form>
 		
-      	Vous êtes loggé en tant que : ${credential.authorisation }
+      	Vous êtes loggé en tant que : ${credential.authorisation}
       	
       </c:otherwise>
 </c:choose>
@@ -34,7 +34,13 @@
                     
                     <td>${production.prenomProducteur} ${production.nomProducteur}</td>
                     
-                    <td> <form action="/caweb/authentification"><input type="submit" value="Passer un contrat"></form></td>
+                    
+                    <td> <form action="/caweb/newContract?production=${production.idProduction}" method="get" >
+                    <select>
+                    <c:forEach items="${unites[production]}" var="unite">
+                    <option> ${unite.nomUnite }</option>
+                    </c:forEach>
+                    </select><input type="submit" value="Passer un contrat"></form></td>
                 </tr>
     </c:forEach>
  
