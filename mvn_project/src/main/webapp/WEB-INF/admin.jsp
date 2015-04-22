@@ -7,7 +7,7 @@
     <h1>Administrateur</h1>
     </jsp:attribute>
     <jsp:body>
-    	<form action="planning" method="post">
+    	<form action="admin" method="post">
     	<h2>Planning</h2>
     	<table BORDER="1">
      	<caption><c:forEach items ="${mois}" var="mois"> ${mois}</c:forEach></caption>

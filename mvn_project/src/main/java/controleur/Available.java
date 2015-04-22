@@ -40,7 +40,12 @@ public class Available extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		ArrayList<Boolean> dispo = new ArrayList<Boolean>();
+		for (int s : getSemaines()){
+			dispo.add(request.getParameter("semaine"+s)!=null);
+		}
+		response.sendRedirect("available");
+		
 	}
 	
 	public ArrayList<Integer> getSemaines(){
@@ -53,6 +58,7 @@ public class Available extends HttpServlet {
 	}
 	
 	public int getMaxContrats(){
+		//TODO
 		return 12;
 	}
 	
