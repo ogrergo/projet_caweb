@@ -16,10 +16,11 @@
 			</tr>
 			<tr>
 			<c:forEach items="${semaines}" var="semaine">
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input"> </td>
+				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input" name="semaine${semaine}"> </td>
 			</c:forEach>
 			</tr>
 		</table>
+		<input type="submit" value="Valider">
 		</form>
     </jsp:body>
 </tag:base>
