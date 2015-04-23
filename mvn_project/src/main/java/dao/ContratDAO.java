@@ -38,15 +38,61 @@ public class ContratDAO extends AbstractDataBaseDAO {
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),
-						rs.getString("valide")=="1");
+						rs.getString("valide").equals("1"));
 				result.add(contrat);
 			}
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+		return result;
+	}
+	
+	public void addContrat(Contrat contrat) throws DAOException {
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			String valide = contrat.getValide() ? "1" : "0";
+			requeteSQL = "INSERT INTO Contrat (idProduction, " 
+					+ "idConsommateur, quantite, dateDebut, "
+					+ "valide) VALUES ('"
+					+ contrat.getIdProduction() + "','"
+					+ contrat.getIdConsomateur() + "','"
+					+ contrat.getQuantite() + "','"
+					+ contrat.getDateDebut() + "','"
+					+ valide + "')";
+			st.executeQuery(requeteSQL);
 		} catch (SQLException e) {
 			throw new DAOException("Erreur BD 0" + e.getMessage(), e);
 		} finally {
 			closeConnection(conn);
 		}
-		return result;
+	}
+	
+	public void updateContrat(Contrat contrat) throws DAOException {
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			String valide = contrat.getValide() ? "1" : "0";
+			
+			requeteSQL = "UPDATE contrat" 
+					+ " SET idProduction='" + contrat.getIdProduction() + "',"
+					+ " idConsommateur ='" + contrat.getIdConsomateur() + "'," 
+					+ " quantite='" + contrat.getQuantite() + "',"
+					+ " dateDebut='" + contrat.getDateDebut() + "',"
+					+ " valide='" + valide + "'"
+					+ " WHERE idContrat='" + contrat.getIdContrat() + "'";
+			st.executeQuery(requeteSQL);
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD 0" + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
 	}
 
 }

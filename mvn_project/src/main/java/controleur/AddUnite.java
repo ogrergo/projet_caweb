@@ -54,10 +54,10 @@ public class AddUnite extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            Unite prod = new Unite(request.getParameter("nomUnite"));
+            Unite unit = new Unite(request.getParameter("nomUnite"));
             //D'abord ajout de la production dans la BD
             UniteDAO uniteDAO = new UniteDAO(ds);
-            uniteDAO.ajouterUnite(prod);
+            uniteDAO.ajouterUnite(unit);
             response.sendRedirect("/caweb/addProduction");
         } catch (DAOException ex) {
             Logger.getLogger(AddUnite.class.getName()).log(Level.SEVERE, null, ex);
