@@ -2,10 +2,12 @@ package controleur;
 
 import dao.ProduitDAO;
 import dao.DAOException;
+import dao.ProductionDAO;
 import dao.UniteDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import model.Production;
+import model.Produit;
 
 /**
  * Servlet implementation class NewProduction
@@ -39,18 +42,11 @@ public class AddProduction extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
         ProduitDAO produitDAO = new ProduitDAO(ds);
         UniteDAO uniteDAO = new UniteDAO(ds);
 
         try {
-            if (action == null) {
-                actionAfficher(request, response, produitDAO, uniteDAO);
-            } else if (action.equals("addProduction")) {
-                actionAjouterProduction(request, response);
-            } else {
-                getServletContext().getRequestDispatcher("/WEB-INF/controleurErreur.jsp").forward(request, response);
-            }
+            actionAfficher(request, response, produitDAO, uniteDAO);
         } catch (Exception e) {
             request.setAttribute("erreurMessage", e.getMessage());
             getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
@@ -64,17 +60,16 @@ public class AddProduction extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/addProduction.jsp").forward(request, response);
     }
 
-    protected void actionAjouterProduction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //D'abord ajout de la production dans la BD
-     /*   ProductionDAO productionDAO = new ProductionDAO(ds);
-         Production production = productionDAO.ajouterProducion(request.getParameter("produitSelect"),
-         request.getParameter("unitesSelect"),
-         request.getParameter("duree")); */
-        String Date = request.getParameter("date");
-        String Durée = request.getParameter("duree");
-
-        response.getWriter().println("Demande d'un production pour le produit PRODUIT : Quantité : " + ", Date : " + Date + ", Durée : " + Durée);
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
+        try {
+            String produit = request.getParameter("produitSelect");
+            String[] unites = request.getParameterValues("unitesSelect");
+            int duree = Integer.parseInt(request.getParameter("duree"));
+            ProductionDAO productionDAO = new ProductionDAO(ds);
+            productionDAO.ajouterProduction(produit, unites, duree, AuthorisationManager.getIdCompte(request.getSession(true)));
+            response.sendRedirect("/caweb");
+        } catch (DAOException ex) {
+            Logger.getLogger(AddProduit.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 }

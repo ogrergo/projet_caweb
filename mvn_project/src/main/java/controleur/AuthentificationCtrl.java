@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 /**
@@ -29,12 +30,24 @@ public class AuthentificationCtrl extends HttpServlet {
 
 
 
+	private void sendRedirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession(true);
+		String redirect = (String) session.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
+		session.setAttribute(AuthorisationManager.RETURN_SESSION_VAR, null);
+		
+		if(redirect == null) {
+			redirect = "/caweb";
+		}
+
+		response.sendRedirect(redirect);
+	}
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(AuthorisationManager.haveCredential(request.getSession())) {
-			response.sendRedirect("/caweb");
+			sendRedirect(request, response);
 			return;
 		}
 			
@@ -56,11 +69,7 @@ public class AuthentificationCtrl extends HttpServlet {
 			response.sendRedirect("/caweb/echecAuthentification");
 			return;
 		} else {
-			String redirect = (String) request.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
-			if(redirect == null)
-				redirect = "/caweb";
-
-			response.sendRedirect(redirect);
+			sendRedirect(request, response);
 			return;
 		}
 

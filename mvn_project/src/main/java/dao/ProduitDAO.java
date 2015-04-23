@@ -45,4 +45,19 @@ public class ProduitDAO extends AbstractDataBaseDAO {
         }
         return result;
     }
+
+    public void ajouterProduit(Produit prod) throws DAOException, SQLException {
+        String requeteSQL = "";
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            Statement st = conn.createStatement();
+            requeteSQL = "INSERT INTO Produit (nomProduit) VALUES ('" + prod.getNomProduit() + "')";
+            st.executeQuery(requeteSQL);
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD 0" + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+    }
 }

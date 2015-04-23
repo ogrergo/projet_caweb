@@ -42,9 +42,44 @@ public class CompteDAO extends AbstractDataBaseDAO {
             closeConnection(conn);
         }
         return result;
-        
 	}
 	
+/*	public void showConso() throws DAOException {
+        ResultSet rs = null;
+        Connection conn = null;
+
+        Statement st;
+		try {
+			conn = getConnection();
+
+			st = conn.createStatement();
+			 rs = st.executeQuery("SELECT idConsommateur, email "
+			 		+ "FROM compte c "
+			 		+ "INNER JOIN consommateur e "
+			 		+ "ON c.idCompte = e.idConsommateur");
+		        while(rs.next()) {
+		        	System.out.println(rs.getInt("idConsommateur")+ "  ->  " + rs.getString("email"));
+		        }
+		        System.out.println("Producteur :");
+		        
+		        rs = st.executeQuery("SELECT idProducteur, email "
+				 		+ "FROM compte c "
+				 		+ "INNER JOIN producteur e "
+				 		+ "ON c.idCompte = e.idProducteur");
+			        while(rs.next()) {
+			        	System.out.println(rs.getInt("idProducteur")+ "  ->  " + rs.getString("email"));
+			        }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new DAOException();
+		} finally {
+            closeConnection(conn);
+        }
+        
+       
+	}
+	*/
 	public Compte getCompte(int compteId) throws DAOException {
 		Compte result = null;
         ResultSet rs = null;
@@ -55,13 +90,13 @@ public class CompteDAO extends AbstractDataBaseDAO {
             Statement st = conn.createStatement();
             requeteSQL = "SELECT idProducteur, email, mdp, prenom, nom, adresse"
                     + " FROM compte c"
-                    + " FULL JOIN producteur p ON c.idCompte = p.idProducteur"
-                    + " FULL JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
+                    + " INNER JOIN producteur p ON c.idCompte = p.idProducteur"
+                    + " INNER JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
                     + " WHERE c.idCompte='" + compteId + "'";
-            System.out.println(requeteSQL);
             rs = st.executeQuery(requeteSQL);
             // On compte le nombre de résultats
             if(rs.next()) {
+
             	result = new Producteur(rs.getInt("idProducteur"),
                         rs.getString("email"),
                         rs.getString("mdp"),
@@ -72,8 +107,8 @@ public class CompteDAO extends AbstractDataBaseDAO {
             } else {
             	requeteSQL = "SELECT idConsommateur, email, mdp, prenom, nom, adresse"
                         + " FROM compte c"
-                        + " FULL JOIN consommateur p ON c.idCompte = c.idConsommateur"
-                        + " FULL JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
+                        + " INNER JOIN consommateur p ON c.idCompte = p.idConsommateur"
+                        + " INNER JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
                 		+ " WHERE c.idCompte='" + compteId + "'";
                 rs = st.executeQuery(requeteSQL);
                 if(rs.next()) {
@@ -87,7 +122,7 @@ public class CompteDAO extends AbstractDataBaseDAO {
                 } else {
                 	requeteSQL = "SELECT idRespo, email, mdp"
                             + " FROM compte c"
-                            + " FULL JOIN ResponsablePlanning r ON c.idCompte = r.idRespo"
+                            + " INNER JOIN ResponsablePlanning r ON c.idCompte = r.idRespo"
                             + " WHERE c.idCompte='" + compteId + "'";
                     rs = st.executeQuery(requeteSQL);
                     if(rs.next()) {

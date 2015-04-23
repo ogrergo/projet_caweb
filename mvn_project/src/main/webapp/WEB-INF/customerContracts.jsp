@@ -15,10 +15,13 @@
 	<td><button type="button">Prolonger</button></td>
 	</tr>
 </table>
-<table>
-<caption> Contrats en attente de validation</caption>
-	<tr>Contrats non validés</tr>
-</table>
 </form>
+<form action="available" mehtod="post">
+<input type="submit" value="Saisir Disponibilités">
+</form>
+<table BORDER="1">
+<caption> Contrats en attente de validation</caption>
+	<tr> <td> Contrats non validés </td></tr>
+</table>
     </jsp:body>
 </tag:base>
