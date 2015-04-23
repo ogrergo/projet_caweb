@@ -10,13 +10,18 @@
 		<form action="available" method="post">
 		<table BORDER="1">
 			<caption>Disponibilités</caption>
-			<tr> <c:forEach items="${semaines}" var="semaine">
+			<tr> <c:forEach items="${listKey}" var="semaine">
         			<th>Semaine ${semaine}</th>
         		</c:forEach>
 			</tr>
 			<tr>
-			<c:forEach items="${semaines}" var="semaine">
-				<td ALIGN="CENTER">  <input type="checkbox" class="switch-input" name="semaine${semaine}"> </td>
+			<c:forEach items="${listKey}" var="key">
+				<td ALIGN="CENTER">  
+				<input type="checkbox" class="switch-input" name="semaine${key}"
+					<c:if test="${ mapDispo[key] == 'true'}" >
+      					checked="checked"
+					</c:if>
+				> </td>
 			</c:forEach>
 			</tr>
 		</table>
