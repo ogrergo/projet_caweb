@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import model.Consommateur;
 import model.Contrat;
+import model.Producteur;
 import model.Unite;
 
 public class ContratDAO extends AbstractDataBaseDAO {
@@ -18,6 +19,39 @@ public class ContratDAO extends AbstractDataBaseDAO {
 	public ContratDAO(DataSource ds) {
 		super(ds);
 	}
+	
+	
+	public List<Contrat> getListeContrat(Producteur producteur) throws DAOException {
+		List<Contrat> result = new ArrayList<Contrat>();
+		ResultSet rs = null;
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "SELECT *"
+					+   " FROM contrat"
+					+ 	" WHERE idProducteur='" + producteur.getId() + "'";
+			rs = st.executeQuery(requeteSQL);
+			while (rs.next()) {
+				Contrat contrat = new Contrat(rs.getInt("idContrat"),
+						rs.getInt("idProduction"),
+						rs.getInt("idConsomateur"),
+						rs.getInt("quantite"),
+						rs.getInt("dateDebut"),
+						rs.getInt("duree"),
+						rs.getString("valide").equals("1"));
+				result.add(contrat);
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+		return result;
+	}
+	
+	
 	
 	public List<Contrat> getListeContrat(Consommateur consommateur) throws DAOException {
 		List<Contrat> result = new ArrayList<Contrat>();
