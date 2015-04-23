@@ -12,8 +12,6 @@ Modifier son jour de livraison.
 
 ${credential.authorisation }
 
- <c:forEach items="${contrats}" var="contrat">
- </c:forEach>
-      ${contrat.quantite}
+ 
 
     </tag:base>
