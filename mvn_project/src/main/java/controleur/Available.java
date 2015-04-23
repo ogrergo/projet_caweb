@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import dao.ContratDAO;
+import dao.DAOException;
+
 /**
  * Servlet implementation class Available
  */
@@ -33,7 +36,12 @@ public class Available extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("semaines", getSemaines());
+		try {
+			request.setAttribute("semaines", getSemaines(request));
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/available.jsp")
@@ -45,26 +53,31 @@ public class Available extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Boolean> dispo = new ArrayList<Boolean>();
-		for (int s : getSemaines()){
-			dispo.add(request.getParameter("semaine"+s)!=null);
+		try {
+			for (int s : getSemaines(request)){
+				dispo.add(request.getParameter("semaine"+s)!=null);
+			}
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		response.sendRedirect("available");
 		
 	}
 	
-	public ArrayList<Integer> getSemaines(){
+	public ArrayList<Integer> getSemaines(HttpServletRequest request) throws DAOException{
 		ArrayList<Integer> semaines = new ArrayList<Integer>();
 		int current = Planning.getWeekNumber();
-		for (int i=0; i<getMaxContrats(); i++){
+		for (int i=0; i<getMaxContrats(request); i++){
 		semaines.add(current + i);
 		}
 		return semaines;
 	}
 	
-	public int getMaxContrats(){
-		/*ContractDAO ContractDAO = new ContractDAO(ds);
-		return ContractDAO.getmachintruc();*/
-		return 12;
+	public int getMaxContrats(HttpServletRequest request) throws DAOException{
+		ContratDAO ContractDAO = new ContratDAO(ds);
+		return ContractDAO.getSemaineContratMaxByIdConsommateur(AuthorisationManager.getIdCompte(request.getSession(true)));
 		}
 	
 }
