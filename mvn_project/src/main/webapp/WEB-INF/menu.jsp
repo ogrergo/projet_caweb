@@ -30,7 +30,7 @@
     
     
     <li><a href=accueil >Accueil</a></li>
-    
+    <c:if test="${credential.authorisation != null}">
     <c:if test="${credential.authorisation == Permission.CONSOMATEUR}">
         <li><a href=editProfile >Modifier son Profil</a></li>
         <li><a href=newContract >Demander un Contract</a></li>
@@ -47,5 +47,5 @@
     </c:if>
     
     	<li><a href=logout>Deconnexion</a>
-    
+    </c:if>
 </ul>
