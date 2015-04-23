@@ -6,7 +6,6 @@ public class Production {
     private String produit;
     private int idProducteur;
 
-    // ?????
     private String nomProducteur;
     private String prenomProducteur;
 
