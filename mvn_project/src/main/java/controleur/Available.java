@@ -53,6 +53,7 @@ public class Available extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Boolean> dispo = new ArrayList<Boolean>();
+		
 		try {
 			for (int s : getSemaines(request)){
 				dispo.add(request.getParameter("semaine"+s)!=null);
