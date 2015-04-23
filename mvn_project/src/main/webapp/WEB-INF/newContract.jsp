@@ -3,7 +3,7 @@
 
 <tag:base>
     <jsp:attribute name="header">
-      <h1>Demande de Contrat</h1>
+      Demande de Contrat
     </jsp:attribute>
     <jsp:body>
 <form action="newContract" method="post">

@@ -1,13 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@page session="true" %>
+<%@page import="controleur.AuthorisationManager.Credential, controleur.AuthorisationManager.Permission"%>
 
 <tag:base>
     <jsp:attribute name="header">
-      <h1>Editer son Profil</h1>
+      Editer son Profil
     </jsp:attribute>
     <jsp:body>
         <form action="editProfile" method="post">
-        <table>
+        <table class="table">
                 <tr>
                         <td> Email : </td> <td> <input type="email" name="email"/></td>
                 </tr>
@@ -25,7 +27,7 @@
                 </tr>
 
         </table>
-        <input type="submit" value="Valider">
+        <input class="btn btn-default center-block" type="submit" value="Valider">
         </form>
     </jsp:body>
 </tag:base>
