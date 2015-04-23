@@ -97,4 +97,34 @@ public class ContratDAO extends AbstractDataBaseDAO {
 		}
 	}
 
+	public int getSemaineContratMaxByIdConsommateur(int idConsommateur) throws DAOException {
+		List<Contrat> result = new ArrayList<Contrat>();
+		ResultSet rs = null;
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "SELECT MAX(dateDebut + duree) AS MaxSem"
+					+   " FROM contrat c"
+					+   " RIGHT JOIN production p ON c.idProduction=p.idProduction"
+					+ 	" WHERE idConsommateur=" + idConsommateur;
+			rs = st.executeQuery(requeteSQL);
+			while (rs.next()) {
+				Contrat contrat = new Contrat(rs.getInt("idContrat"),
+						rs.getInt("idProduction"),
+						rs.getInt("idConsomateur"),
+						rs.getInt("quantite"),
+						rs.getInt("dateDebut"),
+						rs.getInt("duree"),
+						rs.getString("valide").equals("1"));
+				result.add(contrat);
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+		return 0;
+	}
 }
