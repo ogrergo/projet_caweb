@@ -16,13 +16,13 @@
         			<td>Semaine ${semaine}</td>
         			<td> Livreurs </td>
         			<td><select name="Livreur1">
-        				<c:forEach items="${liste_dispos}" var="dispo">
+        				<c:forEach items="${liste_dispos[semaine]}" var="dispo">
 							<option value="${dispo}">${dispo}</option>
 						</c:forEach>
 						</select>
 					</td>
 					<td><select name="Livreur2">
-        				<c:forEach items="${liste_dispos}" var="dispo">
+        				<c:forEach items="${liste_dispos[semaine]}" var="dispo">
 							<option value="${dispo}">${dispo}</option>
 						</c:forEach>
 						</select>
