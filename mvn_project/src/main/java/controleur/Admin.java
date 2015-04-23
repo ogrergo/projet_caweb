@@ -4,13 +4,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
+import model.Consommateur;
 import controleur.AuthorisationManager.Permission;
+import dao.ConsommateurDAO;
+import dao.DAOException;
 
 /**
  * Servlet implementation class Admin
@@ -18,6 +23,9 @@ import controleur.AuthorisationManager.Permission;
 @WebServlet("/Admin")
 public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+    @Resource(name = "jdbc/caweb")
+    private DataSource ds;
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,27 +59,20 @@ public class Admin extends HttpServlet {
 	
 	}
 	protected HashMap<Integer, ArrayList<String>> getListeDispos(){
-		ArrayList<String> listDisp = new ArrayList<String>();
-		listDisp.add("Michel");
-		listDisp.add("Jean-Mi");
-		listDisp.add("Roger");
-		ArrayList<String> listDisp2 = new ArrayList<String>();
-		listDisp2.add("René");
-		listDisp2.add("Jean-Mi");
-		listDisp2.add("Roger");
-		ArrayList<String> listDisp3 = new ArrayList<String>();
-		listDisp3.add("René");
-		listDisp3.add("Michou");
-		listDisp3.add("Anne");
-		ArrayList<String> listDisp4 = new ArrayList<String>();
-		listDisp4.add("Mikeline");
-		listDisp4.add("Robin");
-		listDisp4.add("Louis van Beurden");
 		HashMap<Integer, ArrayList<String>> hashmap = new HashMap<Integer, ArrayList<String>>();
-		hashmap.put(14, listDisp);
-		hashmap.put(15, listDisp2);
-		hashmap.put(16, listDisp3);
-		hashmap.put(17, listDisp4);
+		ConsommateurDAO consomateurDAO = new ConsommateurDAO(ds);
+		for(Integer s : Planning.getWeeksOfMonth()) {
+			ArrayList<String> listDisp = new ArrayList<String>();
+			try {
+				for(Consommateur consommateur : consomateurDAO.getListeConsommateur(s.intValue())) {
+					listDisp.add(consommateur.getPrenom() + " " + consommateur.getNom());
+				}
+				
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
+			hashmap.put(s, listDisp);	
+		}
 		return hashmap;
 	}
 }
