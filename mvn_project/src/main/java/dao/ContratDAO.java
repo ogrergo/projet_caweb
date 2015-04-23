@@ -29,14 +29,15 @@ public class ContratDAO extends AbstractDataBaseDAO {
 		try {
 			conn = getConnection();
 			Statement st = conn.createStatement();
-			requeteSQL = "SELECT *"
-					+   " FROM contrat"
-					+ 	" WHERE idProducteur='" + producteur.getId() + "'";
+			requeteSQL = "SELECT idContrat, c.idProduction, idConsommateur, quantite, dateDebut, duree, valide"
+					+ " FROM contrat c"
+					+ " INNER JOIN production p ON p.idProduction = c.idProduction"
+					+ 	" WHERE p.idProducteur='" + producteur.getId() + "'";
 			rs = st.executeQuery(requeteSQL);
 			while (rs.next()) {
 				Contrat contrat = new Contrat(rs.getInt("idContrat"),
 						rs.getInt("idProduction"),
-						rs.getInt("idConsomateur"),
+						rs.getInt("idConsommateur"),
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),

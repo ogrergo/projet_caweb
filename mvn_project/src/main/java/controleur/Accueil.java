@@ -78,11 +78,13 @@ public class Accueil extends HttpServlet {
     private void controleurAcceuilProducteur(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
     	Producteur producteur = new Producteur(AuthorisationManager.getIdCompte(request.getSession()));
     	ContratDAO contratDAO = new ContratDAO(ds);
+    	
     	try {
 			request.setAttribute("contrats", contratDAO.getListeContrat(producteur));
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
+    	
     	getServletContext()
         .getRequestDispatcher("/WEB-INF/home-producteur.jsp")
         .forward(request, response);
