@@ -21,7 +21,13 @@ public abstract class Compte {
         this.mdp = mdp;
     }
 
-    public int getId() {
+    public Compte(int idCompte) {
+		this.idCompte = idCompte;
+	}
+
+
+
+	public int getId() {
         return this.idCompte;
     }
 

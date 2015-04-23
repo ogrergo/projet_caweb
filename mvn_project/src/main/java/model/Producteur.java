@@ -14,4 +14,8 @@ public class Producteur extends Utilisateur {
             String adresse) {
         super(id, email, mdp, prenom, nom, adresse);
     }
+
+	public Producteur(int idCompte) {
+		super(idCompte);
+	}
 }

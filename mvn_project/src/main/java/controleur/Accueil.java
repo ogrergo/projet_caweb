@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import model.Producteur;
 import model.Production;
 import model.Unite;
 import controleur.AuthorisationManager.Permission;
 import dao.CompteDAO;
+import dao.ContratDAO;
 import dao.DAOException;
 import dao.ProductionDAO;
 import dao.UniteDAO;
@@ -74,6 +76,13 @@ public class Accueil extends HttpServlet {
     }
     
     private void controleurAcceuilProducteur(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+    	Producteur producteur = new Producteur(AuthorisationManager.getIdCompte(request.getSession()));
+    	ContratDAO contratDAO = new ContratDAO(ds);
+    	try {
+			request.setAttribute("contrats", contratDAO.getListeContrat(producteur));
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
     	getServletContext()
         .getRequestDispatcher("/WEB-INF/home-producteur.jsp")
         .forward(request, response);
