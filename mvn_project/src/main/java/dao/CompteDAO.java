@@ -42,7 +42,6 @@ public class CompteDAO extends AbstractDataBaseDAO {
             closeConnection(conn);
         }
         return result;
-        
 	}
 	
 	public Compte getCompte(int compteId) throws DAOException {
@@ -58,7 +57,6 @@ public class CompteDAO extends AbstractDataBaseDAO {
                     + " FULL JOIN producteur p ON c.idCompte = p.idProducteur"
                     + " FULL JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
                     + " WHERE c.idCompte='" + compteId + "'";
-            System.out.println(requeteSQL);
             rs = st.executeQuery(requeteSQL);
             // On compte le nombre de résultats
             if(rs.next()) {
@@ -72,7 +70,7 @@ public class CompteDAO extends AbstractDataBaseDAO {
             } else {
             	requeteSQL = "SELECT idConsommateur, email, mdp, prenom, nom, adresse"
                         + " FROM compte c"
-                        + " FULL JOIN consommateur p ON c.idCompte = c.idConsommateur"
+                        + " FULL JOIN consommateur p ON c.idCompte = p.idConsommateur"
                         + " FULL JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
                 		+ " WHERE c.idCompte='" + compteId + "'";
                 rs = st.executeQuery(requeteSQL);

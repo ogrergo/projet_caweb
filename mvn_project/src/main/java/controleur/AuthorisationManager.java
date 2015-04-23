@@ -26,7 +26,7 @@ public class AuthorisationManager {
 		
 		if(credential == null) {
 			session.setAttribute(RETURN_SESSION_VAR, request.getRequestURI());
-			System.err.println( request.getRequestURI());
+			
 			response.sendRedirect("/caweb/authentification");
 			return false;
 		}
@@ -48,27 +48,34 @@ public class AuthorisationManager {
 		return cred != null && cred.isAllowed(permission);
 	}
 	
-	private static Permission log(String email, String password) {
-		return Permission.PRODUCTEUR;
-	}
+	/*private static Permission log(String email, String password) {
+		Compte compte = 
+		return ;
+	}*/
 	
 	public static boolean logSession(DataSource ds, HttpSession session, String email, String password) {
-		Permission permission = log(email, password);
-		if(permission == null) {
+	//	Permission permission = log(email, password);
+		
+	/*	if(permission == null) {
 			return false;
 		}
+		*/
 		Compte compte = null;
+		
 		try {
 			compte = new CompteDAO(ds).getCompte(email, password);
 		} catch (DAOException e) {
 			e.printStackTrace();
-			System.out.println("ECHEC COMPTE EXCPETION");
 			return false;
 		}
 		
 		if(compte == null) {
-			System.out.println("ECHEC COMPTE NULL");
 			return false;
+		}
+		
+		if(compte instanceof Producteur) {
+			Producteur p = (Producteur) compte;
+			System.out.println("prod " + p.getNom());
 		}
 		
 		session.setAttribute(CREDENTIAL_SESSION_VAR, new Credential(compte));
