@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import model.Production;
 import model.Unite;
 import controleur.AuthorisationManager.Permission;
+import dao.CompteDAO;
 import dao.DAOException;
 import dao.ProductionDAO;
 import dao.UniteDAO;
@@ -43,7 +44,7 @@ public class Accueil extends HttpServlet {
     private void controleurAcceuilVisiteur(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
     	ProductionDAO productionDAO = new ProductionDAO(ds);
     	UniteDAO uniteDAO = new UniteDAO(ds);
-    	
+    	    	
 		List<Production> productions = null;
 		
 		try {
