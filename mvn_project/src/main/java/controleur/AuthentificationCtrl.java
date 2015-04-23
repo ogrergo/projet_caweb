@@ -52,7 +52,7 @@ public class AuthentificationCtrl extends HttpServlet {
 		}
 			
 		getServletContext()
-		.getRequestDispatcher("/WEB-INF/views/authentification.jsp")
+		.getRequestDispatcher("/WEB-INF/authentification.jsp")
 		.forward(request, response);
 	}
 

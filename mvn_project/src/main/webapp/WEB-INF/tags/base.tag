@@ -50,7 +50,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title"><jsp:invoke fragment="header"/></h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body container-fluid">
                         <jsp:doBody/>
                     </div>
                 </div>
