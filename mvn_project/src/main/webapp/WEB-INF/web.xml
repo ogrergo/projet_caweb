@@ -69,6 +69,10 @@
         <servlet-name>AddProduit</servlet-name>
         <servlet-class>controleur.AddProduit</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>AddProduit</servlet-name>
+        <url-pattern>/addProduit</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>AddUnite</servlet-name>
         <servlet-class>controleur.AddUnite</servlet-class>
@@ -77,11 +81,15 @@
         <servlet-name>AddUnite</servlet-name>
         <url-pattern>/addUnite</url-pattern>
     </servlet-mapping> 
- 
+
+     <servlet>
+        <servlet-name>ListProduction</servlet-name>
+        <servlet-class>controleur.ListProduction</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>AddProduit</servlet-name>
-        <url-pattern>/addProduit</url-pattern>
-    </servlet-mapping>
+        <servlet-name>ListProduction</servlet-name>
+        <url-pattern>/listProduction</url-pattern>
+    </servlet-mapping> 
     <servlet>
         <servlet-name>CustomerContracts</servlet-name>
         <servlet-class>controleur.CustomerContracts</servlet-class>

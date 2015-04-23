@@ -1,11 +1,15 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Production {
 
     private int idProduction;
     private String produit;
     private int idProducteur;
-
+    private int duree;
+    private ArrayList<Unite> listUnites;
+    
     private String nomProducteur;
     private String prenomProducteur;
 
@@ -13,8 +17,11 @@ public class Production {
         return prenomProducteur;
     }
 
-    private int duree;
 
+    public ArrayList<Unite> getListUnites() {
+        return listUnites;
+    }
+    
     public int getIdProduction() {
         return idProduction;
     }
@@ -41,11 +48,16 @@ public class Production {
         this.duree = duree;
     }
 
-    public Production(int idProduction, int idProducteur, int duree) {
+    public Production(int idProduction, int idProducteur, String produit,  int duree) {
         super();
         this.idProduction = idProduction;
         this.idProducteur = idProducteur;
         this.duree = duree;
+        this.produit = produit;
+    }
+    
+    public void setListUnites(ArrayList<Unite> listUnites) {
+        this.listUnites = listUnites;
     }
 
 }

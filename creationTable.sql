@@ -92,7 +92,7 @@ CREATE TABLE Contrat (
     idProduction int,
     idConsommateur int,
     quantite int,
-    dateDebut DATE,
+    dateDebut int,
     valide char(1),   --Y ou N
 CONSTRAINT Pk_Contrat PRIMARY KEY (idContrat),
 CONSTRAINT Fk_Contrat_Production FOREIGN KEY (idProduction) REFERENCES Production(idProduction)

@@ -11,9 +11,9 @@
 <body>
 Producteur Home.
 
+Parcourir ses productions
 Parcourir les contrats.
 Modifier son jour de livraison.
-plus ?
 
 ${credential.authorisation }
 
