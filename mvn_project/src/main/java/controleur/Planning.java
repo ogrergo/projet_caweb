@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controleur.AuthorisationManager.Permission;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -32,10 +34,10 @@ public class Planning extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		boolean havePermission = AuthorisationManager.havePermission(request.getSession(true), Permission.RESPONSABLE_PLANNING);
 		request.setAttribute("semaines", getWeeksOfMonth());
 		request.setAttribute("mois", getMonthName(getCurrentMonth()));
-		
+		request.setAttribute("permission", havePermission);
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/planning.jsp")
         .forward(request, response);
