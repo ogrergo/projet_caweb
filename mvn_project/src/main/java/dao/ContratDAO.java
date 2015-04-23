@@ -53,7 +53,6 @@ public class ContratDAO extends AbstractDataBaseDAO {
 		String requeteSQL = "";
 		Connection conn = null;
 		
-		 java.sql.Timestamp sqlDate = new java.sql.Timestamp(contrat.getDateDebut());
 		 
 		 try {
 			conn = getConnection();
@@ -65,9 +64,8 @@ public class ContratDAO extends AbstractDataBaseDAO {
 					+ contrat.getIdProduction() + "','"
 					+ contrat.getIdConsomateur() + "','"
 					+ contrat.getQuantite() + "','"
-					+ "11111111" + "','"
+					+ contrat.getDateDebut() + "','"
 					+ valide + "')";
-			System.out.println(sqlDate);
 			st.executeQuery(requeteSQL);
 		} catch (SQLException e) {
 			throw new DAOException("Erreur BD 0" + e.getMessage(), e);
