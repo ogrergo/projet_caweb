@@ -43,14 +43,13 @@
         		<td>${prod.produit}</td>
             	<td>${prod.prenomProducteur} ${prod.nomProducteur}</td>
                 <td> 
-                	<form action="/caweb/newContract?production=${prod.idProduction}"
-							method="get">
+                	
                     	<select>
                     		<c:forEach items="${unites[prod]}" var="unite">
                     			<option> ${unite.nomUnite }</option>
                     		</c:forEach>
                     	</select>
-                    	<input type="submit" value="Passer un contrat">
+                    	<a href="/caweb/newContract?production=${prod.idProduction}"> passer un contrat </a>
 					</form>
 				</td>
         	</tr>
