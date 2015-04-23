@@ -56,8 +56,25 @@ public class Production {
         this.produit = produit;
     }
     
+    public Production(int idProduction, int idProducteur, String produit, String nomProducteur,
+            String prenomProducteur, int duree) {
+        super();
+        this.idProduction = idProduction;
+        this.idProducteur = idProducteur;
+        this.produit = produit;
+        this.nomProducteur = nomProducteur;
+        this.prenomProducteur = prenomProducteur;
+        this.duree = duree;
+    }
+    
+    
     public void setListUnites(ArrayList<Unite> listUnites) {
         this.listUnites = listUnites;
     }
+
+
+	public int getIdProducteur() {
+		return idProducteur;
+	}
 
 }

@@ -1,11 +1,11 @@
 package model;
 
-public class Disponnibilite {
+public class Disponibilite {
 
 	private int idSemaine;
 	private int idConsommateur;
 		
-	public Disponnibilite(int idSemaine, int idConsommateur) {
+	public Disponibilite(int idSemaine, int idConsommateur) {
 		super();
 		this.idSemaine = idSemaine;
 		this.idConsommateur = idConsommateur;

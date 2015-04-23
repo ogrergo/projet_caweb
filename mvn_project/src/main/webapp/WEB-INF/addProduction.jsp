@@ -35,7 +35,7 @@
     </jsp:attribute>
     <jsp:body>
         <form action="addProduction" method="post" onsubmit="return verifForm(this)">
-            <table>
+            <table class="table">
                 <tr>
                     <td>Produit</td>
                     <td>

@@ -23,6 +23,14 @@
             width: 100%;
         }
         .navbar-brand {float:none;}
+        
+        .menu-userstatus {
+            margin-top: 10px;
+        }
+        
+        .panel-week{
+            background-color: lightskyblue;
+        }
     </style>
     <body style="background-color: whitesmoke">
     <nav class="navbar navbar-default">
