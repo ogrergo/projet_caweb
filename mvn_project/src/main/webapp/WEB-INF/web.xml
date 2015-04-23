@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>echecAuth</servlet-name>
-        <jsp-file>/WEB-INF/views/echecAuthentification.jsp</jsp-file>
+        <servlet-class>controleur.EchecAuthentification</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>echecAuth</servlet-name>
