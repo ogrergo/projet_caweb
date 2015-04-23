@@ -38,11 +38,13 @@ public class NewContract extends HttpServlet {
     
     private static final String IDPRODUCTION_SESSION_VAR = "idProduction";
 	
-    private int getIdProduction(HttpSession session) {
+    private class AucuneProductionExceptionException extends Exception {}
+    
+    private int getIdProduction(HttpSession session) throws AucuneProductionExceptionException {
     	Object idProdObj = session.getAttribute(IDPRODUCTION_SESSION_VAR);
 		
 		if(idProdObj == null)
-			throw new InternalError();
+			throw new AucuneProductionExceptionException();
 		
 		return Integer.parseInt((String) idProdObj);
     }
@@ -54,15 +56,25 @@ public class NewContract extends HttpServlet {
 		
 		
 		
-		if(request.getParameter("production") != null) 
+		if(request.getParameter("production") != null) {
 			request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getParameter("production"));
+			System.out.println("production " + request.getParameter("production"));
+		}
+		else
+			System.out.println("aucune prod");
 		
 		boolean success = AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR);//TODO passé en consomateur
 		if(!success)
 			return;
 		
 
-		int idProd = getIdProduction(request.getSession(true));
+		int idProd = 0;
+		try {
+			idProd = getIdProduction(request.getSession(true));
+		} catch (AucuneProductionExceptionException e1) {
+			response.sendRedirect("/caweb");
+			return;
+		}
 		
 		Production production;
 		try {
@@ -90,12 +102,16 @@ public class NewContract extends HttpServlet {
 		int quantite = Integer.parseInt(request.getParameter("quantite"));
 		int date =  Integer.parseInt(request.getParameter("date"));
 		
-		Contrat contrat = new Contrat(
-				getIdProduction(request.getSession(true)),
-				idConsomateur,
-				quantite,
-				date,
-				false); //TODO
+		try {
+			Contrat contrat = new Contrat(
+					getIdProduction(request.getSession(true)),
+					idConsomateur,
+					quantite,
+					date,
+					false);
+		} catch (AucuneProductionExceptionException e) {
+			response.sendRedirect("/caweb");
+		}
 		
 		//Recupitulatif -> compte user (mes contrats)
 		response.sendRedirect("/caweb");
