@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 import model.Consommateur;
 import model.Contrat;
 import model.Producteur;
-import model.Unite;
 
 public class ContratDAO extends AbstractDataBaseDAO {
 
@@ -69,7 +68,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			while (rs.next()) {
 				Contrat contrat = new Contrat(rs.getInt("idContrat"),
 						rs.getInt("idProduction"),
-						rs.getInt("idConsomateur"),
+						rs.getInt("idConsommateur"),
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),
@@ -133,7 +132,6 @@ public class ContratDAO extends AbstractDataBaseDAO {
 	}
 
 	public int getSemaineContratMaxByIdConsommateur(int idConsommateur) throws DAOException {
-		List<Contrat> result = new ArrayList<Contrat>();
 		ResultSet rs = null;
 		String requeteSQL = "";
 		Connection conn = null;
@@ -154,5 +152,36 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			closeConnection(conn);
 		}
 		return max;
+	}
+
+
+	public Contrat getContrat(int idContrat) throws DAOException {
+		Contrat result = null;
+		ResultSet rs = null;
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "SELECT *"
+					+   " FROM contrat c "
+					+ 	" INNER JOIN production p ON c.idProduction = p.idProduction"
+					+ 	" WHERE c.idContrat='" + idContrat + "'";
+			rs = st.executeQuery(requeteSQL);
+			if(rs.next()) {
+				result = new Contrat(rs.getInt("idContrat"),
+						rs.getInt("idProduction"),
+						rs.getInt("idConsommateur"),
+						rs.getInt("quantite"),
+						rs.getInt("dateDebut"),
+						rs.getInt("duree"),
+						rs.getString("valide").equals("1"));
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+		return result;
 	}
 }

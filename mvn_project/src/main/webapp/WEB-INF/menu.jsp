@@ -18,8 +18,8 @@
     </c:if>
     
     <c:if test="${credential.authorisation == Permission.PRODUCTEUR}">
-        <li><a href=editProfile >Modifier son Profil</a></li>
         <li><a href=productorContracts >Mes Contracts</a></li>
+        <li><a href=editProfile >Modifier son Profil</a></li>
     </c:if>
     
     <c:if test="${credential.authorisation == Permission.RESPONSABLE_PLANNING}">
