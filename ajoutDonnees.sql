@@ -27,12 +27,25 @@ INSERT INTO Utilisateur (idUtilisateur, prenom, nom, adresse) VALUES
 INSERT INTO Producteur (idProducteur, jourLivraison) VALUES
 ((SELECT MAX(idCompte) FROM Compte), 'Dimanche');
 
+INSERT INTO Compte (email, mdp) VALUES
+('b@b','b');
+INSERT INTO Utilisateur (idUtilisateur, prenom, nom, adresse) VALUES
+((SELECT MAX(idCompte) FROM Compte), 'b', 'b', 'b');
+INSERT INTO Producteur (idProducteur, jourLivraison) VALUES
+((SELECT MAX(idCompte) FROM Compte), 'Lundi');
+
 --Ajout des utilisateurs
 INSERT INTO Compte (email, mdp) VALUES
 ('a@a','a');
 INSERT INTO Utilisateur (idUtilisateur, prenom, nom, adresse) VALUES
 ((SELECT MAX(idCompte) FROM Compte), 'a', 'a', 'a');
 INSERT INTO Consommateur (idConsommateur) VALUES
+((SELECT MAX(idCompte) FROM Compte));
+
+--Ajout d'un respo planning
+INSERT INTO Compte (email, mdp) VALUES
+('c@c','c');
+INSERT INTO ResponsablePlanning (idRespo) VALUES
 ((SELECT MAX(idCompte) FROM Compte));
 
 --Ajout des unitées

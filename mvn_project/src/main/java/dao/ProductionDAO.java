@@ -10,6 +10,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import model.Production;
+import model.Unite;
 
 public class ProductionDAO extends AbstractDataBaseDAO {
 
@@ -67,7 +68,7 @@ public class ProductionDAO extends AbstractDataBaseDAO {
                         rs.getString("prenom"),
                         rs.getInt("duree")
                 );
-                System.err.println(producteur);
+               // System.err.println(producteur);
                 result.add(producteur);
             }
         } catch (SQLException e) {
@@ -106,6 +107,49 @@ public class ProductionDAO extends AbstractDataBaseDAO {
         } finally {
             closeConnection(conn);
         }
+    }
+
+    public List<Production> getListeProductionsByIdProducteur(int idProducteur) throws DAOException {
+        List<Production> result = new ArrayList<Production>();
+        System.out.println("dans getListeProductionsByIdProducteur");
+        ResultSet rs = null;
+        ResultSet rs2 = null;
+        String requeteSQL = "";
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            Statement st = conn.createStatement();
+
+            requeteSQL = "SELECT idProduction, produit, duree"
+                    + " FROM production p"
+                    + " WHERE p.idProducteur = " + idProducteur;
+            rs = st.executeQuery(requeteSQL);
+            while (rs.next()) {
+                System.out.println("dans production d'un producteur");
+                //Creation de la production 
+                Production production = new Production(rs.getInt("idProduction"),
+                        idProducteur, rs.getString("produit"), rs.getInt("duree"));
+                Statement st2 = conn.createStatement();
+                //Recherche des unités associées
+                requeteSQL = "SELECT nomUnite"
+                        + " FROM productionunites"
+                        + " WHERE idProduction = " + production.getIdProduction();
+                rs2 = st2.executeQuery(requeteSQL);
+                ArrayList<Unite> listUnites = new ArrayList<Unite>();
+
+                //Ajout des unités associées
+                while (rs2.next()) {
+                   listUnites.add(new Unite(rs2.getString("nomUnite")));
+                }
+                production.setListUnites(listUnites);
+                result.add(production);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD" + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+        return result;
     }
 
 }

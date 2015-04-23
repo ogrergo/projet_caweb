@@ -4,7 +4,7 @@
 
 <tag:base>
     <jsp:attribute name="header">
-      <h1>Available</h1>
+        Disponibilités
     </jsp:attribute>
     <jsp:body>
 		<form action="available" method="post">

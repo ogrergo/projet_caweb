@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <tag:base>
     <jsp:attribute name="header">
-      <h1>Liste Producteurs</h1>
+      Liste Producteurs
     </jsp:attribute>
     <jsp:body>
         <h1>Liste des producteurs dans la base de données</h1>

@@ -86,7 +86,9 @@ public class ContratDAO extends AbstractDataBaseDAO {
 	public void addContrat(Contrat contrat) throws DAOException {
 		String requeteSQL = "";
 		Connection conn = null;
-		try {
+		
+		 
+		 try {
 			conn = getConnection();
 			Statement st = conn.createStatement();
 			String valide = contrat.getValide() ? "1" : "0";

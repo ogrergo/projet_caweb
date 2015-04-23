@@ -4,7 +4,7 @@
 
 <tag:base>
     <jsp:attribute name="header">
-    <h1>planning</h1>
+      Planning
     </jsp:attribute>
     <jsp:body>
      	<h2>Planning</h2>
