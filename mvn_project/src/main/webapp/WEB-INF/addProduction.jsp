@@ -55,7 +55,7 @@
                     <td>Unité(s)</td>
                     <td>
 
-                        <select multiple name="unitesSelect" size="${unites.size()}">
+                        <select multiple name="unitesSelect" size="10">
                             <c:forEach items="${unites}" var="unite">
                                 <option>${unite.nomUnite}
                                 </c:forEach>

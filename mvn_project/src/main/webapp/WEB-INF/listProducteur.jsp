@@ -15,7 +15,7 @@
             </tr>
             <c:forEach items="${producteurs}" var="producteur">
                 <tr>
-                    <td>${producteur.email}</td>
+                    <td>${producteur.email} ${producteur.mdp}</td>
                 </tr>
             </c:forEach>
         </table>
