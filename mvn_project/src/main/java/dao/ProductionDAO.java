@@ -67,7 +67,7 @@ public class ProductionDAO extends AbstractDataBaseDAO {
                         rs.getString("prenom"),
                         rs.getInt("duree")
                 );
-                System.err.println(producteur);
+               // System.err.println(producteur);
                 result.add(producteur);
             }
         } catch (SQLException e) {
