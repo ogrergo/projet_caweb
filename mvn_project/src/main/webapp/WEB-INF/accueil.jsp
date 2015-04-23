@@ -5,56 +5,35 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <tag:base>
-	<jsp:attribute name="header">
-      Accueil
+    <jsp:attribute name="header">
+        Accueil
     </jsp:attribute>
-	<jsp:body>
-	<table>
-		<c:choose>
-      	<c:when test="${credential == null}">
-      		<tr>
-				<td> 
-					<form action="/caweb/authentification">
-					<input type="submit" value="Se connecter">
-					</form>
-				</td>
-			</tr>
-     	</c:when>
+    <jsp:body>
+        <h3 class="text-center">Produits disponibles</h3>
+        <table class="table">
 
-      	<c:otherwise>
-      		<form action="/caweb/">
-				<input type="submit" value="Modifier mon compte">  
-			</form>
-		
-      		Vous êtes loggé en tant que : ${credential.authorisation}
-      		<c:if test="${credential.authorisation == 'CONSOMATEUR'}">
-      			<form action="/dfghjk" method="get">
-      				<input type="submit" value="Mon calendrier" />
-      			</form>
-			</c:if>
-      	</c:otherwise>
-		</c:choose>
-	</table>
-	<table>
-		<caption>Produits disponibles</caption>
+            <c:forEach items="${production}" var="prod">
+                <tr>
+                    <td>${prod.produit}</td>
+                    <td>${prod.prenomProducteur} ${prod.nomProducteur}</td>
+                <form method="GET" action="/caweb/newContract">
+                    <td> 
+                        <select name="unittype">
+                            <c:forEach items="${unites[prod]}" var="unite">
+                                <option value="${unite.nomUnite }"> ${unite.nomUnite }</option>
+                            </c:forEach>
+                        </select>
 
-        <c:forEach items="${production}" var="prod">
-        	<tr>
-        		<td>${prod.produit}</td>
-            	<td>${prod.prenomProducteur} ${prod.nomProducteur}</td>
-                <td> 
-                	
-                    	<select>
-                    		<c:forEach items="${unites[prod]}" var="unite">
-                    			<option> ${unite.nomUnite }</option>
-                    		</c:forEach>
-                    	</select>
-                    	<a href="/caweb/newContract?production=${prod.idProduction}"> passer un contrat </a>
-					</form>
-				</td>
-        	</tr>
-    	</c:forEach>
- 
-	</table>
-    </jsp:body>
+                    </td>
+                    <td>
+                        <input type="hidden" name="production" value="${prod.idProduction}">
+                        <%-- < href="/caweb/newContract?production=${prod.idProduction}"> passer un contrat </a> --%>
+                        <input class="btn btn-default center-block" type="submit" value="Passer la commande">
+                    </td>
+                </form>
+            </tr>
+        </c:forEach>
+
+    </table>
+</jsp:body>
 </tag:base>

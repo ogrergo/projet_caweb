@@ -7,7 +7,7 @@
     </jsp:attribute>
     <jsp:body>
         <form action="/caweb">
-            <input class="btn btn-default center-block" type="submit" name="Retour à l'acceuil">
+            <input class="btn btn-default center-block" type="submit">
         </form>
     </jsp:body>
 </tag:base>
