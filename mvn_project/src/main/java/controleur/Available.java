@@ -3,11 +3,13 @@ package controleur;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  * Servlet implementation class Available
@@ -15,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Available")
 public class Available extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	@Resource(name = "jdbc/caweb")
+    private DataSource ds;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -58,8 +62,9 @@ public class Available extends HttpServlet {
 	}
 	
 	public int getMaxContrats(){
-		//TODO
+		/*ContractDAO ContractDAO = new ContractDAO(ds);
+		return ContractDAO.getmachintruc();*/
 		return 12;
-	}
+		}
 	
 }
