@@ -23,7 +23,11 @@ public abstract class Utilisateur extends Compte {
         this.adresse = adresse;
     }
 
-    public String getPrenom() {
+    public Utilisateur(int idCompte) {
+		super(idCompte);
+	}
+
+	public String getPrenom() {
         return this.prenom;
     }
 

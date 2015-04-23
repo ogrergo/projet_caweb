@@ -5,6 +5,14 @@
         <servlet-class>views.list</servlet-class>
     </servlet>
     <servlet>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>controleur.LogOut</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+    <servlet>
         <servlet-name>echecAuth</servlet-name>
         <servlet-class>controleur.EchecAuthentification</servlet-class>
     </servlet>

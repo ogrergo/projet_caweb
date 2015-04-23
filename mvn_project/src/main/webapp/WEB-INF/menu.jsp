@@ -26,4 +26,6 @@
         <li><a href=admin>Gestion du planning</a></li>
     </c:if>
     
+    	<li><a href=logout>Deconnexion</a>
+    
 </ul>
