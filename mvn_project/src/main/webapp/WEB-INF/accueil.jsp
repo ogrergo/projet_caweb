@@ -22,7 +22,10 @@
       	<form action="/caweb/"><input type="submit" value="Modifier mon compte">  </form>
 		
       	Vous êtes loggé en tant que : ${credential.authorisation}
-      	
+      	<c:if test="${credential.authorisation == 'CONSOMATEUR'}">
+      	<form action="/dfghjk" method="get">
+      	<input type="submit" value="Mon calendrier"/>
+      	</form></c:if>
       </c:otherwise>
 </c:choose>
 </table>

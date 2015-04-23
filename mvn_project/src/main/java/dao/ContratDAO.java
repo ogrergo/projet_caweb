@@ -52,7 +52,10 @@ public class ContratDAO extends AbstractDataBaseDAO {
 	public void addContrat(Contrat contrat) throws DAOException {
 		String requeteSQL = "";
 		Connection conn = null;
-		try {
+		
+		 java.sql.Timestamp sqlDate = new java.sql.Timestamp(contrat.getDateDebut());
+		 
+		 try {
 			conn = getConnection();
 			Statement st = conn.createStatement();
 			String valide = contrat.getValide() ? "1" : "0";
@@ -62,8 +65,9 @@ public class ContratDAO extends AbstractDataBaseDAO {
 					+ contrat.getIdProduction() + "','"
 					+ contrat.getIdConsomateur() + "','"
 					+ contrat.getQuantite() + "','"
-					+ contrat.getDateDebut() + "','"
+					+ "11111111" + "','"
 					+ valide + "')";
+			System.out.println(sqlDate);
 			st.executeQuery(requeteSQL);
 		} catch (SQLException e) {
 			throw new DAOException("Erreur BD 0" + e.getMessage(), e);
