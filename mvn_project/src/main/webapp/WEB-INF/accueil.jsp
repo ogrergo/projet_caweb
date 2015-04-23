@@ -10,7 +10,7 @@
     </jsp:attribute>
     <jsp:body>
         <h3 class="text-center">Produits disponibles</h3>
-        <table class="table">
+        <table class="table table-hover table-condensed">
 
             <c:forEach items="${production}" var="prod">
                 <tr>

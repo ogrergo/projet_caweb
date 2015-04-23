@@ -5,30 +5,33 @@
 
 <tag:base>
     <jsp:attribute name="header">
-      <h1>Contrats Producteurs</h1>
+        Contrats Producteurs
     </jsp:attribute>
     <jsp:body>
-	<form action="productorContracts" method="post">
-	<table BORDER="1">
-	<caption>Contrats en cours</caption>
-	<tr>
-		<td>Contrats en cours</td>
-		<c:forEach items="${contratsValide}" var="contrat">
-		 	${contrat.quantite}
- 		</c:forEach>
-	</tr>
-	</table>
-	<table BORDER="1">
-	<caption> Contrats en attente de validation</caption>
-	<tr> 
-		<c:forEach items="${contratsInvalide}" var="contrat2">
-		 	<td>${contrat2.quantite}</td> 
-			<td><a href="/caweb/productorContracts?contract=${contrat2.idContrat}&validate=true">Valider</a></td>
-			<td><a href="/caweb/productorContracts?contract=${contrat2.idContrat}&validate=false">Refuser</a></td>
-		</c:forEach>
+        <h4>Contrats en cours</h4>
+        <form action="productorContracts" method="post">
+            <table class="table-hover table">
+                <tr>
+                    <td>Contrats en cours</td>
+                    <c:forEach items="${contratsValide}" var="contrat">
+                        ${contrat.quantite}
+                    </c:forEach>
+                </tr>
+            </table>
+            
+            <hr>
+            
+            <h4>Contrats en attente de validation</h4   >
+            <table class="table-hover table">
+                <tr> 
+                    <c:forEach items="${contratsInvalide}" var="contrat2">
+                        <td>${contrat2.quantite}</td> 
+                        <td><a href="/caweb/productorContracts?contract=${contrat2.idContrat}&validate=true">Valider</a></td>
+                        <td><a href="/caweb/productorContracts?contract=${contrat2.idContrat}&validate=false">Refuser</a></td>
+                    </c:forEach>
 
-	</tr>
-</table>
-</form>
+                </tr>
+            </table>
+        </form>
     </jsp:body>
 </tag:base>
