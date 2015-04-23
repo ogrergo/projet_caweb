@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 /**
@@ -30,10 +31,13 @@ public class AuthentificationCtrl extends HttpServlet {
 
 
 	private void sendRedirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String redirect = (String) request.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
-		System.out.println(redirect);
-		if(redirect == null)
+		HttpSession session = request.getSession(true);
+		String redirect = (String) session.getAttribute(AuthorisationManager.RETURN_SESSION_VAR);
+		session.setAttribute(AuthorisationManager.RETURN_SESSION_VAR, null);
+		
+		if(redirect == null) {
 			redirect = "/caweb";
+		}
 
 		response.sendRedirect(redirect);
 	}

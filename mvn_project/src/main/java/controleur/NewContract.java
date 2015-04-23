@@ -2,13 +2,20 @@ package controleur;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
+import model.Contrat;
+import model.Production;
 import controleur.AuthorisationManager.Permission;
+import dao.DAOException;
+import dao.ProductionDAO;
 
 /**
  * Servlet implementation class NewContract
@@ -17,6 +24,9 @@ import controleur.AuthorisationManager.Permission;
 public class NewContract extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+    @Resource(name = "jdbc/caweb")
+    private DataSource ds;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,17 +37,57 @@ public class NewContract extends HttpServlet {
 
     
     private static final String IDPRODUCTION_SESSION_VAR = "idProduction";
-	/**
+	
+    private class AucuneProductionExceptionException extends Exception {}
+    
+    private int getIdProduction(HttpSession session) throws AucuneProductionExceptionException {
+    	Object idProdObj = session.getAttribute(IDPRODUCTION_SESSION_VAR);
+		
+		if(idProdObj == null)
+			throw new AucuneProductionExceptionException();
+		
+		return Integer.parseInt((String) idProdObj);
+    }
+    
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getAttribute("production"));
+		
+		
+		if(request.getParameter("production") != null) {
+			request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getParameter("production"));
+			System.out.println("production " + request.getParameter("production"));
+		}
+		else
+			System.out.println("aucune prod");
 		
 		boolean success = AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR);//TODO passé en consomateur
 		if(!success)
 			return;
 		
+
+		int idProd = 0;
+		try {
+			idProd = getIdProduction(request.getSession(true));
+		} catch (AucuneProductionExceptionException e1) {
+			response.sendRedirect("/caweb");
+			return;
+		}
+		
+		Production production;
+		try {
+			production = new ProductionDAO(ds).getProduction(idProd);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new InternalError("Impossible d'acceder à la production.");
+		}
+		
+		if(production == null)
+			response.sendRedirect("/caweb");
+		
+		request.setAttribute("production", production);
 				
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/newContract.jsp")
@@ -49,11 +99,23 @@ public class NewContract extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
-		String Quantité = request.getParameter("quantite");
-		String Date = request.getParameter("date");
-		String Durée = request.getParameter("duree");
+		int quantite = Integer.parseInt(request.getParameter("quantite"));
+		int date =  Integer.parseInt(request.getParameter("date"));
 		
-		response.getWriter().println("Demande d'un contrat pour le produit PRODUIT : Quantité : " + Quantité + ", Date : " + Date + ", Durée : " + Durée);
+		try {
+			Contrat contrat = new Contrat(
+					getIdProduction(request.getSession(true)),
+					idConsomateur,
+					quantite,
+					date,
+					false);
+		} catch (AucuneProductionExceptionException e) {
+			response.sendRedirect("/caweb");
+		}
+		
+		//Recupitulatif -> compte user (mes contrats)
+		response.sendRedirect("/caweb");
+	//	response.getWriter().println("Demande d'un contrat pour le produit PRODUIT : Quantité : " + Quantité + ", Date : " + Date + ", Durée : " + Durée);
 	}
 
 }

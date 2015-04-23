@@ -15,12 +15,10 @@ DROP TABLE Compte;
 DROP SEQUENCE id_seqCompte;
 DROP SEQUENCE id_seqProduction;
 DROP SEQUENCE id_seqContrat;
-DROP SEQUENCE id_seqSemaine;
 
 CREATE SEQUENCE id_seqCompte;
 CREATE SEQUENCE id_seqProduction;
 CREATE SEQUENCE id_seqContrat;
-CREATE SEQUENCE id_seqSemaine;
 
 CREATE TABLE Compte (
     idCompte number(6) DEFAULT id_seqCompte.nextval,
@@ -95,7 +93,6 @@ CREATE TABLE Contrat (
     idConsommateur int,
     quantite int,
     dateDebut DATE,
-    duree int,
     valide char(1),   --Y ou N
 CONSTRAINT Pk_Contrat PRIMARY KEY (idContrat),
 CONSTRAINT Fk_Contrat_Production FOREIGN KEY (idProduction) REFERENCES Production(idProduction)
@@ -104,9 +101,8 @@ CONSTRAINT Fk_Contrat_Consommateur FOREIGN KEY (idConsommateur) REFERENCES Conso
 ON DELETE CASCADE
 );
 
---A modifier (date debut, date fin)
 CREATE TABLE Semaine (
-    idSemaine number(6) DEFAULT id_seqSemaine.nextval,
+    idSemaine number(6),
 CONSTRAINT Pk_Semaine PRIMARY KEY (idSemaine)
 );
 

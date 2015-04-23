@@ -15,7 +15,7 @@ import model.Unite;
 
 public class ContratDAO extends AbstractDataBaseDAO {
 
-	protected ContratDAO(DataSource ds) {
+	public ContratDAO(DataSource ds) {
 		super(ds);
 	}
 	
