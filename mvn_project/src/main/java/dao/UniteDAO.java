@@ -5,9 +5,6 @@
  */
 package dao;
 
-import model.Production;
-import model.Unite;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+
+import model.Production;
 import model.Unite;
 
 public class UniteDAO extends AbstractDataBaseDAO {
@@ -39,7 +38,7 @@ public class UniteDAO extends AbstractDataBaseDAO {
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Unite unite = new Unite(rs.getString("nomUnite"));
-                System.err.println(unite);
+             //   System.err.println(unite);
                 result.add(unite);
             }
         } catch (SQLException e) {
@@ -64,7 +63,7 @@ public class UniteDAO extends AbstractDataBaseDAO {
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Unite unite = new Unite(rs.getString("nomUnite"));
-                System.err.println(unite);
+               // System.err.println(unite);
                 result.add(unite);
             }
         } catch (SQLException e) {

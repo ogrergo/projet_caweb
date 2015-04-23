@@ -4,7 +4,7 @@
 
 <tag:base>
     <jsp:attribute name="header">
-    <h1>Administrateur</h1>
+        Administrateur
     </jsp:attribute>
     <jsp:body>
     	<form action="admin" method="post">

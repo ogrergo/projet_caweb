@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import model.Contrat;
 import model.Production;
 import controleur.AuthorisationManager.Permission;
+import dao.ContratDAO;
 import dao.DAOException;
 import dao.ProductionDAO;
 
@@ -38,13 +39,18 @@ public class NewContract extends HttpServlet {
     
     private static final String IDPRODUCTION_SESSION_VAR = "idProduction";
 	
-    private class AucuneProductionExceptionException extends Exception {}
+    private class AucuneProductionException extends Exception {
+		private static final long serialVersionUID = 1L;
+	}
     
-    private int getIdProduction(HttpSession session) throws AucuneProductionExceptionException {
+    private int getIdProduction(HttpSession session) throws AucuneProductionException {
     	Object idProdObj = session.getAttribute(IDPRODUCTION_SESSION_VAR);
 		
-		if(idProdObj == null)
-			throw new AucuneProductionExceptionException();
+    	
+		if(idProdObj == null) {
+			System.out.println("impossible de recuperer la var get");
+			throw new AucuneProductionException();
+		}
 		
 		return Integer.parseInt((String) idProdObj);
     }
@@ -54,8 +60,6 @@ public class NewContract extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
 		if(request.getParameter("production") != null) {
 			request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getParameter("production"));
 			System.out.println("production " + request.getParameter("production"));
@@ -63,29 +67,35 @@ public class NewContract extends HttpServlet {
 		else
 			System.out.println("aucune prod");
 		
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR);//TODO passé en consomateur
-		if(!success)
+		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMATEUR);
+		if(!success) {
+			System.out.println("ECHEC DE LA PAGE");
 			return;
+		}
 		
 
 		int idProd = 0;
 		try {
 			idProd = getIdProduction(request.getSession(true));
-		} catch (AucuneProductionExceptionException e1) {
+		} catch (AucuneProductionException e1) {
 			response.sendRedirect("/caweb");
 			return;
 		}
+		System.out.println("id production = " + idProd);
 		
-		Production production;
+		Production production = null;
 		try {
 			production = new ProductionDAO(ds).getProduction(idProd);
+			System.out.println(production.getDuree());
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new InternalError("Impossible d'acceder à la production.");
 		}
 		
-		if(production == null)
+		if(production == null) {
 			response.sendRedirect("/caweb");
+			return;
+		}
 		
 		request.setAttribute("production", production);
 				
@@ -101,21 +111,27 @@ public class NewContract extends HttpServlet {
 		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
 		int quantite = Integer.parseInt(request.getParameter("quantite"));
 		int date =  Integer.parseInt(request.getParameter("date"));
-		
+		Contrat contrat = null;
 		try {
-			Contrat contrat = new Contrat(
+			contrat = new Contrat(
 					getIdProduction(request.getSession(true)),
 					idConsomateur,
 					quantite,
 					date,
 					false);
-		} catch (AucuneProductionExceptionException e) {
+		} catch (AucuneProductionException e) {
 			response.sendRedirect("/caweb");
 		}
 		
-		//Recupitulatif -> compte user (mes contrats)
+		ContratDAO contratDAO = new ContratDAO(ds);
+		try {
+			contratDAO.addContrat(contrat);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new InternalError("Impossible d'ajouter un contrat.");
+		}
+		
 		response.sendRedirect("/caweb");
-	//	response.getWriter().println("Demande d'un contrat pour le produit PRODUIT : Quantité : " + Quantité + ", Date : " + Date + ", Durée : " + Durée);
 	}
 
 }
