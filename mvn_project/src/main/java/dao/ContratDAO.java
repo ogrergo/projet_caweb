@@ -29,14 +29,15 @@ public class ContratDAO extends AbstractDataBaseDAO {
 		try {
 			conn = getConnection();
 			Statement st = conn.createStatement();
-			requeteSQL = "SELECT *"
-					+   " FROM contrat"
-					+ 	" WHERE idProducteur='" + producteur.getId() + "'";
+			requeteSQL = "SELECT idContrat, c.idProduction, idConsommateur, quantite, dateDebut, duree, valide"
+					+ " FROM contrat c"
+					+ " INNER JOIN production p ON p.idProduction = c.idProduction"
+					+ 	" WHERE p.idProducteur='" + producteur.getId() + "'";
 			rs = st.executeQuery(requeteSQL);
 			while (rs.next()) {
 				Contrat contrat = new Contrat(rs.getInt("idContrat"),
 						rs.getInt("idProduction"),
-						rs.getInt("idConsomateur"),
+						rs.getInt("idConsommateur"),
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),
@@ -131,4 +132,27 @@ public class ContratDAO extends AbstractDataBaseDAO {
 		}
 	}
 
+	public int getSemaineContratMaxByIdConsommateur(int idConsommateur) throws DAOException {
+		List<Contrat> result = new ArrayList<Contrat>();
+		ResultSet rs = null;
+		String requeteSQL = "";
+		Connection conn = null;
+		int max = 0;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "SELECT MAX(dateDebut + duree) AS MaxSem"
+					+   " FROM contrat c"
+					+   " RIGHT JOIN production p ON c.idProduction=p.idProduction"
+					+ 	" WHERE idConsommateur=" + idConsommateur;
+			rs = st.executeQuery(requeteSQL);
+			rs.next();
+			max = rs.getInt("MaxSem");
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+		return max;
+	}
 }
