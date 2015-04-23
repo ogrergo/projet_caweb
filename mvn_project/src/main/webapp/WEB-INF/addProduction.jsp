@@ -32,8 +32,7 @@
 
 <tag:base>
     <jsp:attribute name="header">
-        <h1>Ajouter un contrat</h1>
-
+        Ajouter un contrat
     </jsp:attribute>
     <jsp:body>
         <form action="addProduction" method="get" onsubmit="return verifForm(this)">

@@ -5,8 +5,7 @@
     <jsp:attribute name="header">
       <h1>Contrats Client</h1>
     </jsp:attribute>
-    <jsp:body>%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    <jsp:body>
 
 <form action="customerContracts" method="post">
 <table>

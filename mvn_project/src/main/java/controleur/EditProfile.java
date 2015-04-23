@@ -27,7 +27,7 @@ public class EditProfile extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext()
+            getServletContext()
         .getRequestDispatcher("/WEB-INF/editProfile.jsp")
         .forward(request, response);
 	}
