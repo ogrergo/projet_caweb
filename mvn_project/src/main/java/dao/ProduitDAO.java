@@ -35,7 +35,6 @@ public class ProduitDAO extends AbstractDataBaseDAO {
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Produit produit = new Produit(rs.getString("nomProduit"));
-                System.err.println(produit);
                 result.add(produit);
             }
         } catch (SQLException e) {

@@ -184,4 +184,20 @@ public class ContratDAO extends AbstractDataBaseDAO {
 		}
 		return result;
 	}
+	
+	public void deleteContrat(int idContrat) throws DAOException {
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "DELETE FROM Contrat WHERE idContrat = " + idContrat;
+			st.executeQuery(requeteSQL);
+			
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+	}
 }

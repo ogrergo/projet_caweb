@@ -76,15 +76,27 @@ public class ProductorContracts extends HttpServlet {
 			
 			if(validate) {
 				contrat.validate();
+				
+				Integer date = Integer.parseInt(request.getParameter("dateDebut"));
+				
+				if(date == null)
+					throw new InternalError();
+				
+				contrat.setDateDebut(date);
+				
 				try {
 					contratDAO.updateContrat(contrat);
 				} catch (DAOException e) {
 					e.printStackTrace();
 					throw new InternalError("Impossible de valider le contrat.");
 				}
+			} else {
+				try {
+					contratDAO.deleteContrat(contrat.getIdContrat());
+				} catch (DAOException e) {
+					throw new InternalError();
+				}
 			}
-		} else {
-			
 		}
 		
 		Producteur producteur = new Producteur(AuthorisationManager.getIdCompte(request.getSession()));

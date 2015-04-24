@@ -25,9 +25,24 @@
             <table class="table-hover table">
                 <tr> 
                     <c:forEach items="${contratsInvalide}" var="contrat2">
-                        <td>${contrat2.quantite}</td> 
-                        <td><a href="/caweb/productorContracts?contract=${contrat2.idContrat}&validate=true">Valider</a></td>
-                        <td><a href="/caweb/productorContracts?contract=${contrat2.idContrat}&validate=false">Refuser</a></td>
+                        <td>${contrat2.quantite}</td>
+                        <form method="GET" action="/caweb/productorContracts">
+                    	<td> 
+                        	<input type="number" name="dateDebut" value="${contrat2.dateDebut}">
+                    	</td>
+                    	<td>
+                        	<input type="hidden" name="contract" value="${contrat2.idContrat}">
+                        	<input type="hidden" name="validate" value="true">
+                            <input class="btn btn-default center-block" type="submit" value="Valider">
+                    	</td>
+                		</form>
+                		<form method="GET" action="/caweb/productorContracts">
+                    	<td>
+                        	<input type="hidden" name="contract" value="${contrat2.idContrat}">
+                        	<input type="hidden" name="validate" value="false">
+                            <input class="btn btn-default center-block" type="submit" value="Refuser">
+                    	</td>
+                		</form>
                     </c:forEach>
 
                 </tr>
