@@ -1,6 +1,7 @@
 package controleur;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import model.Consommateur;
+import model.Permanence;
 import controleur.AuthorisationManager.Permission;
+import dao.CompteDAO;
 import dao.ConsommateurDAO;
 import dao.DAOException;
+import dao.PermanenceDAO;
 
 /**
  * Servlet implementation class Admin
@@ -55,17 +59,41 @@ public class Admin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PermanenceDAO permanenceDAO = new PermanenceDAO(ds);
+		
+		
+		for(Integer s : Planning.getWeeksOfMonth()) {
+			try {
+				permanenceDAO.deleteAllPermananceByIdSemaine(s);
+				String livreur1_txt = request.getParameter("livreur1_" + s);
+				String livreur2_txt = request.getParameter("livreur2_" + s);
+				if(livreur1_txt!=null && livreur2_txt != null) {
+					int livreur1 = Integer.parseInt(request.getParameter("livreur1_" + s));
+					int livreur2 = Integer.parseInt(request.getParameter("livreur1_" + s));
+					
+					Permanence permanence = new Permanence(s, livreur1, livreur2);
+					permanenceDAO.addPermanence(permanence);
+				}
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (DAOException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 		response.sendRedirect("admin");
-	
 	}
-	protected HashMap<Integer, ArrayList<String>> getListeDispos(){
-		HashMap<Integer, ArrayList<String>> hashmap = new HashMap<Integer, ArrayList<String>>();
+	protected HashMap<Integer, ArrayList<Consommateur>> getListeDispos(){
+		HashMap<Integer, ArrayList<Consommateur>> hashmap = new HashMap<Integer, ArrayList<Consommateur>>();
 		ConsommateurDAO consomateurDAO = new ConsommateurDAO(ds);
 		for(Integer s : Planning.getWeeksOfMonth()) {
-			ArrayList<String> listDisp = new ArrayList<String>();
+			ArrayList<Consommateur> listDisp = new ArrayList<Consommateur>();
 			try {
 				for(Consommateur consommateur : consomateurDAO.getListeConsommateur(s.intValue())) {
-					listDisp.add(consommateur.getPrenom() + " " + consommateur.getNom());
+					listDisp.add(consommateur);
 				}
 				
 			} catch (DAOException e) {
