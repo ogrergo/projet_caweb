@@ -53,7 +53,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 	
 	
 	
-	public List<Contrat> getListeContrat(Consommateur consommateur) throws DAOException {
+	public List<Contrat> getListeContrat(int idConsommateur) throws DAOException {
 		List<Contrat> result = new ArrayList<Contrat>();
 		ResultSet rs = null;
 		String requeteSQL = "";
@@ -63,7 +63,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			Statement st = conn.createStatement();
 			requeteSQL = "SELECT *"
 					+   " FROM contrat"
-					+ 	" WHERE idConsommateur='" + consommateur.getId() + "'";
+					+ 	" WHERE idConsommateur='" + idConsommateur + "'";
 			rs = st.executeQuery(requeteSQL);
 			while (rs.next()) {
 				Contrat contrat = new Contrat(rs.getInt("idContrat"),

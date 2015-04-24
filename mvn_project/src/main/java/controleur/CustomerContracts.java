@@ -1,6 +1,7 @@
 package controleur;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import javax.sql.DataSource;
 import model.Contrat;
 import controleur.AuthorisationManager.Permission;
 import dao.ContratDAO;
+import dao.DAOException;
 
 /**
  * Servlet implementation class CustomerContracts
@@ -48,9 +50,25 @@ public class CustomerContracts extends HttpServlet {
 		List<Contrat> contrats ;
 		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
 		
-		//contrats = contratDao.getListeContrat(idConsomateur);
+		try {
+			contrats = contratDao.getListeContrat(idConsomateur);
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new InternalError();
+		}
 		
+		List<Contrat> valides = new ArrayList<Contrat>();
+		List<Contrat> invalides = new ArrayList<Contrat>();
 		
+		for(Contrat c : contrats)
+    		if(c.getValide())
+    			valides.add(c);
+    		else
+    			invalides.add(c);
+		    	
+    	request.setAttribute("contratsValide", valides);
+    	request.setAttribute("contratsInvalide", invalides);
+    	
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/customerContracts.jsp")
         .forward(request, response);
