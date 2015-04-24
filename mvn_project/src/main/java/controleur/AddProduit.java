@@ -1,12 +1,14 @@
 package controleur;
 
+import dao.ProductionDAO;
 import dao.ProduitDAO;
 import dao.DAOException;
-import dao.UniteDAO;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
+import controleur.AuthorisationManager.Permission;
 import model.Produit;
 
 /**
@@ -31,7 +35,6 @@ public class AddProduit extends HttpServlet {
      */
     public AddProduit() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -39,30 +42,37 @@ public class AddProduit extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            actionAfficher(request, response);
-        } catch (Exception e) {
-            request.setAttribute("erreurMessage", e.getMessage());
-            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
-        }
-    }
-
-    private void actionAfficher(HttpServletRequest request, HttpServletResponse response) throws DAOException, ServletException, IOException, SQLException {
+    	if(!AuthorisationManager.havePermission(request.getSession(), Permission.PRODUCTEUR)) {
+    		response.sendRedirect("/caweb");
+    		return;
+    	}
+    	
         getServletContext().getRequestDispatcher("/WEB-INF/addProduit.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    	String nomProduit = request.getParameter("nomProduit");
+    	String unites = request.getParameter("unites");
+    	Integer duree = Integer.parseInt(request.getParameter("duree"));
+    	
+    	if(nomProduit == null || unites == null || 
+    			nomProduit == null || 
+    			!AuthorisationManager.havePermission(request.getSession(true), Permission.PRODUCTEUR)) {
+            request.setAttribute("erreur", "Données invalides.");
+    		getServletContext().getRequestDispatcher("/WEB-INF/addProduit.jsp").forward(request, response);
+            return;
+    	}
+    	
+    	String[] unitesTab = unites.split(";");
+    	
         try {
-            Produit prod = new Produit(request.getParameter("nomProduit"));
-            //D'abord ajout de la production dans la BD
-            ProduitDAO produitDAO = new ProduitDAO(ds);
-            produitDAO.ajouterProduit(prod);
-            response.sendRedirect("/caweb/addProduction");
+        	ProductionDAO productionDAO = new ProductionDAO(ds);
+        	productionDAO.ajouterProduction(nomProduit, unitesTab, duree, 
+        			AuthorisationManager.getIdCompte(request.getSession()));
+           
+            response.sendRedirect("/caweb");
         } catch (DAOException ex) {
-            Logger.getLogger(AddProduit.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AddProduit.class.getName()).log(Level.SEVERE, null, ex);
+        	throw new InternalError();
         }
 
     }

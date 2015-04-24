@@ -16,6 +16,7 @@
                 <tr>
                     <td>${prod.produit}</td>
                     <td>${prod.prenomProducteur} ${prod.nomProducteur}</td>
+                    <td>${prod.duree} semaines</td>
                 <form method="GET" action="/caweb/newContract">
                     <td> 
                         <select name="unittype">

@@ -45,9 +45,6 @@ public class ProductorContracts extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContratDAO contratDAO = new ContratDAO(ds);
 		ProductionDAO productionDAO = new ProductionDAO(ds);
-		System.out.println((String) request.getParameter("validate"));
-		System.out.println((String) request.getParameter("contract"));
-		System.out.println(AuthorisationManager.havePermission(request.getSession(), Permission.PRODUCTEUR));
 		
 		if(		AuthorisationManager.havePermission(request.getSession(), Permission.PRODUCTEUR) &&
 				request.getParameter("validate") != null && 
@@ -55,7 +52,6 @@ public class ProductorContracts extends HttpServlet {
 			
 			boolean validate = Boolean.parseBoolean((String) request.getParameter("validate"));
 			int idContrat = Integer.parseInt((String) request.getParameter("contract"));
-			System.out.println(validate + "  " + idContrat);
 			
 			
 			Contrat contrat;
@@ -73,16 +69,13 @@ public class ProductorContracts extends HttpServlet {
 				throw new InternalError("Impossible de récupérer la production.");
 			}
 			
-			System.out.println(production.getIdProducteur() + "  " + AuthorisationManager.getIdCompte(request.getSession()));
 			if(production.getIdProducteur() != AuthorisationManager.getIdCompte(request.getSession())) {
-				System.out.println("Essaie de validation de contrat par le mauvais producteur.");
 				response.sendRedirect("/caweb");
 				return;
 			}
 			
 			if(validate) {
 				contrat.validate();
-				System.out.println("fdfdfsdfdsfdsdsf");
 				try {
 					contratDAO.updateContrat(contrat);
 				} catch (DAOException e) {
@@ -114,7 +107,6 @@ public class ProductorContracts extends HttpServlet {
     	
     	request.setAttribute("contratsValide", valide);
     	request.setAttribute("contratsInvalide", invalide);
-    	System.out.println("" + valide.size() + "j" + invalide.size());
     	
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/productorContracts.jsp")
