@@ -87,6 +87,7 @@ public class ProductionDAO extends AbstractDataBaseDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
+            
             //Insertion dans Production
             requeteSQL = "INSERT INTO Production (produit, idProducteur, duree)"
                     + " VALUES ('" + produit + "','" + idProducteur + "','" + duree + "')";

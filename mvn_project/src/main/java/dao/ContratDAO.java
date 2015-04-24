@@ -53,7 +53,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 	
 	
 	
-	public List<Contrat> getListeContrat(Consommateur consommateur) throws DAOException {
+	public List<Contrat> getListeContrat(int idConsommateur) throws DAOException {
 		List<Contrat> result = new ArrayList<Contrat>();
 		ResultSet rs = null;
 		String requeteSQL = "";
@@ -62,8 +62,8 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			conn = getConnection();
 			Statement st = conn.createStatement();
 			requeteSQL = "SELECT *"
-					+   " FROM contrat"
-					+ 	" WHERE idConsommateur='" + consommateur.getId() + "'";
+					+   " FROM contrat c join production p on c.idProduction=p.idProduction"
+					+ 	" WHERE c.idConsommateur=" + idConsommateur;
 			rs = st.executeQuery(requeteSQL);
 			while (rs.next()) {
 				Contrat contrat = new Contrat(rs.getInt("idContrat"),
@@ -183,5 +183,21 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			closeConnection(conn);
 		}
 		return result;
+	}
+	
+	public void deleteContrat(int idContrat) throws DAOException {
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "DELETE FROM Contrat WHERE idContrat = " + idContrat;
+			st.executeQuery(requeteSQL);
+			
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
 	}
 }
