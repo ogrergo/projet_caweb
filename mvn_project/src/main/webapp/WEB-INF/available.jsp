@@ -7,25 +7,26 @@
         Disponibilités
     </jsp:attribute>
     <jsp:body>
-		<form action="available" method="post">
-		<table BORDER="1">
-			<caption>Disponibilités</caption>
-			<tr> <c:forEach items="${listKey}" var="semaine">
-        			<th>Semaine ${semaine}</th>
-        		</c:forEach>
-			</tr>
-			<tr>
-			<c:forEach items="${listKey}" var="key">
-				<td ALIGN="CENTER">  
-				<input type="checkbox" class="switch-input" name="semaine${key}"
-					<c:if test="${ mapDispo[key] == 'true'}" >
-      					checked="checked"
-					</c:if>
-				> </td>
-			</c:forEach>
-			</tr>
-		</table>
-		<input type="submit" value="Valider">
-		</form>
+        <p>Cochez les semaines pendant lesquelles vous êtes disponibles pour les livraisons</p>
+
+        <form action="available" method="post" class="container-fluid">
+            <div class="row">
+
+                <c:forEach items="${listKey}" var="semaine">
+                    <div class="col-md-2 panel panel-week"> 
+                        Semaine ${semaine}
+                        <input type="checkbox" class="switch-input" name="semaine${semaine}"
+                               <c:if test="${ mapDispo[semaine] == 'true'}" >
+                                   checked="checked"
+                               </c:if>
+                               > 
+                    </div>
+                </c:forEach>
+                <hr class="col-md-12">
+            </div>
+            <input class="btn btn-default center-block " type="submit" value="Valider">
+
+        </form>
+
     </jsp:body>
 </tag:base>

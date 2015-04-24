@@ -3,25 +3,67 @@
 
 <tag:base>
     <jsp:attribute name="header">
-      <h1>Contrats Client</h1>
+        Contrats Client</h1
     </jsp:attribute>
     <jsp:body>
 
-<form action="customerContracts" method="post">
-<table>
-	<caption>Contrats en cours</caption>
-	<tr> 
-	<td>Contrats en cours</td>
-	<td><button type="button">Prolonger</button></td>
-	</tr>
+    <h4>Contrats en cours</h4>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Producteur</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Date de début</th>
+                <th>Durée</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${unites}" var="unite">
+            <form>
+                <tr> 
+                    <td>producteur</td>
+                    <td>prod</td>
+                    <td>qté</td>
+                    <td>start</td>
+                    <td>durée</td>
+                    <td><button type="button">Prolonger</button></td>
+                </tr>
+            </form>
+        </c:forEach>
+    </tbody>
+
 </table>
-</form>
-<form action="available" mehtod="post">
-<input type="submit" value="Saisir Disponibilités">
-</form>
-<table BORDER="1">
-<caption> Contrats en attente de validation</caption>
-	<tr> <td> Contrats non validés </td></tr>
+<hr/>
+<h4> Contrats en attente de validation</h4>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Producteur</th>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Date de début</th>
+            <th>Durée</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${unites}" var="unite">
+        <form>
+            <tr> 
+                <td>producteur</td>
+                <td>prod</td>
+                <td>qté</td>
+                <td>start</td>
+                <td>durée</td>
+                <td><button type="button">Prolonger</button></td>
+            </tr>
+        </form>
+    </c:forEach>
+    </tbody>
+
 </table>
-    </jsp:body>
+</jsp:body>
 </tag:base>

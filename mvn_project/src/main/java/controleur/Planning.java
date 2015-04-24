@@ -2,16 +2,24 @@ package controleur;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
+import model.Consommateur;
+import model.Permanence;
 import controleur.AuthorisationManager.Permission;
+import dao.CompteDAO;
+import dao.DAOException;
+import dao.PermanenceDAO;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Servlet implementation class Planning
@@ -21,6 +29,9 @@ public class Planning extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	static Calendar calendar=Calendar.getInstance();
+
+    @Resource(name = "jdbc/caweb")
+	private DataSource ds;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,9 +46,32 @@ public class Planning extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean havePermission = AuthorisationManager.havePermission(request.getSession(true), Permission.RESPONSABLE_PLANNING);
-		request.setAttribute("semaines", getWeeksOfMonth());
 		request.setAttribute("mois", getMonthName(getCurrentMonth()));
 		request.setAttribute("permission", havePermission);
+		
+		PermanenceDAO permanenceDAO = new PermanenceDAO(ds);
+		CompteDAO compteDAO = new CompteDAO(ds);
+		
+		ArrayList<Integer> weeks = getWeeksOfMonth();
+		HashMap<Integer, Consommateur> livreurs1 = new HashMap<Integer, Consommateur>();
+		HashMap<Integer, Consommateur> livreurs2 = new HashMap<Integer, Consommateur>();
+		
+		for(Integer s : weeks) {
+			try {
+				Permanence permanence = permanenceDAO.getPermanence(s);
+				if(permanence!=null) {
+					livreurs1.put(s, (Consommateur) compteDAO.getCompte(permanence.getIdConsommateur1()));
+					livreurs2.put(s, (Consommateur) compteDAO.getCompte(permanence.getIdConsommateur2()));
+				}
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}			
+		}
+		
+		request.setAttribute("weeks", weeks);
+		request.setAttribute("livreurs1", livreurs1);
+		request.setAttribute("livreurs2", livreurs2);
+		
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/planning.jsp")
         .forward(request, response);

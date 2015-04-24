@@ -10,11 +10,11 @@
      	<h2>Planning</h2>
     	<table BORDER="1">
      	<caption><c:forEach items ="${mois}" var="mois"> ${mois}</c:forEach></caption>
-    		<c:forEach items="${semaines}" var="semaine">
+    		<c:forEach items="${weeks}" var="week">
         		<tr> 
-        			<td>Semaine ${semaine}</td>
-        			<td> Livreur1 </td>
-        			<td> Livreur2 </td>
+        			<td>Semaine ${week}</td>
+        			<td> ${livreurs1[week].nom} </td>
+        			<td> ${livreurs2[week].nom} </td>
         		</tr>
         	</c:forEach>
 		</table>
