@@ -47,13 +47,14 @@
                     <td>
                     <td>
                         <a href="addProduit"> 
-                            <input type="button" value="Ajouter un produit"> </a>
+                            <button type="button" class="btn btn-default">Ajouter un produit</button>
+                        </a>
                     </td>
                 </tr>
                 <tr>
                     <td>Unité(s)</td>
                     <td>
-
+                        Selectionnez plusieurs unitées avec la touche ctrl<br/>
                         <select multiple name="unitesSelect" size="10">
                             <c:forEach items="${unites}" var="unite">
                                 <option>${unite.nomUnite}
@@ -63,14 +64,15 @@
                     <td>
                     <td>
                         <a href="addUnite"> 
-                            <input type="button" value="Ajouter une unite"> </a>
+                            <button type="button" class="btn btn-default">Ajouter une unité</button>
+                        </a>
                     </td>
                 </tr>
                 <tr>
                     <td> Durée : </td> <td> <input type="int" name="duree" onblur="verifDuree(this)"/></td>
                 </tr>
             </table>
-            <input type="submit" value="Valider">
+            <input class="btn btn-default center-block" type="submit" value="Valider">
         </form>
     </jsp:body>
 </tag:base>

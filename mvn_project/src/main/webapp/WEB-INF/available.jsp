@@ -7,7 +7,7 @@
         Disponibilités
     </jsp:attribute>
     <jsp:body>
-        <h4>Disponibilités</h4>
+        <p>Cochez les semaines pendant lesquelles vous êtes disponibles pour les livraisons</p>
 
         <form action="available" method="post" class="container-fluid">
             <div class="row">
