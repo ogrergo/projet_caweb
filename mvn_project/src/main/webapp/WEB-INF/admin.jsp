@@ -18,15 +18,15 @@
                 <c:forEach items="${semaines}" var="semaine">
                     <tr> 
                         <td>Semaine ${semaine}</td>
-                        <td><select name="Livreur1">
+                        <td><select name="livreur1_${semaine}">
                                 <c:forEach items="${liste_dispos[semaine]}" var="dispo">
-                                    <option value="${dispo}">${dispo}</option>
+                                    <option value="${dispo.id}">${dispo.nom} ${dispo.prenom}</option>
                                 </c:forEach>
                             </select>
                         </td>
-                        <td><select name="Livreur2">
+                        <td><select name="livreur2_${semaine}">
                                 <c:forEach items="${liste_dispos[semaine]}" var="dispo">
-                                    <option value="${dispo}">${dispo}</option>
+                                    <option value="${dispo.id}">${dispo.nom} ${dispo.prenom}</option>
                                 </c:forEach>
                             </select>
                         </td>
