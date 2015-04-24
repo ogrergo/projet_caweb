@@ -31,6 +31,10 @@
         .panel-week{
             background-color: lightskyblue;
         }
+        
+        #logoutbutton{
+            margin-top: 5px;
+        }
     </style>
     <body style="background-color: whitesmoke">
     <nav class="navbar navbar-default">
