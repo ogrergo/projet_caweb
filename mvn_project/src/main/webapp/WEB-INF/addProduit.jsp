@@ -31,20 +31,11 @@
 
     </jsp:attribute>
     <jsp:body>
-    	${erreur}
         <form action="addProduit" method="post" onsubmit="return verifForm(this)">
             <table>
                 <tr>
                     <td> Nom du produit : </td> 
                     <td> <input type="text" name="nomProduit"/> </td>             
-                </tr>
-                <tr>
-                	<td> Durée d'un contrat de ce produit </td>
-                	<td> <input type="number" name="duree"> </td>
-                </tr>
-                <tr>
-                	<td> Unités : (separateur ';')</td>
-                	<td> <input type="text" name=unites></td>
                 </tr>
             </table>
             <input type="submit" value="Valider">
