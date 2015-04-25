@@ -81,13 +81,9 @@ public class CustomerContracts extends HttpServlet {
 			}
 			
 			data.add(product.getNom());
-			System.out.println(product.getNom());
 			data.add(product.getAdresse());
-			System.out.println(product.getAdresse());
 			data.add(product.getEmail());
-			System.out.println(product.getEmail());
 			data.add(production.getProduit());
-			System.out.println(production.getProduit());
 			String duree = production.getDuree() + "semaines";
 			data.add(duree);
 			
@@ -101,6 +97,7 @@ public class CustomerContracts extends HttpServlet {
 			}
 		
 		}
+		
 		request.setAttribute("contratsInvalides", contratsInvalides);
 		request.setAttribute("contratsValides", contratsValides);
     	request.setAttribute("valide", valides);

@@ -18,6 +18,7 @@
                 <th>Produit</th>
                 <th>Durée</th>
                 <th>Quantité</th>
+                <th>Unité</th>
                 <th>Date de début</th>
                 <th>Action</th>
             </tr>
@@ -31,6 +32,7 @@
                    		<td>${champ}</td>
                    	</c:forEach>
                     <td>${contratValide.quantite}</td>
+                    <td>${contratValide.nomUnite}</td>
                     <td>${contratValide.dateDebut}</td>
                    <td><button type="button">Prolonger</button></td>
                 </tr>
@@ -45,27 +47,31 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Producteur</th>
+            <th>Nom Producteur</th>
+            <th>Adresse</th>
+            <th>Mail</th>
             <th>Produit</th>
-            <th>Quantité</th>
-            <th>Date de début</th>
             <th>Durée</th>
-            <th>Action</th>
+            <th>Quantité</th>
+            <th>Unité</th>
+            <th>Date de début</th>
         </tr>
     </thead>
     <tbody>
-    <c:forEach items="${unites}" var="unite">
+    <c:forEach items="${contratsInvalides}" var="contratInvalide">
         <form>
             <tr> 
-                <td>producteur</td>
-                <td>prod</td>
-                <td>qté</td>
-                <td>start</td>
-                <td>durée</td>
-                <td><button type="button">Prolonger</button></td>
+                
+               	<c:forEach items="${invalide[contratInvalide]}" var="champ">
+               		<td>${champ}</td>
+               	</c:forEach>
+                <td>${contratInvalide.quantite}</td>
+                <td>${contratInvalide.nomUnite}</td>
+                <td>${contratInvalide.dateDebut}</td>
             </tr>
         </form>
     </c:forEach>
+    
     </tbody>
 
 </table>

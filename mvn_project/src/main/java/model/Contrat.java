@@ -7,6 +7,7 @@ public class Contrat {
 	private int idConsomateur;
 	private int quantite;
 	private int dateDebut;
+	private String nomUnite;
 	private boolean valide;
 	
 	
@@ -18,6 +19,18 @@ public class Contrat {
 		this.idConsomateur = idConsomateur;
 		this.quantite = quantite;
 		this.dateDebut = dateDebut;
+		this.valide = valide;
+	}
+	
+	public Contrat(int idContrat, int idProduction, int idConsomateur,
+			int quantite, int dateDebut, int duree, String nomUnite, boolean valide) {
+		super();
+		this.idContrat = idContrat;
+		this.idProduction = idProduction;
+		this.idConsomateur = idConsomateur;
+		this.quantite = quantite;
+		this.dateDebut = dateDebut;
+		this.nomUnite = nomUnite;
 		this.valide = valide;
 	}
 	
@@ -56,7 +69,10 @@ public class Contrat {
 		return dateDebut;
 	}
 
-
+	public String getNomUnite(){
+		return this.nomUnite;
+	}
+	
 	public boolean getValide() {
 		return valide;
 	}

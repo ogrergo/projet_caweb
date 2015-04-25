@@ -50,7 +50,38 @@ public class ConsommateurDAO extends AbstractDataBaseDAO {
 		}
 		return result;
 	}
-	
-	
+
+	public Consommateur getConsommateur(int idConsommateur) throws DAOException {
+		
+		Consommateur conso = null;
+		ResultSet rs = null;
+		String requeteSQL = "";
+		Connection conn = null;
+		
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "SELECT p.idConsommateur, email, mdp, prenom, nom, adresse"
+                    + " FROM compte c"
+                    + " INNER JOIN consommateur p ON c.idCompte = p.idConsommateur"
+                    + " INNER JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
+					+ " WHERE p.idConsommateur='" + idConsommateur +"'";
+			rs = st.executeQuery(requeteSQL);
+			while (rs.next()) {
+				 		conso = new Consommateur(rs.getInt("idConsommateur"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        rs.getString("prenom"),
+                        rs.getString("nom"),
+                        rs.getString("adresse"));
+			
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+		return conso;
+	}
 
 }
