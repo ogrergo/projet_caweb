@@ -22,7 +22,7 @@ CREATE SEQUENCE id_seqContrat;
 
 CREATE TABLE Compte (
     idCompte number(6) DEFAULT id_seqCompte.nextval,
-    email varchar(60),
+    email varchar(60) UNIQUE,
     mdp varchar(64),
 CONSTRAINT Pk_Compte PRIMARY KEY (idCompte)
 );

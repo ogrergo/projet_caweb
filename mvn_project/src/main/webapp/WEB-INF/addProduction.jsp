@@ -12,7 +12,6 @@
             var duree = parseInt(champ.value);
             if (isNaN(duree))
             {
-                alert("durée doit etre un nombre !!");
                 return false;
             }
             else
@@ -21,9 +20,27 @@
             }
         }
 
+        function verifUnite(sel)
+        {
+            for (var i=0; i < sel.options.length; i++) {
+                if (sel.options[i].selected) {
+               		return true;
+                }
+            }
+        	return false;
+        }
+        
         function verifForm(f)
         {
-            return verifDuree(f.duree);
+        	if (!verifUnite(f.unitesSelect)) {
+        		alert("Erreur dans le formulaire : \nVeuillez saisir au moins une unité");
+        		return false;
+        	}
+        	if (!verifDuree(f.duree)) {
+        		alert("Erreur dans le formulaire : \nVeuillez saisir une durée valide");
+        		return false;
+        	}
+            return true;
         }
 
     </script>
@@ -69,7 +86,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td> Durée : </td> <td> <input type="int" name="duree" onblur="verifDuree(this)"/></td>
+                    <td> Durée : </td> <td> <input type="int" name="duree"/></td>
                 </tr>
             </table>
             <input class="btn btn-default center-block" type="submit" value="Valider">

@@ -48,6 +48,7 @@ public class AddUnite extends HttpServlet {
     }
 
     private void actionAfficher(HttpServletRequest request, HttpServletResponse response) throws DAOException, ServletException, IOException, SQLException {
+    	request.setAttribute("uniteErreur", false);
         getServletContext().getRequestDispatcher("/WEB-INF/addUnite.jsp").forward(request, response);
     }
 
@@ -57,11 +58,13 @@ public class AddUnite extends HttpServlet {
             Unite unit = new Unite(request.getParameter("nomUnite"));
             //D'abord ajout de la production dans la BD
             UniteDAO uniteDAO = new UniteDAO(ds);
-            uniteDAO.ajouterUnite(unit);
-            response.sendRedirect("/caweb/addProduction");
+            if (uniteDAO.ajouterUnite(unit)) {
+            	response.sendRedirect("/caweb/addProduction");
+            } else {
+            	request.setAttribute("uniteErreur", true);
+            	getServletContext().getRequestDispatcher("/WEB-INF/addUnite.jsp").forward(request, response);
+            }
         } catch (DAOException ex) {
-            Logger.getLogger(AddUnite.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
             Logger.getLogger(AddUnite.class.getName()).log(Level.SEVERE, null, ex);
         }
 

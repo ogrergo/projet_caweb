@@ -44,7 +44,7 @@ public class CustomerContracts extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMATEUR);
+		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR);
 		
 		if(!success) {
 			response.sendRedirect("/caweb");
