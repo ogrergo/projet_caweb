@@ -7,7 +7,6 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import model.Contrat;
 import model.Permanence;
 
 public class PermanenceDAO extends AbstractDataBaseDAO {

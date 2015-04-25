@@ -11,7 +11,7 @@ public class Contrat {
 	private boolean valide;
 	
 	
-	public Contrat(int idContrat, int idProduction, int idConsomateur,
+	/*public Contrat(int idContrat, int idProduction, int idConsomateur,
 			int quantite, int dateDebut, int duree, boolean valide) {
 		super();
 		this.idContrat = idContrat;
@@ -20,7 +20,7 @@ public class Contrat {
 		this.quantite = quantite;
 		this.dateDebut = dateDebut;
 		this.valide = valide;
-	}
+	}*/
 	
 	public Contrat(int idContrat, int idProduction, int idConsomateur,
 			int quantite, int dateDebut, int duree, String nomUnite, boolean valide) {

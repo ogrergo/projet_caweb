@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import model.Contrat;
 import model.Producteur;
 import model.Production;
+import controleur.AuthorisationManager.AucunCompteLoggeException;
 import controleur.AuthorisationManager.Permission;
 import dao.ContratDAO;
 import dao.DAOException;
@@ -55,9 +56,14 @@ public class CustomerContracts extends HttpServlet {
 					contrat = contratDAO.getContrat(idContrat);
 					
 					
-					if(contrat != null && contrat.getIdConsomateur() == AuthorisationManager.getIdCompte(request.getSession())) {
-						contrat.invalidate();
-						contratDAO.addContrat(contrat);
+					try {
+						if(contrat != null && contrat.getIdConsomateur() == AuthorisationManager.getIdCompte(request.getSession())) {
+							contrat.invalidate();
+							contratDAO.addContrat(contrat);
+						}
+					} catch (AucunCompteLoggeException e) {
+						response.sendRedirect("/caweb");
+						return;
 					}
 				} catch (DAOException e) {
 					e.printStackTrace();
@@ -71,7 +77,13 @@ public class CustomerContracts extends HttpServlet {
 			return;
 		}
 		
-		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
+		int idConsomateur;
+		try {
+			idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
+		} catch (AucunCompteLoggeException e1) {
+			response.sendRedirect("/caweb");
+			return;
+		}
 		ContratDAO contratDao = new ContratDAO(ds);
 		HashMap<Contrat, List<String>> valides = new HashMap<Contrat, List<String>>();
 		HashMap<Contrat, List<String>> invalides = new HashMap<Contrat, List<String>>();
