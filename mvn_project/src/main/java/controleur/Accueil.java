@@ -92,7 +92,7 @@ public class Accueil extends HttpServlet {
 		
 		HttpSession session = request.getSession(true);
 		
-		if(!AuthorisationManager.haveCredential(session) || AuthorisationManager.havePermission(session, Permission.CONSOMATEUR)) {
+		if(!AuthorisationManager.haveCredential(session) || AuthorisationManager.havePermission(session, Permission.CONSOMMATEUR)) {
 			controleurAcceuilVisiteur(request, response);
 		} else if(AuthorisationManager.havePermission(session, Permission.PRODUCTEUR)) {
 			controleurAcceuilProducteur(request, response);

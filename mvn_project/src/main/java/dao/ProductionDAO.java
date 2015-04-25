@@ -113,7 +113,6 @@ public class ProductionDAO extends AbstractDataBaseDAO {
 
     public List<Production> getListeProductionsByIdProducteur(int idProducteur) throws DAOException {
         List<Production> result = new ArrayList<Production>();
-        System.out.println("dans getListeProductionsByIdProducteur");
         ResultSet rs = null;
         ResultSet rs2 = null;
         String requeteSQL = "";

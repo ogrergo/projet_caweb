@@ -63,7 +63,7 @@ public class NewContract extends HttpServlet {
 		if(request.getParameter("production") != null)
 			request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getParameter("production"));
 		
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMATEUR);
+		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR);
 		if(!success) {
 			return;
 		}

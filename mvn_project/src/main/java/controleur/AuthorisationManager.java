@@ -95,7 +95,7 @@ public class AuthorisationManager {
 	}
 	
 	public enum Permission {
-		CONSOMATEUR(0),
+		CONSOMMATEUR(0),
 		PRODUCTEUR(1),
 		RESPONSABLE_PLANNING(2);
 		
@@ -113,7 +113,7 @@ public class AuthorisationManager {
 		
 		private Permission getPermission(Compte compte) {
 			if(compte instanceof Consommateur)
-				return Permission.CONSOMATEUR;
+				return Permission.CONSOMMATEUR;
 			
 			if(compte instanceof Producteur)
 				return Permission.PRODUCTEUR;
