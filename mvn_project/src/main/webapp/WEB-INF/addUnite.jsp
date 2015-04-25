@@ -33,6 +33,11 @@
     <jsp:body>
         <form action="addUnite" method="post" onsubmit="return verifForm(this)">
             <table>
+            <c:if test="${ uniteErreur == 'true'}" >                               
+            	<tr>
+            		<td> Erreur : cette unite existe déjà </td>
+            	</tr>
+            </c:if>
                 <tr>
                     <td> Nom du unite : </td> <td> <input type="text" name="nomUnite" onblur="verifNomUnite(this)"/></td>
                 </tr>

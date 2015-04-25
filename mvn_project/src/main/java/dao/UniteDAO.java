@@ -74,18 +74,21 @@ public class UniteDAO extends AbstractDataBaseDAO {
         return result;
     }
 
-    public void ajouterUnite(Unite uni) throws DAOException, SQLException {
+    @SuppressWarnings("finally")
+	public boolean ajouterUnite(Unite uni) throws DAOException {
         String requeteSQL = "";
         Connection conn = null;
+        boolean succes = true;
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
             requeteSQL = "INSERT INTO Unite (nomUnite) VALUES ('" + uni.getNomUnite() + "')";
             st.executeQuery(requeteSQL);
         } catch (SQLException e) {
-            throw new DAOException("Erreur BD 0" + e.getMessage(), e);
+        	succes = false;
         } finally {
             closeConnection(conn);
+            return succes;
         }
     }
 }
