@@ -27,7 +27,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 		try {
 			conn = getConnection();
 			Statement st = conn.createStatement();
-			requeteSQL = "SELECT idContrat, c.idProduction, idConsommateur, quantite, dateDebut, duree, valide"
+			requeteSQL = "SELECT nomUnite, idContrat, c.idProduction, idConsommateur, quantite, dateDebut, duree, valide"
 					+ " FROM contrat c"
 					+ " INNER JOIN production p ON p.idProduction = c.idProduction"
 					+ 	" WHERE p.idProducteur='" + producteur.getId() + "'";
@@ -39,6 +39,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),
+						rs.getString("nomUnite"),
 						rs.getString("valide").equals("1"));
 				result.add(contrat);
 			}
@@ -71,6 +72,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),
+						rs.getString("nomUnite"),
 						rs.getString("valide").equals("1"));
 				result.add(contrat);
 			}
@@ -100,6 +102,8 @@ public class ContratDAO extends AbstractDataBaseDAO {
 					+ contrat.getDateDebut() + "','"
 					+ valide + "','"
 					+ contrat.getNomUnite() + "')";
+			
+			System.out.println(requeteSQL);
 			st.executeQuery(requeteSQL);
 		} catch (SQLException e) {
 			throw new DAOException("Erreur BD 0" + e.getMessage(), e);
@@ -175,6 +179,7 @@ public class ContratDAO extends AbstractDataBaseDAO {
 						rs.getInt("quantite"),
 						rs.getInt("dateDebut"),
 						rs.getInt("duree"),
+						rs.getString("nomUnite"),
 						rs.getString("valide").equals("1"));
 			}
 		} catch (SQLException e) {

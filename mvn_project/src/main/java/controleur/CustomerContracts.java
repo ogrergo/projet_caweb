@@ -53,11 +53,14 @@ public class CustomerContracts extends HttpServlet {
 				Contrat contrat;
 				try {
 					contrat = contratDAO.getContrat(idContrat);
-
+					
+					
 					if(contrat != null && contrat.getIdConsomateur() == AuthorisationManager.getIdCompte(request.getSession())) {
+						contrat.invalidate();
 						contratDAO.addContrat(contrat);
 					}
 				} catch (DAOException e) {
+					e.printStackTrace();
 					throw new InternalError();
 				}
 			}

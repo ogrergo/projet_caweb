@@ -85,5 +85,9 @@ public class Contrat {
 	public void setDateDebut(int date) {
 		dateDebut = date;
 	}
+
+	public void invalidate() {
+		valide = false;
+	}
 	
 }
