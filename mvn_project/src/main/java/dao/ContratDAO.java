@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import model.Consommateur;
 import model.Contrat;
 import model.Producteur;
 
@@ -94,12 +93,13 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			String valide = contrat.getValide() ? "1" : "0";
 			requeteSQL = "INSERT INTO Contrat (idProduction, " 
 					+ "idConsommateur, quantite, dateDebut, "
-					+ "valide) VALUES ('"
+					+ "valide, nomUnite) VALUES ('"
 					+ contrat.getIdProduction() + "','"
 					+ contrat.getIdConsomateur() + "','"
 					+ contrat.getQuantite() + "','"
 					+ contrat.getDateDebut() + "','"
-					+ valide + "')";
+					+ valide + "','"
+					+ contrat.getNomUnite() + "')";
 			st.executeQuery(requeteSQL);
 		} catch (SQLException e) {
 			throw new DAOException("Erreur BD 0" + e.getMessage(), e);

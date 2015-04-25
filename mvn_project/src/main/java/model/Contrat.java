@@ -35,13 +35,14 @@ public class Contrat {
 	}
 	
 	public Contrat(int idProduction, int idConsomateur, int quantite,
-			int dateDebut, boolean valide) {
+			int dateDebut, boolean valide, String nomUnite) {
 		super();
 		this.idProduction = idProduction;
 		this.idConsomateur = idConsomateur;
 		this.quantite = quantite;
 		this.dateDebut = dateDebut;
 		this.valide = valide;
+		this.nomUnite = nomUnite;
 	}
 
 

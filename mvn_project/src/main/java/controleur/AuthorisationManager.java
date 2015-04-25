@@ -75,7 +75,6 @@ public class AuthorisationManager {
 		
 		if(compte instanceof Producteur) {
 			Producteur p = (Producteur) compte;
-			System.out.println("prod " + p.getNom());
 		}
 		
 		session.setAttribute(CREDENTIAL_SESSION_VAR, new Credential(compte));
