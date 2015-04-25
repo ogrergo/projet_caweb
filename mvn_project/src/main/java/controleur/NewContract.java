@@ -102,8 +102,19 @@ public class NewContract extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
-		int quantite = Integer.parseInt(request.getParameter("quantite"));
-		int date =  Integer.parseInt(request.getParameter("date"));
+		int quantite = 0;
+		int date = 0;
+		try {
+			quantite = Integer.parseInt(request.getParameter("quantite"));
+			date =  Integer.parseInt(request.getParameter("date"));
+		} catch(NumberFormatException e) {
+			try {
+				response.sendRedirect("/caweb/newContract?production=" + getIdProduction(request.getSession(true)));
+			} catch (AucuneProductionException e1) {
+				response.sendRedirect("/caweb");			
+			}
+			return;
+		}
 		Contrat contrat = null;
 		try {
 			contrat = new Contrat(

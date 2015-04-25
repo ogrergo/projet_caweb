@@ -58,7 +58,8 @@
                 <td>qté</td>
                 <td>start</td>
                 <td>durée</td>
-                <td><button type="button">Prolonger</button></td>
+                <td>
+                	<a href="/caweb/customerContracts?contrat=${1 }">Prolonger</a></td>
             </tr>
         </form>
     </c:forEach>
