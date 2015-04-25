@@ -61,7 +61,6 @@ public class NewContract extends HttpServlet {
 		
     	
 		if(unite == null) {
-			System.out.println("impossible de recuperer la var get");
 			throw new AucuneProductionException();
 		}
 		
