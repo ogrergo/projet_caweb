@@ -188,7 +188,6 @@ public class Admin extends HttpServlet {
 				} catch (DAOException e) {
 					e.printStackTrace();
 				}
-				System.out.println(listDisp.isEmpty());
 			}
 			hashmap.put(s, listDisp);	
 		}
