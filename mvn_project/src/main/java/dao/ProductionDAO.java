@@ -126,7 +126,6 @@ public class ProductionDAO extends AbstractDataBaseDAO {
                     + " WHERE p.idProducteur = " + idProducteur;
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
-                System.out.println("dans production d'un producteur");
                 //Creation de la production 
                 Production production = new Production(rs.getInt("idProduction"),
                         idProducteur, rs.getString("produit"), rs.getInt("duree"));

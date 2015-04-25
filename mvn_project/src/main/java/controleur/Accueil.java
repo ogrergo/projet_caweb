@@ -13,13 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import model.Producteur;
+import model.Consommateur;
+import model.Permanence;
 import model.Production;
 import model.Unite;
+import controleur.AuthorisationManager.AucunCompteLoggeException;
 import controleur.AuthorisationManager.Permission;
 import dao.CompteDAO;
-import dao.ContratDAO;
 import dao.DAOException;
+import dao.PermanenceDAO;
 import dao.ProductionDAO;
 import dao.UniteDAO;
 
@@ -69,6 +71,39 @@ public class Accueil extends HttpServlet {
 		
 		request.setAttribute("production", productions);
 		request.setAttribute("unites", unites);
+		
+		// Liste des permanences
+		
+		boolean isConsommateur = AuthorisationManager.havePermission(request.getSession(true), Permission.CONSOMMATEUR);
+		request.setAttribute("isConsommateur", isConsommateur);
+		
+		if(isConsommateur) {
+			PermanenceDAO permanenceDAO = new PermanenceDAO(ds);
+			
+			try {
+				int currentUserId = AuthorisationManager.getIdCompte(request.getSession(true));
+				List<Permanence> listPermanence = permanenceDAO.getPermanenceByUserId(currentUserId);
+				HashMap<Permanence, Consommateur> hashmap = new HashMap<Permanence, Consommateur>();
+				request.setAttribute("listPermanence", listPermanence);
+				
+				for(Permanence p : listPermanence) {
+					Consommateur binome = null;
+					CompteDAO compteDAO = new CompteDAO(ds);
+					if(currentUserId!=p.getIdConsommateur1()) {
+						binome = (Consommateur) compteDAO.getCompte(p.getIdConsommateur1());
+					} else {
+						binome = (Consommateur) compteDAO.getCompte(p.getIdConsommateur2());
+					}
+					hashmap.put(p, binome);
+				}
+				request.setAttribute("binomes", hashmap);
+			
+			} catch (DAOException e) {
+				e.printStackTrace();
+			} catch (AucunCompteLoggeException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/accueil.jsp")

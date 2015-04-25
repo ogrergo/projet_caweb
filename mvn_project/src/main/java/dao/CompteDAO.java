@@ -44,42 +44,6 @@ public class CompteDAO extends AbstractDataBaseDAO {
         return result;
 	}
 	
-/*	public void showConso() throws DAOException {
-        ResultSet rs = null;
-        Connection conn = null;
-
-        Statement st;
-		try {
-			conn = getConnection();
-
-			st = conn.createStatement();
-			 rs = st.executeQuery("SELECT idConsommateur, email "
-			 		+ "FROM compte c "
-			 		+ "INNER JOIN consommateur e "
-			 		+ "ON c.idCompte = e.idConsommateur");
-		        while(rs.next()) {
-		        	System.out.println(rs.getInt("idConsommateur")+ "  ->  " + rs.getString("email"));
-		        }
-		        System.out.println("Producteur :");
-		        
-		        rs = st.executeQuery("SELECT idProducteur, email "
-				 		+ "FROM compte c "
-				 		+ "INNER JOIN producteur e "
-				 		+ "ON c.idCompte = e.idProducteur");
-			        while(rs.next()) {
-			        	System.out.println(rs.getInt("idProducteur")+ "  ->  " + rs.getString("email"));
-			        }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new DAOException();
-		} finally {
-            closeConnection(conn);
-        }
-        
-       
-	}
-	*/
 	public Compte getCompte(int compteId) throws DAOException {
 		Compte result = null;
         ResultSet rs = null;

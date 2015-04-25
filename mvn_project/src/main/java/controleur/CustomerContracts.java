@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import model.Contrat;
 import model.Producteur;
 import model.Production;
+import controleur.AuthorisationManager.AucunCompteLoggeException;
 import controleur.AuthorisationManager.Permission;
 import dao.ContratDAO;
 import dao.DAOException;
@@ -28,30 +29,58 @@ import dao.ProductionDAO;
 @WebServlet("/CustomerContracts")
 public class CustomerContracts extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	@Resource(name = "jdbc/caweb")
-    private DataSource ds;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CustomerContracts() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	@Resource(name = "jdbc/caweb")
+	private DataSource ds;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public CustomerContracts() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR);
+		if(!AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR))
+				return;
+
+		if(request.getParameter("contrat") != null) {
+			Integer idContrat = Integer.parseInt(request.getParameter("contrat"));
+			if(idContrat != null) {
+				ContratDAO contratDAO = new ContratDAO(ds);
+				Contrat contrat;
+				try {
+					contrat = contratDAO.getContrat(idContrat);
+					
+					
+					try {
+						if(contrat != null && contrat.getIdConsomateur() == AuthorisationManager.getIdCompte(request.getSession())) {
+							contrat.invalidate();
+							contratDAO.addContrat(contrat);
+						}
+					} catch (AucunCompteLoggeException e) {
+						response.sendRedirect("/caweb");
+						return;
+					}
+				} catch (DAOException e) {
+					e.printStackTrace();
+					throw new InternalError();
+				}
+			}
+		}
+
 		
-		if(!success) {
+		int idConsomateur;
+		try {
+			idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
+		} catch (AucunCompteLoggeException e1) {
 			response.sendRedirect("/caweb");
 			return;
 		}
-		
-		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
 		ContratDAO contratDao = new ContratDAO(ds);
 		HashMap<Contrat, List<String>> nonCommences = new HashMap<Contrat, List<String>>();
 		HashMap<Contrat, List<String>> enCours = new HashMap<Contrat, List<String>>();
@@ -111,6 +140,7 @@ public class CustomerContracts extends HttpServlet {
 			}
 		
 		}
+		
 		request.setAttribute("contratsInvalides", contratsInvalides);
 		request.setAttribute("contratsNonCommences", contratsNonCommences);
 		request.setAttribute("contratsEnCours", contratsEncours);
@@ -121,8 +151,8 @@ public class CustomerContracts extends HttpServlet {
     	request.setAttribute("invalides", invalides);
     	
 		getServletContext()
-        .getRequestDispatcher("/WEB-INF/customerContracts.jsp")
-        .forward(request, response);
+		.getRequestDispatcher("/WEB-INF/customerContracts.jsp")
+		.forward(request, response);
 	}
 
 	/**

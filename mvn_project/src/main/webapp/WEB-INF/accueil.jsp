@@ -34,7 +34,28 @@
                 </form>
             </tr>
         </c:forEach>
-
+        
+       
     </table>
+     <c:if test="${credential.authorisation == 'CONSOMMATEUR'}">
+     <h3 class="text-center">Mes Permanences</h3>
+     <table class="table">
+     <tr>
+     	<th> Semaine </th>
+     	<th> Binôme </th>
+     </tr>
+     <c:forEach items="${listPermanence}" var="permanence">
+     <tr>
+     	<td>
+        	${permanence.idSemaine}
+       	</td>
+       	<td>
+        	${binomes[permanence].prenom} ${binomes[permanence].nom} (${binomes[permanence].email})
+       	</td>
+     </tr>
+     </c:forEach>
+     </table>
+     </c:if>
+     
 </jsp:body>
 </tag:base>

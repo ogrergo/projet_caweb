@@ -18,6 +18,7 @@
                 <th>Produit</th>
                 <th>Durée</th>
                 <th>Quantité</th>
+                <th>Unité</th>
                 <th>Date de début</th>
                 <th>Action</th>
             </tr>
@@ -31,8 +32,14 @@
                    		<td>${champ}</td>
                    	</c:forEach>
                     <td>${contratNonCommence.quantite}</td>
+                    <td>${contratNonCommence.nomUnite}</td>
                     <td>${contratNonCommence.dateDebut}</td>
-                   <td><button type="button">Prolonger</button></td>
+                   	<td>
+                   		<form method="GET" action="/caweb/customerContract">
+                   			<input type="hidden" name="contrat" value="${contratNonCommence.idContrat}"/>
+                   			<input class="btn btn-default center-block" type="submit" value="Prolonger">
+                   		</form>
+                   	</td>
                 </tr>
             </form>
         </c:forEach>
@@ -62,8 +69,14 @@
                    		<td>${champ}</td>
                    	</c:forEach>
                     <td>${contratEnCour.quantite}</td>
+                    <td>${contratEnCour.nomUnite}</td>
                     <td>${contratEnCour.dateDebut}</td>
-                   <td><button type="button">Prolonger</button></td>
+                   	<td>
+                   		<form method="GET" action="/caweb/customerContract">
+                   			<input type="hidden" name="contrat" value="${contratEnCour.idContrat}"/>
+                   			<input class="btn btn-default center-block" type="submit" value="Prolonger">
+                   		</form>
+                   	</td>
                 </tr>
             </form>
         </c:forEach>
@@ -93,42 +106,45 @@
                    		<td>${champ}</td>
                    	</c:forEach>
                     <td>${contratTermine.quantite}</td>
+                    <td>${contratEnCour.nomUnite}</td>
                     <td>${contratTermine.dateDebut}</td>
-                   <td><button type="button">Prolonger</button></td>
+                   	<td>
+                   		<form method="GET" action="/caweb/customerContract">
+                   			<input type="hidden" name="contrat" value="${contratTermine.idContrat}"/>
+                   			<input class="btn btn-default center-block" type="submit" value="Prolonger">
+                   		</form>
+                   	</td>
                 </tr>
             </form>
         </c:forEach>
     </tbody>
 </table>
  <h4>Contrats en attente de validation</h4>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Nom Producteur</th>
-                <th>Adresse</th>
-                <th>Mail</th>
-                <th>Produit</th>
-                <th>Durée</th>
-                <th>Quantité</th>
-                <th>Date de début</th>
-                <th>Action</th>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nom Producteur</th>
+            <th>Adresse</th>
+            <th>Mail</th>
+            <th>Produit</th>
+            <th>Durée</th>
+            <th>Quantité</th>
+            <th>Unité</th>
+            <th>Date de début</th>
+        </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${contratsInvalides}" var="contratInvalide">
+            <tr> 
+               	<c:forEach items="${invalide[contratInvalide]}" var="champ">
+               		<td>${champ}</td>
+               	</c:forEach>
+                <td>${contratInvalide.quantite}</td>
+                <td>${contratInvalide.nomUnite}</td>
+                <td>${contratInvalide.dateDebut}</td>
             </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${contratsInvalides}" var="contratInvalide">
-            <form>
-                <tr> 
-                    
-                   	<c:forEach items="${invalides[contratInvalide]}" var="champ">
-                   		<td>${champ}</td>
-                   	</c:forEach>
-                    <td>${contratInvalide.quantite}</td>
-                    <td>${contratInvalide.dateDebut}</td>
-                   <td><button type="button">Prolonger</button></td>
-                </tr>
-            </form>
-        </c:forEach>
-    </tbody>
+    </c:forEach>
+  </tbody>
 </table>
 </jsp:body>
 </tag:base>
