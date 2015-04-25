@@ -10,8 +10,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import model.Consommateur;
-import model.Contrat;
-import model.Producteur;
 
 public class ConsommateurDAO extends AbstractDataBaseDAO {
 

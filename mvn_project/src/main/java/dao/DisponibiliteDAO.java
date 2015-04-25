@@ -5,18 +5,15 @@
  */
 package dao;
 
-import model.Disponibilite;
-import model.Producteur;
-import model.Produit;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.sql.DataSource;
+
+import model.Disponibilite;
 
 public class DisponibiliteDAO extends AbstractDataBaseDAO {
 

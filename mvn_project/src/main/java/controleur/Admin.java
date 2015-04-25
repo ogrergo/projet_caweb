@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import model.Consommateur;
 import model.Permanence;
 import controleur.AuthorisationManager.Permission;
-import dao.CompteDAO;
 import dao.ConsommateurDAO;
 import dao.DAOException;
 import dao.PermanenceDAO;

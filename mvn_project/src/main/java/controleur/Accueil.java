@@ -13,12 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import model.Producteur;
 import model.Production;
 import model.Unite;
 import controleur.AuthorisationManager.Permission;
-import dao.CompteDAO;
-import dao.ContratDAO;
 import dao.DAOException;
 import dao.ProductionDAO;
 import dao.UniteDAO;

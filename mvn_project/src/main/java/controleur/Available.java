@@ -3,7 +3,6 @@ package controleur;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +17,7 @@ import javax.sql.DataSource;
 
 import model.Contrat;
 import model.Disponibilite;
+import controleur.AuthorisationManager.AucunCompteLoggeException;
 import dao.ContratDAO;
 import dao.DAOException;
 import dao.DisponibiliteDAO;
@@ -52,16 +52,27 @@ public class Available extends HttpServlet {
 			DisponibiliteDAO disponibiliteDAO = new DisponibiliteDAO(ds);
 			List<Integer> listKey = new ArrayList<Integer>();
 			HashMap<Integer, Boolean> mapDispo = new HashMap<Integer, Boolean>();
-			ArrayList<Disponibilite> listDispo = disponibiliteDAO.getListeDispoByIdConsommateur(AuthorisationManager
-					.getIdCompte(request.getSession(true)));
+			ArrayList<Disponibilite> listDispo;
+			try {
+				listDispo = disponibiliteDAO.getListeDispoByIdConsommateur(AuthorisationManager
+						.getIdCompte(request.getSession(true)));
+			} catch (AucunCompteLoggeException e) {
+				response.sendRedirect("/caweb");
+				return;
+			}
 			//Liste des semaines dispo
 			ArrayList<Integer> semaineDispo = new ArrayList<Integer>();
 			for (Disponibilite d : listDispo) {
 				semaineDispo.add(d.getIdSemaine());
 			}
-			for (int s : getSemaines(request)) {
-				mapDispo.put(s, semaineDispo.contains(s));
-				listKey.add(new Integer(s));
+			try {
+				for (int s : getSemaines(request)) {
+					mapDispo.put(s, semaineDispo.contains(s));
+					listKey.add(new Integer(s));
+				}
+			} catch (AucunCompteLoggeException e) {
+				response.sendRedirect("/caweb");
+				return;
 			}
 			request.setAttribute("listKey", listKey);
 			
@@ -86,19 +97,34 @@ public class Available extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<Integer> dispo = new ArrayList<Integer>();
 		try {
-			for (int s : getSemaines(request)) {
-				if (request.getParameter("semaine" + s) != null) {
-					dispo.add(s);
+			try {
+				for (int s : getSemaines(request)) {
+					if (request.getParameter("semaine" + s) != null) {
+						dispo.add(s);
+					}
 				}
+			} catch (AucunCompteLoggeException e1) {
+				response.sendRedirect("/caweb");
+				return;
 			}
 			DisponibiliteDAO disponnibiliteDAO = new DisponibiliteDAO(ds);
 			// On efface toutes les anciennes dispo
-			disponnibiliteDAO
-					.deleteAllDispoByIdConsommateur(AuthorisationManager
-							.getIdCompte(request.getSession(true)));
+			try {
+				disponnibiliteDAO
+						.deleteAllDispoByIdConsommateur(AuthorisationManager
+								.getIdCompte(request.getSession(true)));
+			} catch (AucunCompteLoggeException e) {
+				response.sendRedirect("/caweb");
+				return;
+			}
 			// On met les nouvelles
 			for (int s : dispo) {
-				disponnibiliteDAO.ajouterDisponnibilite(new Disponibilite(s, AuthorisationManager.getIdCompte(request.getSession(true))));
+				try {
+					disponnibiliteDAO.ajouterDisponnibilite(new Disponibilite(s, AuthorisationManager.getIdCompte(request.getSession(true))));
+				} catch (AucunCompteLoggeException e) {
+					response.sendRedirect("/caweb");
+					return;
+				}
 			}
 		} catch (DAOException e) {
 			e.printStackTrace();
@@ -111,12 +137,15 @@ public class Available extends HttpServlet {
 	}
 
 	public ArrayList<Integer> getSemaines(HttpServletRequest request)
-			throws DAOException {
+			throws DAOException, AucunCompteLoggeException {
 		ArrayList<Integer> semaines = new ArrayList<Integer>();
 		int current = Planning.getWeekNumber();
 		ProductionDAO productionDAO = new ProductionDAO(ds);
 		ContratDAO contratDAO = new ContratDAO(ds);
-		ArrayList<Contrat> listcontrats = contratDAO.getListeContrat(AuthorisationManager.getIdCompte(request.getSession(true)));
+		ArrayList<Contrat> listcontrats;
+		
+		listcontrats = contratDAO.getListeContrat(AuthorisationManager.getIdCompte(request.getSession(true)));
+		
 		for (Contrat c : listcontrats) {
 			int duree = productionDAO.getProduction(c.getIdProduction()).getDuree();
 			for (int i = c.getDateDebut(); i <= duree + c.getDateDebut(); i++) {
@@ -129,7 +158,7 @@ public class Available extends HttpServlet {
 		return semaines;
 	}
 
-	public int getMaxContrats(HttpServletRequest request) throws DAOException {
+	public int getMaxContrats(HttpServletRequest request) throws DAOException, AucunCompteLoggeException {
 		ContratDAO ContractDAO = new ContratDAO(ds);
 		return ContractDAO
 				.getSemaineContratMaxByIdConsommateur(AuthorisationManager

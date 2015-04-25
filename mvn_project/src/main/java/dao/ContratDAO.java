@@ -94,14 +94,14 @@ public class ContratDAO extends AbstractDataBaseDAO {
 			Statement st = conn.createStatement();
 			String valide = contrat.getValide() ? "1" : "0";
 			requeteSQL = "INSERT INTO Contrat (idProduction, " 
-					+ "idConsommateur, quantite, dateDebut, "
-					+ "valide, nomUnite) VALUES ('"
+					+ "idConsommateur, quantite, dateDebut, nomUnite, "
+					+ "valide) VALUES ('"
 					+ contrat.getIdProduction() + "','"
 					+ contrat.getIdConsomateur() + "','"
 					+ contrat.getQuantite() + "','"
 					+ contrat.getDateDebut() + "','"
-					+ contrat.getNomUnite() + "',"
-					+ valide + "')'";
+					+ contrat.getNomUnite() + "','"
+					+ valide + "')";
 			st.executeQuery(requeteSQL);
 		} catch (SQLException e) {
 			throw new DAOException("Erreur BD 0" + e.getMessage(), e);

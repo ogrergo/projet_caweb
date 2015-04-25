@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import model.Contrat;
 import model.Production;
+import controleur.AuthorisationManager.AucunCompteLoggeException;
 import controleur.AuthorisationManager.Permission;
 import dao.ContratDAO;
 import dao.DAOException;
@@ -122,7 +123,13 @@ public class NewContract extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
+		int idConsomateur;
+		try {
+			idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
+		} catch (AucunCompteLoggeException e2) {
+			response.sendRedirect("/caweb");
+			return;
+		}
 		int quantite = 0;
 		int date = 0;
 		try {

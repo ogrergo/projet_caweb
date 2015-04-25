@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import controleur.AuthorisationManager.AucunCompteLoggeException;
 import controleur.AuthorisationManager.Permission;
 import model.Consommateur;
 import model.Contrat;
@@ -72,7 +73,12 @@ public class ProductorContracts extends HttpServlet {
 				throw new InternalError("Impossible de récupérer la production.");
 			}
 			
-			if(production.getIdProducteur() != AuthorisationManager.getIdCompte(request.getSession())) {
+			try {
+				if(production.getIdProducteur() != AuthorisationManager.getIdCompte(request.getSession())) {
+					response.sendRedirect("/caweb");
+					return;
+				}
+			} catch (AucunCompteLoggeException e1) {
 				response.sendRedirect("/caweb");
 				return;
 			}
@@ -102,7 +108,13 @@ public class ProductorContracts extends HttpServlet {
 			}
 		}
 		
-		Producteur producteur = new Producteur(AuthorisationManager.getIdCompte(request.getSession()));
+		Producteur producteur;
+		try {
+			producteur = new Producteur(AuthorisationManager.getIdCompte(request.getSession()));
+		} catch (AucunCompteLoggeException e1) {
+			response.sendRedirect("/caweb");
+			return;
+		}
     	
 		ContratDAO contratDao = new ContratDAO(ds);
 		HashMap<Contrat, List<String>> valides = new HashMap<Contrat, List<String>>();

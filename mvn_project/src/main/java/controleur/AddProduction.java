@@ -1,13 +1,10 @@
 package controleur;
 
-import dao.ProduitDAO;
-import dao.DAOException;
-import dao.ProductionDAO;
-import dao.UniteDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import model.Production;
-import model.Produit;
+
+import controleur.AuthorisationManager.AucunCompteLoggeException;
+import dao.DAOException;
+import dao.ProductionDAO;
+import dao.ProduitDAO;
+import dao.UniteDAO;
 
 /**
  * Servlet implementation class NewProduction
@@ -27,8 +28,6 @@ public class AddProduction extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Resource(name = "jdbc/caweb")
     private DataSource ds;
-    private String[] tabUnites;
-
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -66,7 +65,12 @@ public class AddProduction extends HttpServlet {
             String[] unites = request.getParameterValues("unitesSelect");
             int duree = Integer.parseInt(request.getParameter("duree"));
             ProductionDAO productionDAO = new ProductionDAO(ds);
-            productionDAO.ajouterProduction(produit, unites, duree, AuthorisationManager.getIdCompte(request.getSession(true)));
+            try {
+				productionDAO.ajouterProduction(produit, unites, duree, AuthorisationManager.getIdCompte(request.getSession(true)));
+			} catch (AucunCompteLoggeException e) {
+				response.sendRedirect("/caweb");
+				return;
+			}
             response.sendRedirect("/caweb");
         } catch (DAOException ex) {
             Logger.getLogger(AddProduit.class.getName()).log(Level.SEVERE, null, ex);

@@ -34,7 +34,12 @@
                     <td>${contratValide.quantite}</td>
                     <td>${contratValide.nomUnite}</td>
                     <td>${contratValide.dateDebut}</td>
-                   <td><button type="button">Prolonger</button></td>
+                   	<td>
+                   		<form method="GET" action="/caweb/customerContract">
+                   			<input type="hidden" name="contrat" value="${contratValide.idContrat}"/>
+                   			<input class="btn btn-default center-block" type="submit" value="Prolonger">
+                   		</form>
+                   	</td>
                 </tr>
             </form>
         </c:forEach>
@@ -59,7 +64,6 @@
     </thead>
     <tbody>
     <c:forEach items="${contratsInvalides}" var="contratInvalide">
-        <form>
             <tr> 
                	<c:forEach items="${invalide[contratInvalide]}" var="champ">
                		<td>${champ}</td>
@@ -68,7 +72,6 @@
                 <td>${contratInvalide.nomUnite}</td>
                 <td>${contratInvalide.dateDebut}</td>
             </tr>
-        </form>
     </c:forEach>
     
     </tbody>
