@@ -8,7 +8,7 @@
     </jsp:attribute>
     <jsp:body>
         <form action="admin" method="post">
-            <p> Mois courant: <c:forEach items ="${mois}" var="mois"> ${mois} </c:forEach></p>
+            <p> Mois courant: <span class="badge"> ${mois} </span></p>
                 <table class="table">
                     <tr>
                         <th>N° Semaine</th>
