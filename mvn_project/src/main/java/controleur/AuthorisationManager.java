@@ -32,7 +32,7 @@ public class AuthorisationManager {
 		}
 		
 		if(!credential.isAllowed(level)) {
-			response.sendRedirect("/caweb");//TODO ajouter l'erreur
+			response.sendRedirect("/caweb");
 			return false;
 		}
 		
@@ -48,18 +48,8 @@ public class AuthorisationManager {
 		return cred != null && cred.isAllowed(permission);
 	}
 	
-	/*private static Permission log(String email, String password) {
-		Compte compte = 
-		return ;
-	}*/
 	
 	public static boolean logSession(DataSource ds, HttpSession session, String email, String password) {
-	//	Permission permission = log(email, password);
-		
-	/*	if(permission == null) {
-			return false;
-		}
-		*/
 		Compte compte = null;
 		
 		try {
@@ -73,11 +63,6 @@ public class AuthorisationManager {
 			return false;
 		}
 		
-		if(compte instanceof Producteur) {
-			Producteur p = (Producteur) compte;
-			System.out.println("prod " + p.getNom());
-		}
-		
 		session.setAttribute(CREDENTIAL_SESSION_VAR, new Credential(compte));
 		return true;
 	}
@@ -85,11 +70,15 @@ public class AuthorisationManager {
 	public static void unlogSession(HttpSession session) {
 		session.setAttribute(CREDENTIAL_SESSION_VAR, null);
 	}
+	
+	public static class AucunCompteLoggeException extends Exception {
+		private static final long serialVersionUID = 1L;
+	}
 
-	public static int getIdCompte(HttpSession session) {
+	public static int getIdCompte(HttpSession session) throws AucunCompteLoggeException {
 		Credential credential = (Credential) session.getAttribute(CREDENTIAL_SESSION_VAR);
 		if(credential == null)
-			throw new InternalError("Aucun compte loggé");
+			throw new AucunCompteLoggeException();
 		
 		return credential.idCompte;
 	}

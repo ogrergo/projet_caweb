@@ -49,7 +49,6 @@ INSERT INTO Utilisateur (idUtilisateur, prenom, nom, adresse) VALUES
 INSERT INTO Consommateur (idConsommateur) VALUES
 ((SELECT MAX(idCompte) FROM Compte));
 
-
 --Ajout d'un respo planning
 INSERT INTO Compte (email, mdp) VALUES
 ('c@c','c');

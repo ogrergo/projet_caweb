@@ -1,12 +1,10 @@
 package controleur;
 
-import dao.UniteDAO;
-import dao.DAOException;
-import dao.UniteDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
 import model.Unite;
+import dao.DAOException;
+import dao.UniteDAO;
 
 /**
  * Servlet implementation class NewUnite

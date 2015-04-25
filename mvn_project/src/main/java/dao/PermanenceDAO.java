@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.sql.DataSource;
-
 import model.Consommateur;
 import model.Contrat;
 import model.Permanence;

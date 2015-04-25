@@ -9,12 +9,12 @@
     <jsp:body>
         <form action="admin" method="post">
             <p> Mois courant: <c:forEach items ="${mois}" var="mois"> ${mois} </c:forEach></p>
-            <table class="table">
-                <tr>
-                    <th>N° Semaine</th>
-                    <th>Livreur 1</th>
-                    <th>Livreur 2</th>
-                </tr>
+                <table class="table">
+                    <tr>
+                        <th>N° Semaine</th>
+                        <th>Livreur 1</th>
+                        <th>Livreur 2</th>
+                    </tr>
                 <c:forEach items="${semaines}" var="semaine">
                 	<c:choose>
                 		<c:when test="${is_inactif[semaine]}">
@@ -58,7 +58,8 @@
             </table>
             <input type="submit" value="Valider">
         </form>
-        <br>
+        <hr/>
+        <h4>Statistiques consommateurs</h4>
         <table class="table">
                 <tr>
                     <th>Consommateur</th>
