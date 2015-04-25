@@ -32,20 +32,21 @@
     
     <li><a href=accueil >Accueil</a></li>
     <c:if test="${credential.authorisation != null}">
+        <li><a href=planning >Planning des livraison</a></li>
+        
         <c:if test="${credential.authorisation == 'CONSOMMATEUR'}">
             <li><a href=customerContracts >Mes Contrats</a></li>
             <li><a href=available >Mes Disponibilités</a></li>
         </c:if>
 
         <c:if test="${credential.authorisation == 'PRODUCTEUR'}">
-        	<li><a href=addProduction >Ajouter une production</a></li>
-        	<li><a href=listProduction >Mes Productions</a></li>
+            <li><a href=addProduction >Ajouter une production</a></li>
+            <li><a href=listProduction >Mes Productions</a></li>
             <li><a href=productorContracts >Mes Contrats</a></li>
         </c:if>
 
         <c:if test="${credential.authorisation == 'RESPONSABLE_PLANNING'}">
             <li><a href=admin>Gestion du planning</a></li>
         </c:if>
-    		<li><a href=planning >Consulter le planning</a></li>
     </c:if>
 </ul>
