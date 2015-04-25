@@ -56,6 +56,7 @@
                 <th>Produit</th>
                 <th>Durée</th>
                 <th>Quantité</th>
+                <th>Unité</th>
                 <th>Date de début</th>
                 <th>Action</th>
             </tr>
@@ -93,6 +94,7 @@
                 <th>Produit</th>
                 <th>Durée</th>
                 <th>Quantité</th>
+                <th>Unité</th>
                 <th>Date de début</th>
                 <th>Action</th>
             </tr>
@@ -106,7 +108,7 @@
                    		<td>${champ}</td>
                    	</c:forEach>
                     <td>${contratTermine.quantite}</td>
-                    <td>${contratEnCour.nomUnite}</td>
+                    <td>${contratTermine.nomUnite}</td>
                     <td>${contratTermine.dateDebut}</td>
                    	<td>
                    		<form method="GET" action="/caweb/customerContract">
@@ -136,7 +138,7 @@
     <tbody>
     <c:forEach items="${contratsInvalides}" var="contratInvalide">
             <tr> 
-               	<c:forEach items="${invalide[contratInvalide]}" var="champ">
+               	<c:forEach items="${invalides[contratInvalide]}" var="champ">
                		<td>${champ}</td>
                	</c:forEach>
                 <td>${contratInvalide.quantite}</td>
