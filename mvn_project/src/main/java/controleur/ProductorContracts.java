@@ -47,6 +47,10 @@ public class ProductorContracts extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 if(!AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR))
+	        	return;
+	    	
+		
 		ContratDAO contratDAO = new ContratDAO(ds);
 		ProductionDAO productionDAO = new ProductionDAO(ds);
 		

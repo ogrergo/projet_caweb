@@ -45,7 +45,8 @@ public class CustomerContracts extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR);
+		if(!AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR))
+				return;
 
 		if(request.getParameter("contrat") != null) {
 			Integer idContrat = Integer.parseInt(request.getParameter("contrat"));
@@ -72,10 +73,6 @@ public class CustomerContracts extends HttpServlet {
 			}
 		}
 
-		if(!success) {
-			response.sendRedirect("/caweb");
-			return;
-		}
 		
 		int idConsomateur;
 		try {

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import controleur.AuthorisationManager.AucunCompteLoggeException;
+import controleur.AuthorisationManager.Permission;
 import dao.DAOException;
 import dao.ProductionDAO;
 
@@ -37,7 +38,9 @@ public class ListProduction extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-
+    	if(!AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR))
+         	return;
+    	
         ProductionDAO productionDAO = new ProductionDAO(ds);
 
         try {
