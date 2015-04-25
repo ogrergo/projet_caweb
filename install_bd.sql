@@ -280,9 +280,9 @@ INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 (4, 'panier');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
-(17, 'panier');
+(5, 'panier');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
-(17, 'kg');
+(5, 'kg');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 (6, 'panier');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
@@ -304,9 +304,9 @@ INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 (12, 'kg');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
-(15, 'barquette');
+(13, 'barquette');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
-(15, 'panier');
+(13, 'panier');
 INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 (14, 'litre');
 
@@ -324,9 +324,9 @@ INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
 
 --Ajout des contrats
 	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (14, 6, 3, 17, 1, 'litre');
-	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (15, 6, 7, 23, 1, 'barquette');
+	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (13, 6, 7, 23, 1, 'barquette');
 	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (10, 6, 2, 9, 1, 'kg');
-	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (17, 6, 1, 19, 0, 'panier');
+	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (5, 6, 1, 19, 0, 'panier');
 	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (6, 8, 3, 17, 1, 'kg');
 	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (12, 7, 3, 26, 0, 'kg');
 	INSERT INTO Contrat (idProduction, idConsommateur, quantite, dateDebut, valide, nomUnite) VALUES (8, 9, 3, 17, 1, 'piece');
