@@ -54,4 +54,38 @@ public class ProducteurDAO extends AbstractDataBaseDAO {
         }
         return result;
     }
+
+	public Producteur getProducteur(int idProducteur) throws DAOException {
+		Producteur producteur=null;
+		ResultSet rs = null;
+		String requeteSQL = "";
+        Connection conn = null;
+        try {
+        	conn = getConnection();
+        
+        	Statement st = conn.createStatement();
+        	requeteSQL = "SELECT idProducteur, email, mdp, prenom, nom, adresse"
+                    + " FROM compte c"
+                    + " FULL JOIN producteur p ON c.idCompte = p.idProducteur"
+                    + " FULL JOIN utilisateur u ON c.idCompte = u.idUtilisateur"
+                    + " WHERE p.idProducteur=" + idProducteur;
+        	rs = st.executeQuery(requeteSQL);
+        	
+        	while (rs.next()) {
+                producteur = new Producteur(rs.getInt("idProducteur"),
+                        rs.getString("email"),
+                        rs.getString("mdp"),
+                        rs.getString("prenom"),
+                        rs.getString("nom"),
+                        rs.getString("adresse")
+                );
+        	}
+        	
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD 0" + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+		return producteur;
+	}
 }

@@ -80,9 +80,7 @@ public class Accueil extends HttpServlet {
     }
     
     private void controleurAcceuilResponsablePlanning(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
-    	getServletContext()
-        .getRequestDispatcher("/WEB-INF/home-responsablePlanning.jsp")
-        .forward(request, response);
+    	response.sendRedirect("/caweb/admin");
     }
     
 	/**
@@ -92,7 +90,7 @@ public class Accueil extends HttpServlet {
 		
 		HttpSession session = request.getSession(true);
 		
-		if(!AuthorisationManager.haveCredential(session) || AuthorisationManager.havePermission(session, Permission.CONSOMATEUR)) {
+		if(!AuthorisationManager.haveCredential(session) || AuthorisationManager.havePermission(session, Permission.CONSOMMATEUR)) {
 			controleurAcceuilVisiteur(request, response);
 		} else if(AuthorisationManager.havePermission(session, Permission.PRODUCTEUR)) {
 			controleurAcceuilProducteur(request, response);

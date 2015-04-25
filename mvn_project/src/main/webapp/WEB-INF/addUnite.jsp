@@ -9,7 +9,7 @@
 
         function verifNomUnite(champ)
         {
-            if (champ.value.length < 2 || champ.value.length > 50)
+            if (champ.value.length < 2 || champ.value.length > 20)
             {
                 alert("le nom du unite doit faire entre 2 et 50 caractères");
                 return false;
@@ -33,6 +33,11 @@
     <jsp:body>
         <form action="addUnite" method="post" onsubmit="return verifForm(this)">
             <table>
+            <c:if test="${ uniteErreur == 'true'}" >                               
+            	<tr>
+            		<td> Erreur : cette unite existe déjà </td>
+            	</tr>
+            </c:if>
                 <tr>
                     <td> Nom du unite : </td> <td> <input type="text" name="nomUnite" onblur="verifNomUnite(this)"/></td>
                 </tr>

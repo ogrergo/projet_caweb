@@ -43,14 +43,6 @@
         <servlet-name>testAff</servlet-name>
         <url-pattern>/testAff</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>EditProfile</servlet-name>
-        <servlet-class>controleur.EditProfile</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditProfile</servlet-name>
-        <url-pattern>/editProfile</url-pattern>
-    </servlet-mapping>
     <resource-ref>
         <description>Connection Pool</description>
         <res-ref-name>jdbc/jeanr</res-ref-name>
