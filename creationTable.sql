@@ -93,7 +93,7 @@ CREATE TABLE Contrat (
     idConsommateur int,
     quantite int,
     dateDebut int,
-    valide char(1),   --Y ou N
+    valide char(1),   --1 : valide, 0: invalide
     nomUnite varchar(20),
 CONSTRAINT Pk_Contrat PRIMARY KEY (idContrat),
 CONSTRAINT Fk_Contrat_Production FOREIGN KEY (idProduction) REFERENCES Production(idProduction)

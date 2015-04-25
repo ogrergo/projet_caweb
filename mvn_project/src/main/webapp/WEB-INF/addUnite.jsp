@@ -11,7 +11,7 @@
         {
             if (champ.value.length < 2 || champ.value.length > 20)
             {
-                alert("le nom du unite doit faire entre 2 et 50 caractères");
+                alert("le nom de l'unite doit faire entre 2 et 50 caractères");
                 return false;
             }
             return true;
@@ -27,7 +27,7 @@
 
 <tag:base>
     <jsp:attribute name="header">
-        <h1>Ajouter un unite</h1>
+        <h1>Ajouter une unité</h1>
 
     </jsp:attribute>
     <jsp:body>
@@ -39,7 +39,7 @@
             	</tr>
             </c:if>
                 <tr>
-                    <td> Nom du unite : </td> <td> <input type="text" name="nomUnite" onblur="verifNomUnite(this)"/></td>
+                    <td> Nom de l'unité : </td> <td> <input type="text" name="nomUnite" onblur="verifNomUnite(this)"/></td>
                 </tr>
             </table>
             <input type="submit" value="Valider">
