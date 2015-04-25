@@ -34,7 +34,12 @@
                 </form>
             </tr>
         </c:forEach>
-
+        
+       
     </table>
+     <c:if test="${credential.authorisation == 'CONSOMMATEUR'}">
+        	liste des permanances
+     </c:if>
+    
 </jsp:body>
 </tag:base>
