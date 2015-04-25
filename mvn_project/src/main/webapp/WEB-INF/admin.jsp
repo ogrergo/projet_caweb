@@ -9,12 +9,12 @@
     <jsp:body>
         <form action="admin" method="post">
             <p> Mois courant: <c:forEach items ="${mois}" var="mois"> ${mois} </c:forEach></p>
-            <table class="table">
-                <tr>
-                    <th>N° Semaine</th>
-                    <th>Livreur 1</th>
-                    <th>Livreur 2</th>
-                </tr>
+                <table class="table">
+                    <tr>
+                        <th>N° Semaine</th>
+                        <th>Livreur 1</th>
+                        <th>Livreur 2</th>
+                    </tr>
                 <c:forEach items="${semaines}" var="semaine">
                     <tr> 
                         <td>Semaine ${semaine}</td>
@@ -35,5 +35,18 @@
             </table>
             <input type="submit" value="Valider">
         </form>
+        <hr/>
+        <h4>Statistiques consommateurs</h4>
+        <div class="panel">
+            <div class="panel-body">
+                <c:forEach items="${liste}" var="dispo">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
     </jsp:body>
 </tag:base>

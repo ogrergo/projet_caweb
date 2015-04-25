@@ -32,15 +32,16 @@
     
     <li><a href=accueil >Accueil</a></li>
     <c:if test="${credential.authorisation != null}">
+        <li><a href=planning >Planning des livraison</a></li>
+        
         <c:if test="${credential.authorisation == 'CONSOMATEUR'}">
-            <li><a href=editProfile >Modifier son Profil</a></li>
             <li><a href=customerContracts >Mes Contracts</a></li>
             <li><a href=available >Mes Disponibilités</a></li>
         </c:if>
 
         <c:if test="${credential.authorisation == 'PRODUCTEUR'}">
             <li><a href=productorContracts >Mes Contracts</a></li>
-            <li><a href=editProfile >Modifier son Profil</a></li>
+            <li><a href=addProduit >Mes Contracts</a></li>
         </c:if>
 
         <c:if test="${credential.authorisation == 'RESPONSABLE_PLANNING'}">
