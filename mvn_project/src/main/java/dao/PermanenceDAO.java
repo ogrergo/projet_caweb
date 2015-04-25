@@ -10,7 +10,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import model.Consommateur;
-import model.Contrat;
 import model.Permanence;
 
 public class PermanenceDAO extends AbstractDataBaseDAO {
