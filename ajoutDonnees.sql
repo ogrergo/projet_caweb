@@ -100,7 +100,7 @@ INSERT INTO ProductionUnites (idProduction, nomUnite) VALUES
       FOR v_Count IN 1..52 LOOP
 	INSERT INTO Semaine(idSemaine)
        VALUES (v_count);
-	INSERT INTO Permanance(idSemaine)
+	INSERT INTO Permanence(idSemaine)
        VALUES (v_count);
     END LOOP;
     END;
