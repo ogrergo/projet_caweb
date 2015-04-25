@@ -123,7 +123,7 @@ public class CustomerContracts extends HttpServlet {
 			
 			if(c.getValide()){
 				if (c.getDateDebut() <= current) {
-					if ((c.getDateDebut() + production.getDuree()) < current) {
+					if ((c.getDateDebut() + production.getDuree()) <= current) {
 						contratsTermines.add(c);
 		    			termines.put(c, data);
 					} else {
