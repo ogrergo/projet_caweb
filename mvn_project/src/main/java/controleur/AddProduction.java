@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import controleur.AuthorisationManager.AucunCompteLoggeException;
+import controleur.AuthorisationManager.Permission;
 import dao.DAOException;
 import dao.ProductionDAO;
 import dao.ProduitDAO;
@@ -41,7 +42,11 @@ public class AddProduction extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProduitDAO produitDAO = new ProduitDAO(ds);
+    	 if(!AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR))
+         	return;
+     	
+    	
+    	ProduitDAO produitDAO = new ProduitDAO(ds);
         UniteDAO uniteDAO = new UniteDAO(ds);
 
         try {
@@ -60,7 +65,10 @@ public class AddProduction extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
-        try {
+    	 if(!AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR))
+         	return;
+    	
+    	try {
             String produit = request.getParameter("produitSelect");
             String[] unites = request.getParameterValues("unitesSelect");
             int duree = Integer.parseInt(request.getParameter("duree"));

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import controleur.AuthorisationManager.Permission;
 import model.Unite;
 import dao.DAOException;
 import dao.UniteDAO;
@@ -40,7 +41,10 @@ public class AddUnite extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
+    	 if(!AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR))
+         	return;
+     	
+    	try {
             actionAfficher(request, response);
         } catch (Exception e) {
             request.setAttribute("erreurMessage", e.getMessage());
@@ -54,7 +58,9 @@ public class AddUnite extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    	 if(!AuthorisationManager.getPermission(request, response, Permission.PRODUCTEUR))
+         	return;
+     	
         try {
             Unite unit = new Unite(request.getParameter("nomUnite"));
             //D'abord ajout de la production dans la BD

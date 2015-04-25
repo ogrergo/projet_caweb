@@ -50,7 +50,6 @@ public class NewContract extends HttpServlet {
 		
     	
 		if(idProdObj == null) {
-			System.out.println("impossible de recuperer la var get");
 			throw new AucuneProductionException();
 		}
 		
@@ -73,7 +72,9 @@ public class NewContract extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		if(!AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR))
+         	return;
+		
 		HttpSession session = request.getSession();
 		
 		if(request.getParameter("production") != null && request.getParameter("unittype") != null) {

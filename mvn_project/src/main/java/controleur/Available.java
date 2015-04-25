@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import model.Contrat;
 import model.Disponibilite;
 import controleur.AuthorisationManager.AucunCompteLoggeException;
+import controleur.AuthorisationManager.Permission;
 import dao.ContratDAO;
 import dao.DAOException;
 import dao.DisponibiliteDAO;
@@ -47,7 +48,8 @@ public class Available extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		if(!AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR))
+         	return;
 		try {
 			DisponibiliteDAO disponibiliteDAO = new DisponibiliteDAO(ds);
 			List<Integer> listKey = new ArrayList<Integer>();
@@ -95,6 +97,9 @@ public class Available extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		if(!AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR))
+         	return;
+		
 		ArrayList<Integer> dispo = new ArrayList<Integer>();
 		try {
 			try {
