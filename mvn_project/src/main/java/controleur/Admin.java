@@ -2,8 +2,6 @@ package controleur;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -46,12 +44,13 @@ public class Admin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean havePermission = AuthorisationManager.havePermission(request.getSession(true), Permission.RESPONSABLE_PLANNING);
+		if(!AuthorisationManager.getPermission(request, response, Permission.RESPONSABLE_PLANNING))
+			return;
+		
 		request.setAttribute("semaines", Planning.getWeeksOfMonth());
 		request.setAttribute("mois", Planning.getMonthName(Planning.getCurrentMonth()));
 		request.setAttribute("liste_dispos", getListeDispos());
 		request.setAttribute("is_inactif", getIsInactif());
-		request.setAttribute("permission", havePermission);
 		
 		
 		HashMap<Integer, Consommateur> livreurs1 = new HashMap<Integer, Consommateur>();
@@ -120,6 +119,10 @@ public class Admin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(!AuthorisationManager.getPermission(request, response, Permission.RESPONSABLE_PLANNING))
+			return;
+		
+		
 		PermanenceDAO permanenceDAO = new PermanenceDAO(ds);
 		
 		
