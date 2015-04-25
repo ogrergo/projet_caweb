@@ -63,7 +63,7 @@
                    			<td>${champ}</td>
                    		</c:forEach>
                         <td>${contratInvalide.quantite}</td>
-                    	<td>${contratInalide.nomUnite}</td>
+                    	<td>${contratInvalide.nomUnite}</td>
                         <form method="GET" action="/caweb/productorContracts">
                     	<td> 
                         	<input type="number" name="dateDebut" value="${contratInvalide.dateDebut}">
