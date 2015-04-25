@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
+import model.Consommateur;
 import model.Contrat;
 import model.Permanence;
 
@@ -32,6 +33,30 @@ public class PermanenceDAO extends AbstractDataBaseDAO {
 				result = new Permanence(rs.getInt("idSemaine"),
 						rs.getInt("idConsommateur1"),
 						rs.getInt("idConsommateur2"));
+			}
+		} catch (SQLException e) {
+			throw new DAOException("Erreur BD " + e.getMessage(), e);
+		} finally {
+			closeConnection(conn);
+		}
+		return result;
+	}
+	
+	public int getNbPermanence(Consommateur consommateur) throws DAOException {
+		int result = 0;
+		ResultSet rs = null;
+		String requeteSQL = "";
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			Statement st = conn.createStatement();
+			requeteSQL = "SELECT COUNT(*)"
+					+   " FROM permanence"
+					+ 	" WHERE idConsommateur1='" + consommateur.getId() + "'"
+					+ 	" OR idConsommateur2='" + consommateur.getId() + "'";
+			rs = st.executeQuery(requeteSQL);
+			if(rs.next()) {
+				result = rs.getInt("COUNT(*)");
 			}
 		} catch (SQLException e) {
 			throw new DAOException("Erreur BD " + e.getMessage(), e);
