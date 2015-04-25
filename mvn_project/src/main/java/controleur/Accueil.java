@@ -80,9 +80,7 @@ public class Accueil extends HttpServlet {
     }
     
     private void controleurAcceuilResponsablePlanning(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
-    	getServletContext()
-        .getRequestDispatcher("/WEB-INF/home-responsablePlanning.jsp")
-        .forward(request, response);
+    	response.sendRedirect("/caweb/admin");
     }
     
 	/**
