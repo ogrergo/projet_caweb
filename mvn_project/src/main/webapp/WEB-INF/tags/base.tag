@@ -70,7 +70,7 @@
         </div>
         <div class="row">
             <div id="pagefooter" class="text-center col-md-offset-2 col-md-8">
-                <p class="text-center">Site de gestion de je sais pas trop quoi pour le WEB-ACVL</p>
+                <p class="text-center">Projet WEB-ACVL</p>
                 © 2015 - Equipe 8
             </div>
         </div> 
