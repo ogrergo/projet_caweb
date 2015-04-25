@@ -5,8 +5,16 @@
         <servlet-class>views.list</servlet-class>
     </servlet>
     <servlet>
+    <servlet-name>logout</servlet-name>
+    <servlet-class>controleur.LogOut</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+    <servlet>
         <servlet-name>echecAuth</servlet-name>
-        <jsp-file>/WEB-INF/views/echecAuthentification.jsp</jsp-file>
+        <servlet-class>controleur.EchecAuthentification</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>echecAuth</servlet-name>
@@ -34,14 +42,6 @@
     <servlet-mapping>
         <servlet-name>testAff</servlet-name>
         <url-pattern>/testAff</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>EditProfile</servlet-name>
-        <servlet-class>controleur.EditProfile</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EditProfile</servlet-name>
-        <url-pattern>/editProfile</url-pattern>
     </servlet-mapping>
     <resource-ref>
         <description>Connection Pool</description>

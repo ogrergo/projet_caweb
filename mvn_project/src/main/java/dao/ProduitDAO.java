@@ -6,12 +6,14 @@
 package dao;
 
 import model.Produit;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
 
 public class ProduitDAO extends AbstractDataBaseDAO {
@@ -35,7 +37,6 @@ public class ProduitDAO extends AbstractDataBaseDAO {
             rs = st.executeQuery(requeteSQL);
             while (rs.next()) {
                 Produit produit = new Produit(rs.getString("nomProduit"));
-                System.err.println(produit);
                 result.add(produit);
             }
         } catch (SQLException e) {
@@ -46,18 +47,21 @@ public class ProduitDAO extends AbstractDataBaseDAO {
         return result;
     }
 
-    public void ajouterProduit(Produit prod) throws DAOException, SQLException {
+    @SuppressWarnings("finally")
+	public boolean ajouterProduit(Produit prod) throws DAOException {
         String requeteSQL = "";
         Connection conn = null;
+        boolean succes = true;
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
             requeteSQL = "INSERT INTO Produit (nomProduit) VALUES ('" + prod.getNomProduit() + "')";
             st.executeQuery(requeteSQL);
         } catch (SQLException e) {
-            throw new DAOException("Erreur BD 0" + e.getMessage(), e);
+            succes = false;
         } finally {
             closeConnection(conn);
+            return succes;
         }
     }
 }

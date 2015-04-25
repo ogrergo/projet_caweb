@@ -12,7 +12,6 @@
             var duree = parseInt(champ.value);
             if (isNaN(duree))
             {
-                alert("durée doit etre un nombre !!");
                 return false;
             }
             else
@@ -21,9 +20,27 @@
             }
         }
 
+        function verifUnite(sel)
+        {
+            for (var i=0; i < sel.options.length; i++) {
+                if (sel.options[i].selected) {
+               		return true;
+                }
+            }
+        	return false;
+        }
+        
         function verifForm(f)
         {
-            return verifDuree(f.duree);
+        	if (!verifUnite(f.unitesSelect)) {
+        		alert("Erreur dans le formulaire : \nVeuillez saisir au moins une unité");
+        		return false;
+        	}
+        	if (!verifDuree(f.duree)) {
+        		alert("Erreur dans le formulaire : \nVeuillez saisir une durée valide");
+        		return false;
+        	}
+            return true;
         }
 
     </script>
@@ -35,7 +52,7 @@
     </jsp:attribute>
     <jsp:body>
         <form action="addProduction" method="post" onsubmit="return verifForm(this)">
-            <table>
+            <table class="table">
                 <tr>
                     <td>Produit</td>
                     <td>
@@ -47,14 +64,15 @@
                     <td>
                     <td>
                         <a href="addProduit"> 
-                            <input type="button" value="Ajouter un produit"> </a>
+                            <button type="button" class="btn btn-default">Ajouter un produit</button>
+                        </a>
                     </td>
                 </tr>
                 <tr>
                     <td>Unité(s)</td>
                     <td>
-
-                        <select multiple name="unitesSelect" size="${unites.size()}">
+                        Selectionnez plusieurs unitées avec la touche ctrl<br/>
+                        <select multiple name="unitesSelect" size="10">
                             <c:forEach items="${unites}" var="unite">
                                 <option>${unite.nomUnite}
                                 </c:forEach>
@@ -63,14 +81,15 @@
                     <td>
                     <td>
                         <a href="addUnite"> 
-                            <input type="button" value="Ajouter une unite"> </a>
+                            <button type="button" class="btn btn-default">Ajouter une unité</button>
+                        </a>
                     </td>
                 </tr>
                 <tr>
-                    <td> Durée : </td> <td> <input type="int" name="duree" onblur="verifDuree(this)"/></td>
+                    <td> Durée : </td> <td> <input type="int" name="duree"/></td>
                 </tr>
             </table>
-            <input type="submit" value="Valider">
+            <input class="btn btn-default center-block" type="submit" value="Valider">
         </form>
     </jsp:body>
 </tag:base>

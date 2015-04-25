@@ -33,8 +33,14 @@
     <jsp:body>
         <form action="addProduit" method="post" onsubmit="return verifForm(this)">
             <table>
+            <c:if test="${ produitErreur == 'true'}" >                               
+            	<tr>
+            		<td> Erreur : ce produit existe déjà </td>
+            	</tr>
+            </c:if>
                 <tr>
-                    <td> Nom du produit : </td> <td> <input type="text" name="nomProduit" onblur="verifNomProduit(this)"/></td>
+                    <td> Nom du produit : </td> 
+                    <td> <input type="text" name="nomProduit"/> </td>             
                 </tr>
             </table>
             <input type="submit" value="Valider">

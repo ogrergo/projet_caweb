@@ -33,7 +33,6 @@ public class NewContract extends HttpServlet {
      */
     public NewContract() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     
@@ -59,17 +58,13 @@ public class NewContract extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		
-		if(request.getParameter("production") != null) {
+		if(request.getParameter("production") != null)
 			request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getParameter("production"));
-			System.out.println("production " + request.getParameter("production"));
-		}
-		else
-			System.out.println("aucune prod");
 		
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMATEUR);
+		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR);
 		if(!success) {
-			System.out.println("ECHEC DE LA PAGE");
 			return;
 		}
 		
@@ -81,12 +76,10 @@ public class NewContract extends HttpServlet {
 			response.sendRedirect("/caweb");
 			return;
 		}
-		System.out.println("id production = " + idProd);
 		
 		Production production = null;
 		try {
 			production = new ProductionDAO(ds).getProduction(idProd);
-			System.out.println(production.getDuree());
 		} catch (DAOException e) {
 			e.printStackTrace();
 			throw new InternalError("Impossible d'acceder à la production.");

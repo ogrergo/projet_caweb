@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Date;
 
 public class Contrat {
 	private int idContrat;
@@ -61,6 +60,13 @@ public class Contrat {
 	public boolean getValide() {
 		return valide;
 	}
+
+	public void validate() {
+		valide = true;
+	}
 	
+	public void setDateDebut(int date) {
+		dateDebut = date;
+	}
 	
 }

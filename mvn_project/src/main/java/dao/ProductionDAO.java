@@ -26,14 +26,15 @@ public class ProductionDAO extends AbstractDataBaseDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = "SELECT idProduction, produit, nom, prenom, duree"
+            requeteSQL = "SELECT q.idProducteur, idProduction, produit, nom, prenom, duree"
                     + " FROM production p, producteur q"
-                    + " FULL JOIN utilisateur u ON u.idUtilisateur = q.idProducteur"
+                    + " INNER JOIN utilisateur u ON u.idUtilisateur = q.idProducteur"
                     + " WHERE p.idProducteur = q.idProducteur"
                     + " AND p.idProduction='" + idProduction + "'";
             rs = st.executeQuery(requeteSQL);
             if (rs.next()) {
                 result = new Production(rs.getInt("idProduction"),
+                		rs.getInt("idProducteur"),
                         rs.getString("produit"),
                         rs.getString("nom"),
                         rs.getString("prenom"),
@@ -86,6 +87,7 @@ public class ProductionDAO extends AbstractDataBaseDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
+            
             //Insertion dans Production
             requeteSQL = "INSERT INTO Production (produit, idProducteur, duree)"
                     + " VALUES ('" + produit + "','" + idProducteur + "','" + duree + "')";
@@ -111,7 +113,6 @@ public class ProductionDAO extends AbstractDataBaseDAO {
 
     public List<Production> getListeProductionsByIdProducteur(int idProducteur) throws DAOException {
         List<Production> result = new ArrayList<Production>();
-        System.out.println("dans getListeProductionsByIdProducteur");
         ResultSet rs = null;
         ResultSet rs2 = null;
         String requeteSQL = "";

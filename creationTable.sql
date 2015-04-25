@@ -22,7 +22,7 @@ CREATE SEQUENCE id_seqContrat;
 
 CREATE TABLE Compte (
     idCompte number(6) DEFAULT id_seqCompte.nextval,
-    email varchar(60),
+    email varchar(60) UNIQUE,
     mdp varchar(64),
 CONSTRAINT Pk_Compte PRIMARY KEY (idCompte)
 );
@@ -94,10 +94,13 @@ CREATE TABLE Contrat (
     quantite int,
     dateDebut int,
     valide char(1),   --Y ou N
+    nomUnite varchar(20),
 CONSTRAINT Pk_Contrat PRIMARY KEY (idContrat),
 CONSTRAINT Fk_Contrat_Production FOREIGN KEY (idProduction) REFERENCES Production(idProduction)
 ON DELETE CASCADE,
 CONSTRAINT Fk_Contrat_Consommateur FOREIGN KEY (idConsommateur) REFERENCES Consommateur(idConsommateur)
+ON DELETE CASCADE,
+CONSTRAINT Fk_Contrat_Unite FOREIGN KEY (nomUnite) REFERENCES Unite(nomUnite)
 ON DELETE CASCADE
 );
 
