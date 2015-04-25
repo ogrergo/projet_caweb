@@ -53,8 +53,8 @@ public class ContratDAO extends AbstractDataBaseDAO {
 	
 	
 	
-	public List<Contrat> getListeContrat(int idConsommateur) throws DAOException {
-		List<Contrat> result = new ArrayList<Contrat>();
+	public ArrayList<Contrat> getListeContrat(int idConsommateur) throws DAOException {
+		ArrayList<Contrat> result = new ArrayList<Contrat>();
 		ResultSet rs = null;
 		String requeteSQL = "";
 		Connection conn = null;

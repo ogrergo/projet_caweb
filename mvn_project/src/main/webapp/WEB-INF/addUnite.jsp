@@ -9,7 +9,7 @@
 
         function verifNomUnite(champ)
         {
-            if (champ.value.length < 2 || champ.value.length > 50)
+            if (champ.value.length < 2 || champ.value.length > 20)
             {
                 alert("le nom du unite doit faire entre 2 et 50 caractères");
                 return false;
