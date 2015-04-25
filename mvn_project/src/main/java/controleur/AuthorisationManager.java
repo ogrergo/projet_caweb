@@ -75,7 +75,6 @@ public class AuthorisationManager {
 		
 		if(compte instanceof Producteur) {
 			Producteur p = (Producteur) compte;
-			System.out.println("prod " + p.getNom());
 		}
 		
 		session.setAttribute(CREDENTIAL_SESSION_VAR, new Credential(compte));
@@ -95,7 +94,7 @@ public class AuthorisationManager {
 	}
 	
 	public enum Permission {
-		CONSOMATEUR(0),
+		CONSOMMATEUR(0),
 		PRODUCTEUR(1),
 		RESPONSABLE_PLANNING(2);
 		
@@ -113,7 +112,7 @@ public class AuthorisationManager {
 		
 		private Permission getPermission(Compte compte) {
 			if(compte instanceof Consommateur)
-				return Permission.CONSOMATEUR;
+				return Permission.CONSOMMATEUR;
 			
 			if(compte instanceof Producteur)
 				return Permission.PRODUCTEUR;

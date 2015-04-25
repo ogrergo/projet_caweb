@@ -28,6 +28,7 @@ public class NewContract extends HttpServlet {
     @Resource(name = "jdbc/caweb")
     private DataSource ds;
 
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,6 +38,7 @@ public class NewContract extends HttpServlet {
 
     
     private static final String IDPRODUCTION_SESSION_VAR = "idProduction";
+	private static final String UNITE_SESSION_VAR = "unite";
 	
     private class AucuneProductionException extends Exception {
 		private static final long serialVersionUID = 1L;
@@ -54,23 +56,41 @@ public class NewContract extends HttpServlet {
 		return Integer.parseInt((String) idProdObj);
     }
     
+    private String getUnite(HttpSession session) throws AucuneProductionException {
+    	Object unite = session.getAttribute(UNITE_SESSION_VAR);
+		
+    	
+		if(unite == null) {
+			System.out.println("impossible de recuperer la var get");
+			throw new AucuneProductionException();
+		}
+		
+		return (String)unite;
+    }
+    
     /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
 		
-		if(request.getParameter("production") != null)
-			request.getSession(true).setAttribute(IDPRODUCTION_SESSION_VAR, request.getParameter("production"));
+		if(request.getParameter("production") != null && request.getParameter("unittype") != null) {
+			session.setAttribute(IDPRODUCTION_SESSION_VAR, request.getParameter("production"));
+			session.setAttribute(UNITE_SESSION_VAR, request.getParameter("unittype"));
+		}
 		
-		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMATEUR);
+		
+		boolean success = AuthorisationManager.getPermission(request, response, Permission.CONSOMMATEUR);
 		if(!success) {
 			return;
 		}
 		
 
 		int idProd = 0;
+		String unite = null;
 		try {
+			unite = getUnite(request.getSession(true));
 			idProd = getIdProduction(request.getSession(true));
 		} catch (AucuneProductionException e1) {
 			response.sendRedirect("/caweb");
@@ -90,6 +110,7 @@ public class NewContract extends HttpServlet {
 			return;
 		}
 		
+		request.setAttribute("unite", unite);
 		request.setAttribute("production", production);
 				
 		getServletContext()
@@ -102,8 +123,19 @@ public class NewContract extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
-		int quantite = Integer.parseInt(request.getParameter("quantite"));
-		int date =  Integer.parseInt(request.getParameter("date"));
+		int quantite = 0;
+		int date = 0;
+		try {
+			quantite = Integer.parseInt(request.getParameter("quantite"));
+			date =  Integer.parseInt(request.getParameter("date"));
+		} catch(NumberFormatException e) {
+			try {
+				response.sendRedirect("/caweb/newContract?production=" + getIdProduction(request.getSession(true)) + "&unittype=" + getUnite(request.getSession(true)));
+			} catch (AucuneProductionException e1) {
+				response.sendRedirect("/caweb");			
+			}
+			return;
+		}
 		Contrat contrat = null;
 		try {
 			contrat = new Contrat(
@@ -111,7 +143,8 @@ public class NewContract extends HttpServlet {
 					idConsomateur,
 					quantite,
 					date,
-					false);
+					false,
+					getUnite(request.getSession(true)));
 		} catch (AucuneProductionException e) {
 			response.sendRedirect("/caweb");
 		}

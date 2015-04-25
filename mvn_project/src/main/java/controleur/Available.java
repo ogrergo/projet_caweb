@@ -3,6 +3,8 @@ package controleur;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import model.Contrat;
 import model.Disponibilite;
 import dao.ContratDAO;
 import dao.DAOException;
@@ -111,9 +114,18 @@ public class Available extends HttpServlet {
 			throws DAOException {
 		ArrayList<Integer> semaines = new ArrayList<Integer>();
 		int current = Planning.getWeekNumber();
-		for (int i = 0; i < getMaxContrats(request); i++) {
-			semaines.add(current + i);
+		ProductionDAO productionDAO = new ProductionDAO(ds);
+		ContratDAO contratDAO = new ContratDAO(ds);
+		ArrayList<Contrat> listcontrats = contratDAO.getListeContrat(AuthorisationManager.getIdCompte(request.getSession(true)));
+		for (Contrat c : listcontrats) {
+			int duree = productionDAO.getProduction(c.getIdProduction()).getDuree();
+			for (int i = c.getDateDebut(); i <= duree + c.getDateDebut(); i++) {
+				if (i >= current && !semaines.contains(i)) {
+					semaines.add(i);
+				}
+			}
 		}
+		Collections.sort(semaines);
 		return semaines;
 	}
 

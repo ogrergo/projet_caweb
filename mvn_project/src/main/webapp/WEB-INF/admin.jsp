@@ -41,7 +41,8 @@
             <div class="panel-body">
                 <c:forEach items="${liste}" var="dispo">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="${percentage}" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="${percentage}" 
+                             aria-valuemin="0" aria-valuemax="100" style="width: ${percentage}%;">
                             <span class="sr-only"></span>
                         </div>
                     </div>
