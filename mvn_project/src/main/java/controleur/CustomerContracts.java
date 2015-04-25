@@ -53,12 +53,16 @@ public class CustomerContracts extends HttpServlet {
 		
 		int idConsomateur = AuthorisationManager.getIdCompte(request.getSession());
 		ContratDAO contratDao = new ContratDAO(ds);
-		HashMap<Contrat, List<String>> valides = new HashMap<Contrat, List<String>>();
+		HashMap<Contrat, List<String>> nonCommences = new HashMap<Contrat, List<String>>();
+		HashMap<Contrat, List<String>> enCours = new HashMap<Contrat, List<String>>();
+		HashMap<Contrat, List<String>> termines = new HashMap<Contrat, List<String>>();
 		HashMap<Contrat, List<String>> invalides = new HashMap<Contrat, List<String>>();
 		List<Contrat> contrats = new ArrayList<Contrat>();
-		List<Contrat> contratsValides = new ArrayList<Contrat>();
+		List<Contrat> contratsNonCommences = new ArrayList<Contrat>();
+		List<Contrat> contratsEncours = new ArrayList<Contrat>();
+		List<Contrat> contratsTermines = new ArrayList<Contrat>();
 		List<Contrat> contratsInvalides = new ArrayList<Contrat>();
-		
+		int current = Planning.getWeekNumber();
 		
 		try {
 			contrats = contratDao.getListeContrat(idConsomateur);
@@ -81,20 +85,26 @@ public class CustomerContracts extends HttpServlet {
 			}
 			
 			data.add(product.getNom());
-			System.out.println(product.getNom());
 			data.add(product.getAdresse());
-			System.out.println(product.getAdresse());
 			data.add(product.getEmail());
-			System.out.println(product.getEmail());
 			data.add(production.getProduit());
-			System.out.println(production.getProduit());
 			String duree = production.getDuree() + "semaines";
 			data.add(duree);
 			
 			
 			if(c.getValide()){
-				contratsValides.add(c);
-    			valides.put(c, data);
+				if (c.getDateDebut() <= current) {
+					if ((c.getDateDebut() + production.getDuree()) < current) {
+						contratsTermines.add(c);
+		    			termines.put(c, data);
+					} else {
+						contratsEncours.add(c);
+		    			enCours.put(c, data);
+					}
+				} else {
+					contratsNonCommences.add(c);
+	    			nonCommences.put(c, data);
+				}
 			} else {
     			contratsInvalides.add(c);
     			invalides.put(c, data);
@@ -102,9 +112,13 @@ public class CustomerContracts extends HttpServlet {
 		
 		}
 		request.setAttribute("contratsInvalides", contratsInvalides);
-		request.setAttribute("contratsValides", contratsValides);
-    	request.setAttribute("valide", valides);
-    	request.setAttribute("invalide", invalides);
+		request.setAttribute("contratsNonCommences", contratsNonCommences);
+		request.setAttribute("contratsEnCours", contratsEncours);
+		request.setAttribute("contratsTermines", contratsTermines);
+    	request.setAttribute("nonCommences", nonCommences);
+    	request.setAttribute("enCours", enCours);
+    	request.setAttribute("termines", termines);
+    	request.setAttribute("invalides", invalides);
     	
 		getServletContext()
         .getRequestDispatcher("/WEB-INF/customerContracts.jsp")

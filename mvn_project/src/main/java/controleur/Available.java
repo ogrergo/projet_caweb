@@ -120,7 +120,7 @@ public class Available extends HttpServlet {
 		for (Contrat c : listcontrats) {
 			int duree = productionDAO.getProduction(c.getIdProduction()).getDuree();
 			for (int i = c.getDateDebut(); i <= duree + c.getDateDebut(); i++) {
-				if (!semaines.contains(i)) {
+				if (i >= current && !semaines.contains(i)) {
 					semaines.add(i);
 				}
 			}
